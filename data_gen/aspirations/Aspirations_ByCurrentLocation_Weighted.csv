@@ -1,0 +1,60 @@
+,city,aspiration,weighted,count
+0,Accra ,Available land or improved living conditions,60.166666666666664,76
+1,Accra ,Care or improved health,11.666666666666666,21
+2,Accra ,"Environment, geography, or natural landscape",11.5,16
+3,Accra ,"Exposure to activity, amenities, and culture",13.833333333333334,21
+4,Accra ,Familiarity or to remain in area,26.166666666666668,32
+5,Accra ,"Freedom, governance, or other political factors",3.0,4
+6,Accra ,Friendliness or other attributes of population,4.833333333333333,7
+7,Accra ,Improved outcomes or education for children,9.333333333333334,14
+8,Accra ,Improved training or education opportunities,1.5,2
+9,Accra ,Improved work or economic opportunities,17.5,26
+10,Accra ,On behalf of another family member,16.833333333333332,22
+11,Accra ,"Peacefulness, safety, or cleanliness",79.66666666666667,93
+12,Accra ,Personal preference or change,24.333333333333332,29
+13,Accra ,Reduced expenses or hardship,4.5,7
+14,Accra ,Reunify with family or return to homeland,196.66666666666666,249
+15,Accra ,Romantic prospects or to start a family,2.5,3
+16,Accra ,Social connections or recommendations,15.666666666666666,25
+17,Accra ,To be buried there upon death,3.0,6
+18,Accra ,To retire or age in an appropriate place,6.333333333333333,11
+19,Accra ,Unknown at this point,5.0,5
+20,Johannesburg,Available land or improved living conditions,27.833333333333332,42
+21,Johannesburg,Care or improved health,3.5,5
+22,Johannesburg,"Environment, geography, or natural landscape",11.0,18
+23,Johannesburg,"Exposure to activity, amenities, and culture",21.833333333333332,28
+24,Johannesburg,Familiarity or to remain in area,57.666666666666664,65
+25,Johannesburg,"Freedom, governance, or other political factors",3.0,4
+26,Johannesburg,Friendliness or other attributes of population,6.666666666666667,10
+27,Johannesburg,Improved outcomes or education for children,8.833333333333334,15
+28,Johannesburg,Improved training or education opportunities,1.3333333333333333,2
+29,Johannesburg,Improved work or economic opportunities,43.333333333333336,58
+30,Johannesburg,On behalf of another family member,7.666666666666667,12
+31,Johannesburg,"Peacefulness, safety, or cleanliness",57.5,79
+32,Johannesburg,Personal preference or change,36.833333333333336,44
+33,Johannesburg,Reduced expenses or hardship,14.333333333333334,19
+34,Johannesburg,Reunify with family or return to homeland,132.5,168
+35,Johannesburg,Romantic prospects or to start a family,0.8333333333333333,2
+36,Johannesburg,Social connections or recommendations,3.5,5
+37,Johannesburg,To be buried there upon death,6.5,13
+38,Johannesburg,To retire or age in an appropriate place,18.333333333333332,28
+39,Johannesburg,Unknown at this point,7.0,7
+40,Nairobi ,Available land or improved living conditions,36.0,41
+41,Nairobi ,Care or improved health,1.0,1
+42,Nairobi ,"Environment, geography, or natural landscape",19.0,29
+43,Nairobi ,"Exposure to activity, amenities, and culture",15.333333333333334,21
+44,Nairobi ,Familiarity or to remain in area,24.0,28
+45,Nairobi ,"Freedom, governance, or other political factors",7.5,9
+46,Nairobi ,Friendliness or other attributes of population,6.0,8
+47,Nairobi ,Improved outcomes or education for children,3.0,4
+48,Nairobi ,Improved work or economic opportunities,29.5,41
+49,Nairobi ,On behalf of another family member,27.0,29
+50,Nairobi ,"Peacefulness, safety, or cleanliness",57.666666666666664,73
+51,Nairobi ,Personal preference or change,24.833333333333332,28
+52,Nairobi ,Reduced expenses or hardship,16.833333333333332,25
+53,Nairobi ,Reunify with family or return to homeland,143.5,161
+54,Nairobi ,Romantic prospects or to start a family,4.5,6
+55,Nairobi ,Social connections or recommendations,2.0,2
+56,Nairobi ,To be buried there upon death,1.0,1
+57,Nairobi ,To retire or age in an appropriate place,10.333333333333334,16
+58,Nairobi ,Unknown at this point,2.0,2
