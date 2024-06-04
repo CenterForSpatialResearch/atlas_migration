@@ -1,0 +1,592 @@
+Q100_1,Q009_1_B,Q100_1_URX,Q100_1_URUN,Q100_1_URACMS,Q100_1_URXc,Non-Urban City,Non-Urban Town,Non-Urban Village,Unclassified City,Unclassified Town,Unclassified Village,Urban City,Urban Town,Urban Village
+"('nan', 'nan', 'nan')",Nairobi,Unclassified Village,Unclassified,Village,34,0.0,0.0,0.0,0.0,6.0,34.0,0.0,0.0,0.0
+"('Johannesburg', 'Johannesburg', 'South Africa')",Johannesburg,Urban Town,Urban,Town,24,0.0,0.0,0.0,0.0,0.0,0.0,1.0,24.0,1.0
+"('Kisumu', 'Kisumu', 'Kenya')",Nairobi,Urban Village,Urban,Village,24,0.0,0.0,0.0,0.0,0.0,0.0,0.0,6.0,24.0
+"('Madina', 'Accra', 'Ghana')",Accra,Urban City,Urban,City,19,0.0,0.0,0.0,0.0,0.0,0.0,19.0,0.0,0.0
+"('Uvira', 'Uvira', 'Democratic Republic of the Congo')",Nairobi,Non-Urban Village,Non-Urban,Village,17,0.0,0.0,17.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Lagos', 'Lagos', 'Nigeria')",Accra,Unclassified Town,Unclassified,Town,17,0.0,0.0,0.0,0.0,17.0,0.0,0.0,0.0,0.0
+"('Tamale', 'Tamale', 'Ghana')",Accra,Urban Town,Urban,Town,17,0.0,0.0,0.0,0.0,0.0,0.0,2.0,17.0,7.0
+"('Kisii', 'Kisii', 'Kenya')",Nairobi,Urban Village,Urban,Village,16,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0,16.0
+"('Machakos', 'Machakos', 'Kenya')",Nairobi,Urban Village,Urban,Village,15,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0,15.0
+"('Bulawayo', 'Bulawayo', 'Zimbabwe')",Johannesburg,Urban Village,Urban,Village,14,0.0,0.0,0.0,0.0,0.0,0.0,1.0,12.0,14.0
+"('Siaya', 'Siaya', 'Kenya')",Nairobi,Non-Urban Village,Non-Urban,Village,14,0.0,2.0,14.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Accra', 'Accra', 'Ghana')",Accra,Urban Town,Urban,Town,13,0.0,0.0,0.0,0.0,0.0,0.0,0.0,13.0,0.0
+"('Niamey', 'Niamey', 'Niger')",Accra,Urban Town,Urban,Town,13,0.0,0.0,0.0,0.0,0.0,0.0,1.0,13.0,5.0
+"('Lome', 'Lome', 'Togo')",Accra,Urban Town,Urban,Town,13,0.0,0.0,0.0,0.0,0.0,0.0,3.0,13.0,2.0
+"('Kakamega', 'Kakamega', 'Kenya')",Nairobi,Urban Village,Urban,Village,12,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.0,12.0
+"('Bolgatanga', 'Bolgatanga', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,11,0.0,11.0,3.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Madina', 'Madina', 'Ghana')",Accra,Urban City,Urban,City,11,0.0,0.0,0.0,0.0,0.0,0.0,11.0,3.0,0.0
+"('Minembwe', 'Minembwe', 'Democratic Republic of the Congo')",Nairobi,Non-Urban Village,Non-Urban,Village,10,0.0,3.0,10.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Enugu', 'Enugu', 'Nigeria')",Accra,Urban Town,Urban,Town,10,0.0,0.0,0.0,0.0,0.0,0.0,1.0,10.0,1.0
+"('Koforidua', 'Koforidua', 'Ghana')",Accra,Urban Town,Urban,Town,9,0.0,0.0,0.0,0.0,0.0,0.0,0.0,9.0,3.0
+"('Thohoyandou', 'Thohoyandou', 'South Africa')",Johannesburg,Urban Village,Urban,Village,9,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,9.0
+"('Bukavu', 'Bukavu', 'Democratic Republic of the Congo')",Nairobi,Urban Village,Urban,Village,8,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.0,8.0
+"('Busia', 'Busia', 'Kenya')",Nairobi,Urban Village,Urban,Village,8,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,8.0
+"('Kitui', 'Kitui', 'Kenya')",Nairobi,Non-Urban Village,Non-Urban,Village,8,0.0,0.0,8.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Migori', 'Migori', 'Kenya')",Nairobi,Non-Urban Village,Non-Urban,Village,8,0.0,3.0,8.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Maputo', 'Maputo', 'Mozambique')",Johannesburg,Urban Village,Urban,Village,8,0.0,0.0,0.0,0.0,0.0,0.0,0.0,6.0,8.0
+"('Cape Coast', 'Cape Coast', 'Ghana')",Accra,Urban Town,Urban,Town,8,0.0,0.0,0.0,0.0,0.0,0.0,0.0,8.0,0.0
+"('Adenta', 'Adenta', 'Ghana')",Accra,Urban Town,Urban,Town,7,0.0,0.0,0.0,0.0,0.0,0.0,2.0,7.0,0.0
+"('Legon', 'Legon', 'Ghana')",Accra,Urban Town,Urban,Town,7,0.0,0.0,0.0,0.0,0.0,0.0,0.0,7.0,0.0
+"('Polokwane', 'Polokwane', 'South Africa')",Johannesburg,Urban Village,Urban,Village,7,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,7.0
+"('Nyamira', 'Nyamira', 'Kenya')",Nairobi,Urban Village,Urban,Village,7,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.0,7.0
+"('Ho', 'Ho', 'Ghana')",Accra,Urban Town,Urban,Town,7,0.0,0.0,0.0,0.0,0.0,0.0,0.0,7.0,2.0
+"('Takoradi', 'Takoradi', 'Ghana')",Accra,Unclassified Town,Unclassified,Town,7,0.0,0.0,0.0,0.0,7.0,0.0,0.0,0.0,0.0
+"('Bujumbura', 'Bujumbura', 'Burundi')",Nairobi,Urban Town,Urban,Town,6,0.0,0.0,0.0,0.0,0.0,0.0,0.0,6.0,4.0
+"('Kumasi', 'Kumasi', 'Ghana')",Accra,Urban Town,Urban,Town,6,0.0,0.0,0.0,0.0,0.0,0.0,0.0,6.0,3.0
+"('Nairobi', 'Nairobi', 'Kenya')",Nairobi,Urban Town,Urban,Town,6,0.0,0.0,0.0,0.0,0.0,0.0,0.0,6.0,2.0
+"('Kampala', 'Kampala', 'Uganda')",Nairobi,Urban Town,Urban,Town,5,0.0,0.0,0.0,0.0,0.0,0.0,1.0,5.0,5.0
+"('Porto-Novo', 'Porto-Novo', 'Benin')",Accra,Urban Town,Urban,Town,5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,5.0,1.0
+"('Harare', 'Harare', 'Zimbabwe')",Johannesburg,Urban Town,Urban,Town,5,0.0,0.0,0.0,0.0,0.0,0.0,1.0,5.0,2.0
+"('Kinshasa', 'Kinshasa', 'Democratic Republic of the Congo')",Nairobi,Urban Village,Urban,Village,5,0.0,0.0,0.0,0.0,0.0,0.0,2.0,2.0,5.0
+"('Makueni', 'Makueni', 'Kenya')",Nairobi,Non-Urban Village,Non-Urban,Village,5,0.0,0.0,5.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Maseru', 'Maseru', 'Lesotho')",Johannesburg,Urban Village,Urban,Village,5,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,5.0
+"('Juba', 'Juba', 'South Sudan')",Nairobi,Non-Urban Village,Non-Urban,Village,4,0.0,2.0,4.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Kiambu', 'Kiambu', 'Kenya')",Nairobi,Urban Village,Urban,Village,4,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,4.0
+"('Abidjan', 'Abidjan', ""Côte d'Ivoire"")",Accra,Unclassified Town,Unclassified,Town,4,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0,0.0
+"('Nkawkaw', 'Nkawkaw', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,4,0.0,4.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Blantyre', 'Blantyre', 'Malawi')",Johannesburg,Urban Village,Urban,Village,4,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,4.0
+"('Louis Trichardt', 'Louis Trichardt', 'South Africa')",Johannesburg,Urban Village,Urban,Village,4,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,4.0
+"('Addis Ababa', 'Addis Ababa', 'Ethiopia')",Johannesburg,Urban Town,Urban,Town,4,0.0,0.0,0.0,0.0,0.0,0.0,1.0,4.0,1.0
+"('Nakuru', 'Nakuru', 'Kenya')",Nairobi,Urban Village,Urban,Village,4,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,4.0
+"('Bungoma', 'Bungoma', 'Kenya')",Nairobi,Urban Village,Urban,Village,4,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0,4.0
+"('Makhado', 'Makhado', 'South Africa')",Johannesburg,Urban Village,Urban,Village,3,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.0
+"('Akim Oda', 'Akim Oda', 'Ghana')",Accra,Urban Town,Urban,Town,3,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.0,1.0
+"('Wa', 'Wa', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,3,0.0,3.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Sokode', 'Sokode', 'Togo')",Accra,Non-Urban Village,Non-Urban,Village,3,0.0,0.0,3.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Kano', 'Kano', 'Nigeria')",Accra,Urban Town,Urban,Town,3,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.0,0.0
+"('Homa Bay', 'Homa Bay', 'Kenya')",Nairobi,Non-Urban Village,Non-Urban,Village,3,0.0,1.0,3.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Sekondi', 'Sekondi', 'Ghana')",Accra,Urban Town,Urban,Town,3,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.0,0.0
+"('Meru', 'Meru', 'Kenya')",Nairobi,Urban Village,Urban,Village,3,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.0
+"('Wote', 'Wote', 'Kenya')",Nairobi,Urban Town,Urban,Town,3,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.0,1.0
+"('Sandton', 'Sandton', 'South Africa')",Johannesburg,Urban Town,Urban,Town,3,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.0,0.0
+"('Gushiegu', 'Gushiegu', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,3,0.0,3.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Kitale', 'Kitale', 'Kenya')",Nairobi,Urban Town,Urban,Town,3,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.0,2.0
+"('Berea', 'Berea', 'South Africa')",Johannesburg,Urban City,Urban,City,3,0.0,0.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0
+"('Arusha', 'Arusha', 'Tanzania')",Nairobi,Non-Urban Village,Non-Urban,Village,3,0.0,0.0,3.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Nqutu', 'Nqutu', 'South Africa')",Johannesburg,Urban Village,Urban,Village,3,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.0
+"('Embu', 'Embu', 'Kenya')",Nairobi,Non-Urban Village,Non-Urban,Village,3,0.0,2.0,3.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Tema', 'Tema', 'Ghana')",Accra,Urban Town,Urban,Town,3,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.0,0.0
+"('Anambra', 'Anambra', 'Nigeria')",Accra,Urban Town,Urban,Town,3,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.0,0.0
+"('Limete', 'Kinshasa', 'Democratic Republic of the Congo')",Johannesburg,Urban City,Urban,City,3,0.0,0.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0
+"('Mzuzu', 'Mzuzu', 'Malawi')",Johannesburg,Urban Village,Urban,Village,3,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.0
+"('Ouagadougou', 'Ouagadougou', 'Burkina Faso')",Accra,Urban Town,Urban,Town,3,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.0,2.0
+"('Oyugis', 'Oyugis', 'Kenya')",Nairobi,Urban Village,Urban,Village,3,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,3.0
+"('Nelspruit', 'Nelspruit', 'South Africa')",Johannesburg,Urban Village,Urban,Village,3,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,3.0
+"('Durban', 'Durban', 'South Africa')",Johannesburg,Urban Town,Urban,Town,3,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.0,2.0
+"('Matatiele', 'Matatiele', 'South Africa')",Johannesburg,Urban Village,Urban,Village,3,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,3.0
+"('Kpandai', 'Kpandai', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,3,0.0,3.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Somanya', 'Somanya', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,3,0.0,3.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Goma', 'Goma', 'Democratic Republic of the Congo')",Nairobi,Urban Village,Urban,Village,3,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.0
+"('Hohoe', 'Hohoe', 'Ghana')",Accra,Urban Town,Urban,Town,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0,0.0
+"('Thika', 'Thika', 'Kenya')",Nairobi,Urban Village,Urban,Village,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0
+"('Johannesburg', 'Berea', 'South Africa')",Johannesburg,Urban City,Urban,City,2,0.0,0.0,0.0,0.0,0.0,0.0,2.0,0.0,0.0
+"('Ilorin', 'Ilorin', 'Nigeria')",Accra,Urban Town,Urban,Town,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0,1.0
+"('Germiston', 'Germiston', 'South Africa')",Johannesburg,Urban Town,Urban,Town,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0,0.0
+"('Hillbrow', 'Berea', 'South Africa')",Johannesburg,Urban City,Urban,City,2,0.0,0.0,0.0,0.0,0.0,0.0,2.0,0.0,0.0
+"('Suhum', 'Suhum', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,2,0.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Ngozi', 'Ngozi', 'Burundi')",Nairobi,Urban Village,Urban,Village,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0
+"('Techiman', 'Techiman', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,2,0.0,2.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Namaingo', 'Namaingo', 'Uganda')",Nairobi,Urban Village,Urban,Village,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0
+"('Nsawam', 'Nsawam', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,2,1.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Keta', 'Keta', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,2,0.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Mumias', 'Mumias', 'Kenya')",Nairobi,Urban Village,Urban,Village,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0
+"('Pietersburg', 'Pietersburg', 'South Africa')",Johannesburg,Urban Village,Urban,Village,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0
+"('Eldoret', 'Eldoret', 'Kenya')",Nairobi,Urban Village,Urban,Village,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,2.0
+"('Pietermaritzburg', 'Pietermaritzburg', 'South Africa')",Johannesburg,Urban Village,Urban,Village,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0
+"('Kpalime', 'Kpalime', 'Togo')",Accra,Urban Village,Urban,Village,2,0.0,0.0,0.0,0.0,0.0,0.0,2.0,1.0,2.0
+"('Kpando', 'Kpando', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,2,0.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Kpassa', 'Kpassa', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,2,0.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Kranskop', 'Kranskop', 'South Africa')",Johannesburg,Non-Urban Village,Non-Urban,Village,2,0.0,0.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Kwekwe', 'Kwekwe', 'Zimbabwe')",Johannesburg,Urban Village,Urban,Village,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,2.0
+"('Migori Town', 'Migori Town', 'Kenya')",Nairobi,Urban Village,Urban,Village,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0
+"('Nyeri', 'Nyeri', 'Kenya')",Nairobi,Urban Village,Urban,Village,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0,2.0
+"('Lusaka', 'Lusaka', 'Zambia')",Johannesburg,Urban City,Urban,City,2,0.0,0.0,0.0,0.0,0.0,0.0,2.0,1.0,1.0
+"('Mzimba', 'Mzimba', 'Malawi')",Johannesburg,Non-Urban Village,Non-Urban,Village,2,0.0,0.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Mafikeng', 'Mafikeng', 'South Africa')",Johannesburg,Urban Village,Urban,Village,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0
+"('Malamulele', 'Malamulele', 'South Africa')",Johannesburg,Urban Village,Urban,Village,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0
+"('Muranga', 'Muranga', 'Kenya')",Nairobi,Urban Town,Urban,Town,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0,2.0
+"('Kajiado', 'Kajiado', 'Kenya')",Nairobi,Non-Urban Village,Non-Urban,Village,2,0.0,0.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Nima', 'Nima', 'Ghana')",Accra,Urban Town,Urban,Town,2,0.0,0.0,0.0,0.0,0.0,0.0,1.0,2.0,0.0
+"('Nkandla', 'Nkandla', 'South Africa')",Johannesburg,Urban Village,Urban,Village,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0
+"('Pretoria', 'Pretoria', 'South Africa')",Johannesburg,Urban Town,Urban,Town,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0,1.0
+"('Khongoloti', 'Maputo', 'Mozambique')",Johannesburg,Urban City,Urban,City,2,0.0,0.0,0.0,0.0,0.0,0.0,2.0,0.0,0.0
+"('Mombasa', 'Mombasa', 'Kenya')",Nairobi,Urban Village,Urban,Village,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,2.0
+"('Kinangop', 'Kinangop', 'Kenya')",Nairobi,Non-Urban Village,Non-Urban,Village,2,0.0,0.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Kirinyaga', 'Kirinyaga', 'Kenya')",Nairobi,Urban Village,Urban,Village,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0
+"('Mpraeso', 'Mpraeso', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,2,0.0,2.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Bamako', 'Bamako', 'Mali')",Accra,Urban City,Urban,City,2,0.0,0.0,0.0,0.0,0.0,0.0,2.0,0.0,1.0
+"('Yendi', 'Yendi', 'Ghana')",Accra,Non-Urban Village,Non-Urban,Village,2,0.0,2.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Bimbilla', 'Bimbila', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,2,0.0,2.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Agadez', 'Agadez', 'Niger')",Accra,Non-Urban Town,Non-Urban,Town,2,0.0,2.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('nan', 'Minembwe', 'Democratic Republic of the Congo')",Nairobi,Non-Urban Village,Non-Urban,Village,2,0.0,0.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Aflao', 'Aflao', 'Ghana')",Accra,Urban Village,Urban,Village,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0
+"('Vryheid', 'Vryheid', 'South Africa')",Johannesburg,Urban Village,Urban,Village,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0
+"('nan', 'Msinga', 'South Africa')",Johannesburg,Non-Urban Village,Non-Urban,Village,2,0.0,0.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('nan', 'KwaZulu-Natal', 'South Africa')",Johannesburg,Non-Urban Village,Non-Urban,Village,2,0.0,0.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Awendo', 'Awendo', 'Kenya')",Nairobi,Urban Village,Urban,Village,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0,2.0
+"('Bushbuckridge', 'Bushbuckridge', 'South Africa')",Johannesburg,Urban Village,Urban,Village,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0
+"('Bondo', 'Bondo', 'Kenya')",Nairobi,Urban Village,Urban,Village,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0
+"('Xai-Xai', 'Xai-Xai', 'Mozambique')",Johannesburg,Urban Village,Urban,Village,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0
+"('Bumala', 'Bumala', 'Kenya')",Nairobi,Urban Village,Urban,Village,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0
+"('nan', 'Cheshegu', 'Ghana')",Accra,Non-Urban Village,Non-Urban,Village,2,0.0,0.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Ebonyi', 'Ebonyi', 'Nigeria')",Accra,Urban Town,Urban,Town,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0,0.0
+"('Winneba', 'Winneba', 'Ghana')",Accra,Urban Town,Urban,Town,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0,0.0
+"('Chokwe', 'Chokwe', 'Mozambique')",Johannesburg,Non-Urban Town,Non-Urban,Town,2,0.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Aburi', 'Aburi', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,2,0.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('nan', 'Khayelitsha', 'South Africa')",Johannesburg,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('nan', 'Kayole', 'Kenya')",Johannesburg,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('nan', 'Kasule', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Obo Kwahu', 'Obo', 'Ghana')",Accra,Non-Urban City,Non-Urban,City,1,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Obuasi', 'Obuasi', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Thulamahashe', 'Thulamahashe', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Nyembani', 'Maputo', 'Mozambique')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('nan', 'Kibaya', 'Rwanda')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('nan', 'Kisumu', 'Kenya')",Nairobi,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('nan', 'Kangema', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('nan', 'KwaMashu', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Ntabazinduna', 'Bulawayo', 'Zimbabwe')",Johannesburg,Non-Urban City,Non-Urban,City,1,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('nan', 'Lama Kara', 'Togo')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('nan', 'Leo', 'Burkina Faso')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('nan', 'Lethabong', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('nan', 'Lusikisiki', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('nan', 'Machel Village', 'Mozambique')",Johannesburg,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Ocansey Junction', 'Madina', 'Ghana')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Ogembo', 'Ogembo', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('nan', 'Kakenge', 'Democratic Republic of the Congo')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Orlu', 'Orlu', 'Nigeria')",Accra,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Phokeng', 'Phokeng', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('nan', 'Dinka', 'South Sudan')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('nan', 'Dumbe', 'South Africa')",Johannesburg,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Paris', 'Paris', 'France')",Johannesburg,Unclassified Town,Unclassified,Town,1,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+"('Parakou', 'Parakou', 'Benin')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Paga', 'Paga', 'Ghana')",Accra,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('nan', 'Elim', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('nan', 'Free State', 'South Africa')",Johannesburg,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Owerri', 'Owerri', 'Nigeria')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('nan', 'Gombe', 'Uganda')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Orsumoghu', 'Orsumoghu', 'Nigeria')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Onitsha', 'Anambra', 'Nigeria')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('nan', 'Irundu', 'Democratic Republic of the Congo')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Old Estate', 'Koforidua', 'Ghana')",Accra,Non-Urban City,Non-Urban,City,1,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Ol Kalou', 'Ol Kalou', 'Kenya')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Ojo', 'Ilesa', 'Nigeria')",Accra,Non-Urban City,Non-Urban,City,1,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Ohaukwu', 'Ohaukwu', 'Nigeria')",Accra,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Ogunu', 'Warri', 'Nigeria')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Ogun State', 'Ogun State', 'Nigeria')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('nan', 'Goria', 'Uganda')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Nqutu', 'Nquthu', 'South Africa')",Johannesburg,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0
+"('Odumase', 'Odumase', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Oda', 'Oda', 'Ghana')",Accra,Non-Urban Village,Non-Urban,Village,1,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('nan', 'Hokwe', 'Mozambique')",Johannesburg,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Nongoma', 'Nongoma', 'South Africa')",Johannesburg,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('nan', 'Madibong', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Mwingi', 'Mwingi', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Nancefield', 'Nancefield', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Namanga', 'Namanga', 'Kenya')",Nairobi,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('nan', 'Oromiya', 'Ethiopia')",Johannesburg,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('nan', 'Porto-Novo', 'Benin')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Naivasha', 'Naivasha', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('nan', 'Qaqriyal', 'South Sudan')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('nan', 'Sachangwan', 'Kenya')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('nan', 'Sironko', 'Uganda')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('nan', 'Timbou', 'Togo')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('nan', 'Tlakgameng', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Mzilikazi', 'Mzilikazi', 'Zimbabwe')",Johannesburg,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('nan', 'Tsanyawa', 'Nigeria')",Accra,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Narok', 'Narok', 'Kenya')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('nan', 'Wau', 'Sudan')",Nairobi,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Mwaro', 'Mwaro', 'Burundi')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Mwanza', 'Busukuma', 'Tanzania')",Nairobi,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Musina', 'Musina', 'South Africa')",Johannesburg,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Musanze', 'Musanze', 'Rwanda')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('nan', 'Yesaya', 'Malawi')",Johannesburg,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('nan', 'Zandamela', 'Mozambique')",Johannesburg,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('nan', 'eMnambithi', 'South Africa')",Johannesburg,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"(""Murang'A Town"", ""Murang'A Town"", 'Kenya')",Nairobi,Unclassified Village,Unclassified,Village,1,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+"(""Murang'A"", ""Murang'A"", 'Kenya')",Nairobi,Unclassified Village,Unclassified,Village,1,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+"('Murang""A', 'Murang`a', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Mulanje', 'Mulanje', 'Malawi')",Johannesburg,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('nan', 'Orlu', 'Nigeria')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Navrongo', 'Navorongo', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Nqutu', 'KwaZulu-Natal', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('nan', 'Maseno', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Nouna', 'Nouna', 'Burkina Faso')",Accra,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('nan', 'Dadieso', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Nomlatu', 'Bizana', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Nnewi', 'Nnewi', 'Nigeria')",Accra,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('nan', 'Masisi', 'Democratic Republic of the Congo')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Nkwanta', 'Nkwanta', 'Ghana')",Accra,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Nkurakan', 'Nkurakan', 'Ghana')",Accra,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('nan', 'Matola', 'Mozambique')",Johannesburg,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Nkawie', 'Nkawie', 'Ghana')",Accra,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('nan', 'Morogoro', 'Tanzania')",Johannesburg,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('nan', 'Mozambique', 'Mozambique')",Johannesburg,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('nan', 'Natalspruit', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Niame', 'Niamey', 'Niger')",Accra,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('nan', 'Ngethi', 'Kenya')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('nan', 'Nkandla', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('nan', 'Nqutu', 'South Africa')",Johannesburg,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0
+"('Ngaramtoni', 'Ngaramtoni', 'Tanzania')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Newtown', 'Newtown', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Newcastle', 'Newcastle', 'South Africa')",Johannesburg,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('New Karu', 'New Karu', 'Nigeria')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('New Haven', 'Enugu', 'Nigeria')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('nan', 'Nyandarua', 'Kenya')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Phuthaditjhaba', 'Phuthaditjhaba', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('nan', 'Bungati', 'Uganda')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('nan', 'Cotonou', 'Togo')",Accra,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Soweto', 'Diepkloof', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('South Kivu', 'South Kivu', 'Democratic Republic of the Congo')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Ugunja', 'Ugunja', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Sondu', 'Sondu', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Somolu', 'Lagos', 'Nigeria')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Ulundi', 'Ulundi', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Victoria Falls', 'Victoria Falls', 'Zimbabwe')",Johannesburg,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Victoria Island', 'Victoria Island', 'Nigeria')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Sogakope', 'Sogakope', 'Ghana')",Accra,Non-Urban Village,Non-Urban,Village,1,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Vihiga', 'Vihiga', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Villa', 'Villa', 'Democratic Republic of the Congo')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Siaya Town', 'Siaya Town', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Soweto', 'Zulu', 'South Africa')",Nairobi,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Villiers', 'Free State', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Vogan', 'Vogan', 'Togo')",Accra,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Voi', 'Voi', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Volksrust', 'Mpumalanga', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Shinyanga', 'Shinyanga', 'Tanzania')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Warrap', 'Warrap', 'South Sudan')",Nairobi,Non-Urban City,Non-Urban,City,1,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Shikhupora', 'Sheikhupura', 'Pakistan')",Johannesburg,Unclassified Village,Unclassified,Village,1,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+"('Shamankulu', 'Maputo', 'Mozambique')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Selebi-Phikwe', 'Selebi-Phikwe', 'Botswana')",Johannesburg,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Water Bolt~ Polosa Street', 'Auchi', 'Nigeria')",Accra,Non-Urban City,Non-Urban,City,1,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Webuye', 'Webuye', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Secunda', 'Secunda', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Soweto', 'Naledi', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Springs', 'Delmas', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Piet Retief', 'Piet Retief', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Techaoudjo', 'Sokode', 'Togo')",Accra,Non-Urban City,Non-Urban,City,1,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Timbuktu', 'Timbuktu', 'Mali')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Tolon', 'Tolon', 'Ghana')",Accra,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Tororo', 'Tororo', 'Uganda')",Nairobi,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0
+"('Trans-Nzoia', 'Trans Nzoia', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Thaba Tseka', 'Thaba Tseka', 'Lesotho')",Johannesburg,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Teshie', 'Teshie', 'Ghana')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Tembisa', 'Tembisa', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Trans-Nzoia', 'Transzoia', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Tsholotsho', 'Tsholotsho', 'Zimbabwe')",Johannesburg,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Tawa', 'Tawa', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Ubundu', 'Ubundu', 'Democratic Republic of the Congo')",Johannesburg,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Tatale', 'Tatale', 'Ghana')",Accra,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Tanoso', 'Tanoso', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Tanga', 'Tanga', 'Tanzania')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Tumu', 'Wa', 'Ghana')",Accra,Non-Urban City,Non-Urban,City,1,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Tzaneen', 'Tzaneen', 'South Africa')",Johannesburg,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0
+"('Taita Taveta', 'Taita Taveta', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Tahoua', 'Tahoua', 'Niger')",Accra,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Tabankulu', 'Tabankulu', 'South Africa')",Johannesburg,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Surulere', 'Lagos', 'Nigeria')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Sunyani', 'Sunyani', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Uasin Gishu', 'Uasin Gishu', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Sawla', 'Sawla', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Windy Ridge', 'Takoradi', 'Ghana')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Savelugu', 'Savelugu', 'Ghana')",Accra,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Zogbedji', 'Lome', 'Togo')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Port Elizabeth', 'Port Elizabeth', 'South Africa')",Johannesburg,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0
+"('Yeji', 'Yeji', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Poa', 'Poa', 'Burkina Faso')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Plumtree', 'Plumtree', 'Zimbabwe')",Johannesburg,Non-Urban Village,Non-Urban,Village,1,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Plumtree', 'Plamtry', 'Zimbabwe')",Johannesburg,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Plumtree', 'Old Lobengula', 'Zimbabwe')",Johannesburg,Non-Urban City,Non-Urban,City,1,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Yeoville', 'Yeoville', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Zaza', 'Zaza', 'South Africa')",Johannesburg,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Zimbabwe', 'Zimbabwe', 'Zimbabwe')",Johannesburg,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Zinder', 'Zinder', 'Niger')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Ziohn Town', 'Ziohn Town', 'Liberia')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('nan', 'Anambra', 'Nigeria')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Sarghoda', 'Sargodha', 'Pakistan')",Johannesburg,Unclassified Village,Unclassified,Village,1,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+"('nan', 'Asa', 'Nigeria')",Accra,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('nan', 'Bato', 'Togo')",Accra,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('nan', 'Bibiani', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Plateau', 'Plateau', ""Côte d'Ivoire"")",Johannesburg,Unclassified Town,Unclassified,Town,1,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+"('nan', 'Block', 'Kenya')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('nan', 'Bududa', 'Uganda')",Nairobi,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Pitseng', 'Pitseng', 'Lesotho')",Johannesburg,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('nan', 'Bujumbura', 'Burundi')",Nairobi,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Thokoza', 'Thokoza', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('nan', 'Bushika', 'Uganda')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('nan', 'Congo', 'Republic of the Congo')",Nairobi,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('nan', 'Cotonou', 'Benin')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Port Harcourt', 'Port Harcourt', 'Nigeria')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Yaounde', 'Yaounde', 'Cameroon')",Accra,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Porto-Novo', 'Cotonou', 'Benin')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Witbank', 'Witbank', 'South Africa')",Johannesburg,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Workshop', 'Workshop', 'South Africa')",Johannesburg,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Sandema', 'Sandema', 'Ghana')",Accra,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Saltpond', 'Saltpond', 'Ghana')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Saltpond', 'Cape Coast', 'Ghana')",Accra,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Wulensi', 'Wulensi', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Xai Xai', 'Xai Xai', 'Mozambique')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0
+"('Salama', 'Salama', 'Kenya')",Nairobi,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Sakele', 'Katlehong', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Sagana', 'Sagana', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Sabatia', 'Sabatia', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Rustenburg', 'Rustenburg', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Runsternburg', 'Tlhabane', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Rongo', 'Rongo', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Riverside', 'Riverside', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Randfontein', 'Randfontein', 'South Africa')",Johannesburg,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Rafiki', ""Mkang'ombe"", 'Kenya')",Nairobi,Unclassified City,Unclassified,City,1,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0
+"('Rabuor', 'Rabuor', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Queenstown', 'Queenstown', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Yamfo', 'Sunyani', 'Ghana')",Accra,Non-Urban City,Non-Urban,City,1,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Yantala', 'Niamey', 'Niger')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Siteki', 'Siteki', 'Eswatini')",Johannesburg,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Aba', 'Aba', 'Nigeria')",Accra,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Mozambique', 'Mozambique', 'Mozambique')",Johannesburg,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Diffa', 'Diffa', 'Niger')",Accra,Non-Urban City,Non-Urban,City,1,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Bunso', 'Bunso', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Butiama', 'Butiama', 'Tanzania')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Bwembwera', 'Bwembwera', 'Tanzania')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Calabar', 'Calabar', 'Nigeria')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Changi', 'Tamale', 'Ghana')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Chavakali', 'Chavakali', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Chief Palace', 'Ilorin', 'Nigeria')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Chingola', 'Chingola', 'Zambia')",Johannesburg,Non-Urban City,Non-Urban,City,1,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Chipinge', 'Chipinge', 'Zimbabwe')",Johannesburg,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Chuka', 'Chuka', 'Kenya')",Nairobi,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Cocody', 'Abidjan', ""Côte d'Ivoire"")",Accra,Unclassified City,Unclassified,City,1,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0
+"('Cotonou', 'Cotonou', 'Benin')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Delta', 'Delta', 'Nigeria')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Dennilton', 'Dennilton', 'South Africa')",Johannesburg,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Bulawayo', 'Thsh', 'Zimbabwe')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Bulambuli', 'Bulambuli', 'Uganda')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Bloemfontein', 'Bloemfontein', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Bimbilla', 'Bimbilla', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Bisoro', 'Bisoro', 'Burundi')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Blairgowrie', 'Johannesburg', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Blk', 'Block', 'Malawi')",Johannesburg,Non-Urban City,Non-Urban,City,1,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Bobo-Dioulasso', 'Bobo-Dioulasso', 'Burkina Faso')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0
+"('Bukoba', 'Bukoba', 'Tanzania')",Nairobi,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Bombolulu', 'Bombolulu', 'Kenya')",Nairobi,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Brats', 'Brats', 'South Africa')",Johannesburg,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Brits', 'Brits', 'South Africa')",Johannesburg,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0
+"('Bukirasazi', 'Bukirasazi', 'Burundi')",Nairobi,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Diepkloof', 'Diepkloof', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Moyale', 'Moyale', 'Ethiopia')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Dikeni', 'Dikeni', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Ermelo', 'Ermelo', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Fante New Town', 'Kumasi', 'Ghana')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Feni', 'Dakunbrua Banglacesh', 'Bangladesh')",Johannesburg,Unclassified City,Unclassified,City,1,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0
+"('Festac Town', 'Lagos', 'Nigeria')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Fizi', 'Fizi', 'Democratic Republic of the Congo')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Fort Beaufort', 'Fort Beaufort', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Freetown', 'Freetown', 'Sierra Leone')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Funyula', 'Funyula', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Ga-Rankuwa', 'Ga-Rankuwa', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Gaborone', 'Gaborone', 'Botswana')",Johannesburg,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Gao', 'Gao', 'Mali')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Garissa', 'Garissa', 'Kenya')",Nairobi,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Gatundu', 'Gatundu', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Gaza', 'Gaza', 'Mozambique')",Johannesburg,Non-Urban City,Non-Urban,City,1,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Erar Community', 'Eastern Tigray', 'Ethiopia')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Epe', 'Epe', 'Nigeria')",Accra,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Ebute Metta', 'Lagos', 'Nigeria')",Accra,Unclassified City,Unclassified,City,1,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0
+"('Dosso', 'Dosso', 'Niger')",Accra,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Dundee', 'Dundee', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Durban', 'Bluff', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Dutywa', 'Dutywa', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Dzodze', 'Dzodze', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Ejigbo', 'Lagos', 'Nigeria')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Ejisu', 'Ejisu', 'Ghana')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0
+"('Ekalakala', 'Ekalakala', 'Kenya')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Embangweni', 'Embangweni', 'Malawi')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Bilene', 'Bilene', 'Mozambique')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Bibiani', 'Bibiani', 'Ghana')",Accra,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Betom', 'Koforidua', 'Ghana')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Bethlehem', 'Bethlehem', 'South Africa')",Johannesburg,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Agbor', 'Benin City', 'Nigeria')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Agona Swedru', 'Agona Swedru', 'Ghana')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Agou', 'Agou', 'Togo')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Ahero', 'Ahero', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Aidan', 'Cape Coast', 'Ghana')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Ainamoi', 'Kericho', 'Kenya')",Nairobi,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Akobo', 'Akobo', 'South Sudan')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Akpakpava', 'Benin City', 'Nigeria')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Akropong', 'Akropong', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Akumfi', 'Akumfi', 'Ghana')",Accra,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Al Diyum East', 'Khartoum', 'Sudan')",Nairobi,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Al Riyadh', 'Al Riyadh', 'Sudan')",Nairobi,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Alakple', 'Alakple', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Alberton', 'Alberton', 'South Africa')",Johannesburg,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Agbara', 'Agbara', 'Nigeria')",Accra,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Agbani', 'Agbani', 'Nigeria')",Accra,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Abujuro', 'Abujuro', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Abakaliki', 'Abakaliki', 'Nigeria')",Accra,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Abeokuta', 'Abeokuta', 'Nigeria')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Aboabo', 'Aboabo', 'Ghana')",Accra,Non-Urban City,Non-Urban,City,1,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Abomey', 'Abomey', 'Benin')",Accra,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Abuja', 'Abuja', 'Nigeria')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Abuja', 'Kaduna', 'Nigeria')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Adawlato', 'Adawlato', 'Togo')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Aflao', 'Aflao', 'Togo')",Accra,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0
+"('Adenta', 'Accra', 'Ghana')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Allada', 'Allada', 'Benin')",Accra,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Amawom', 'Owerri', 'Nigeria')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Amsterdam', 'Amsterdam', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Bekwai', 'Bekwai', 'Ghana')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Baraka', 'Baraka', 'Democratic Republic of the Congo')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Bawah Barracks', 'Tamale', 'Ghana')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Bawjiase', 'Bawjiase', 'Ghana')",Accra,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Beila', 'Beila', 'Mozambique')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Beira', 'Beira', 'Mozambique')",Johannesburg,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0
+"('Benin City', 'Benin City', 'Nigeria')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Banfora', 'Banfora', 'Burkina Faso')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Benoni', 'Benoni', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Bentiu', 'Bentiu', 'South Sudan')",Nairobi,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Benue State', 'Benue State', 'Nigeria')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Bereasa', 'Berea', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Berekum', 'Berekum', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Bergville', 'Bergville', 'South Africa')",Johannesburg,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Bangou', 'Bangou', 'Cameroon')",Johannesburg,Non-Urban City,Non-Urban,City,1,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Bandal', 'Bandal', 'Democratic Republic of the Congo')",Johannesburg,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Anambra', 'Imo State', 'Nigeria')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Asene Kotopong', 'Jamestown', 'Ghana')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Angola', 'Angola', 'Angola')",Johannesburg,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Anloga', 'Anloga', 'Ghana')",Accra,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Anyinam', 'Anyinam', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Ariaria', 'Aba', 'Nigeria')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Asaba', 'Asaba', 'Nigeria')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Asante Camp No.1', 'Mampong', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Ashanti Mampong', 'Ashanti Mampong', 'Ghana')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Atakpame', 'Atakpame', 'Togo')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Atimpoku', 'Atimpoku', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Atonsu', 'Kumasi', 'Ghana')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Avepozo', 'Lome', 'Togo')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Awasa', 'Awasa', 'Ethiopia')",Johannesburg,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Aweil', 'Aweil', 'South Sudan')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Gbagemey', 'Cotonou', 'Benin')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Gbarnga', 'Gbarnga', 'Liberia')",Nairobi,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Gbegame', 'Lome', 'Togo')",Accra,Non-Urban City,Non-Urban,City,1,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Lawra', 'Lawra', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Madegu', 'Madegu', 'Democratic Republic of the Congo')",Nairobi,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Madina', 'Adenta', 'Ghana')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Madina', 'Madina99', 'Ghana')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Mafeteng', 'Mafeteng', 'Lesotho')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Makal', 'Makal', 'South Sudan')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Makindu', 'Makindu', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Makiso', 'Kisangani', 'Democratic Republic of the Congo')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Makokoba', 'Zimbabwe', 'Zimbabwe')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Abaji', 'Abaji', 'Nigeria')",Accra,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Makueni', 'Wote', 'Kenya')",Nairobi,Non-Urban City,Non-Urban,City,1,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Malaba', 'Malaba', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Malelane', 'Malelane', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Malvern', 'East London', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Mamelodi', 'Kwamhlanga', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Mamelodi', 'Tshwane', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Madadeni', 'Emadadeni', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Macia', 'Macia', 'Mozambique')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Lwanda', 'Lwanda', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Livingstone', 'Livingstone', 'Zambia')",Johannesburg,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Leo', 'Leo', 'Burkina Faso')",Accra,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Leribe', 'Leribe', 'Lesotho')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Lewis Face One', 'Lagos', 'Nigeria')",Accra,Unclassified City,Unclassified,City,1,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0
+"('Limbe', 'Kumba', 'Cameroon')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Limpopo', 'Limpopo', 'South Africa')",Johannesburg,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Lira City', 'Lira City', 'Uganda')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Lohagora', 'Lohagora', 'Bangladesh')",Johannesburg,Unclassified Town,Unclassified,Town,1,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+"('Luanda', 'Luanda', 'Angola')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Luanda', 'Luanda', 'Kenya')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Lubango', 'Benguela', 'Angola')",Johannesburg,Non-Urban City,Non-Urban,City,1,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Lubumbashi', 'Lubumbashi', 'Democratic Republic of the Congo')",Johannesburg,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0
+"('Mamfe', 'Mamfe', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Mampong', 'Mampong', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Mankessim', 'Mankessim', 'Ghana')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Mkhuhlu', 'Mkhuhlu', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Melville', 'Melville', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Meru Town', 'Meru Town', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Mile 15', 'Abakaliki', 'Nigeria')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Millionaire', 'Yamoussoukro', ""Côte d'Ivoire"")",Accra,Unclassified City,Unclassified,City,1,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0
+"('Minembwe', 'Kinshasa', 'Democratic Republic of the Congo')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Miri', 'Bauchi', 'Nigeria')",Accra,Non-Urban City,Non-Urban,City,1,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Mokopane', 'Mokopane', 'South Africa')",Johannesburg,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Mbuji-Mayi', 'Mbuji-Mayi', 'Democratic Republic of the Congo')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Mondlo', 'Mondlo', 'South Africa')",Johannesburg,Non-Urban City,Non-Urban,City,1,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Mopti', 'Mopti', 'Mali')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Morogoro', 'Morogoro', 'Tanzania')",Johannesburg,Non-Urban City,Non-Urban,City,1,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Moshi', 'Moshi', 'Tanzania')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Mekanisa', 'Oromia', 'Ethiopia')",Nairobi,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Mbombela', 'Mbombela', 'South Africa')",Johannesburg,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Mannies', 'Welkom', 'South Africa')",Johannesburg,Non-Urban City,Non-Urban,City,1,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Maphisa', 'Maphisa', 'Zimbabwe')",Johannesburg,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Maputsoe', 'Maputsoe', 'Lesotho')",Johannesburg,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Maputu', 'Maputu', 'Mozambique')",Johannesburg,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Maradi', 'Maradi', 'Niger')",Accra,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Maritzburg', 'Maritzburg', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Masii', 'Masii', 'Kenya')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Mbale', 'Mbale', 'Kenya')",Nairobi,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Masisi', 'Masisi', 'Democratic Republic of the Congo')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Matadi', 'Matadi', 'Democratic Republic of the Congo')",Johannesburg,Non-Urban City,Non-Urban,City,1,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Maua', 'Maua', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Mbaale', 'Mbaale', 'Uganda')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Mbalala', 'Mbalala', 'Uganda')",Nairobi,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Lake Region', 'Yamoussoukro', ""Côte d'Ivoire"")",Johannesburg,Unclassified City,Unclassified,City,1,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0
+"('Gisambai', 'Gisambai', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Lahore', 'Lahore', 'Ethiopia')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Ikotun', 'Ikotun', 'Nigeria')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Juaso', 'Juaso', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Kade', 'Kade', 'Ghana')",Accra,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Kakamega', 'Kitale', 'Kenya')",Nairobi,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Kamina', 'Lome', 'Togo')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Kaneshie', 'Kaneshie', 'Ghana')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Kangema', 'Kangema', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Kapsabet', 'Kapsabet', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Karatina', 'Karatina', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Karonga', 'Karonga', 'Malawi')",Johannesburg,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Katanga', 'Katanga', 'Democratic Republic of the Congo')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Ikorodu', 'Ikorodu', 'Nigeria')",Accra,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Ikeja', 'Lagos', 'Nigeria')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Ife', 'Ife', 'Nigeria')",Accra,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Gucha', 'Gucha', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Gitega', 'Gitega', 'Burundi')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Githunguri', 'Githunguri', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Giyani', 'Giyani', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Glen View', 'Harare', 'Zimbabwe')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Gomora', 'Alexandra', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Greytown', 'Greytown', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Gusau', 'Gusau', 'Nigeria')",Accra,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Hazyview', 'Hazyview', 'South Africa')",Johannesburg,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Hillbrow', 'H', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Hleswaneng', 'Jane Furse', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Hlotse', 'Hlotse', 'Lesotho')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Hluhluwe', 'Hluhluwe', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Katito', 'Katito', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Katlehong', 'Hamanskraal', 'South Africa')",Johannesburg,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Kebbi State', 'Kebbi State', 'Nigeria')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Kwamhlanga', 'Kwamhlanga', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Korle Bu', 'Korle Bu', 'Ghana')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Kpangalam', 'Sokode', 'Togo')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Krugersdorp', 'Krugersdorp', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Kuajok', 'Kuajok', 'South Sudan')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Kwahu', 'Kwahu', 'Ghana')",Accra,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Klerksdorp', 'Klerksdorp', 'South Africa')",Johannesburg,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Kyebi', 'Kyebi', 'Ghana')",Accra,Non-Urban Town,Non-Urban,Town,1,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Kyua', 'Kyua', 'Kenya')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('La', 'Accra', 'Ghana')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Labadi', 'Labadi', 'Ghana')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Ladysmith', 'Ladysmith', 'South Africa')",Johannesburg,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Lagos State', 'Lagos State', 'Nigeria')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Konongo', 'Kumasi', 'Ghana')",Accra,Non-Urban City,Non-Urban,City,1,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Kempton Park', 'Kempton Park', 'South Africa')",Johannesburg,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Kericho', 'Kericho', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Keroka', 'Kisii', 'Kenya')",Nairobi,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+"('Kerugoya', 'Kerugoya', 'Kenya')",Nairobi,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0
+"('Kete Krachi', 'Kete Krachi', 'Ghana')",Accra,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Khartoum', 'Khartoum', 'Sudan')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Kigali', 'Kigali', 'Rwanda')",Nairobi,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0
+"('Kinamba', 'Kinamba', 'Kenya')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Kigoma', 'Kigoma', 'Tanzania')",Nairobi,Non-Urban Village,Non-Urban,Village,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+"('Kilgoris', 'Kilgoris', 'Kenya')",Nairobi,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Kilindini', 'Kilingini', 'Kenya')",Nairobi,Urban Town,Urban,Town,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0
+"('Kilome', 'Kilome', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Kimilili', 'Kimilili', 'Kenya')",Nairobi,Urban Village,Urban,Village,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0
+"('Makola', 'Ibadan', 'Nigeria')",Accra,Urban City,Urban,City,1,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0

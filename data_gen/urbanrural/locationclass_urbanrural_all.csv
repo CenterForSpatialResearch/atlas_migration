@@ -1,0 +1,202 @@
+,Q100_1,Q100_1_URX,Q100_1_URUN,Q100_1_URACMS,Q100_1_URXc
+17,"('Addis Ababa', 'Addis Ababa', 'Ethiopia')",Urban Town,Urban,Town,5
+18,"('Addis Ababa', 'Addis Ababa', 'Ethiopia')",Urban Village,Urban,Village,2
+16,"('Addis Ababa', 'Addis Ababa', 'Ethiopia')",Urban City,Urban,City,1
+20,"('Adenta', 'Adenta', 'Ghana')",Urban City,Urban,City,2
+21,"('Adenta', 'Adenta', 'Ghana')",Urban Town,Urban,Town,7
+23,"('Aflao', 'Aflao', 'Togo')",Urban Town,Urban,Town,1
+24,"('Aflao', 'Aflao', 'Togo')",Urban Village,Urban,Village,1
+26,"('Agadez', 'Agadez', 'Niger')",Non-Urban Village,Non-Urban,Village,1
+25,"('Agadez', 'Agadez', 'Niger')",Non-Urban Town,Non-Urban,Town,2
+36,"('Akim Oda', 'Akim Oda', 'Ghana')",Urban Village,Urban,Village,1
+35,"('Akim Oda', 'Akim Oda', 'Ghana')",Urban Town,Urban,Town,3
+45,"('Alberton', 'Alberton', 'South Africa')",Urban Village,Urban,Village,1
+44,"('Alberton', 'Alberton', 'South Africa')",Urban Town,Urban,Town,9
+68,"('Awendo', 'Awendo', 'Kenya')",Urban Village,Urban,Village,2
+67,"('Awendo', 'Awendo', 'Kenya')",Urban Town,Urban,Town,2
+69,"('Bamako', 'Bamako', 'Mali')",Urban City,Urban,City,2
+70,"('Bamako', 'Bamako', 'Mali')",Urban Village,Urban,Village,1
+78,"('Beira', 'Beira', 'Mozambique')",Urban Town,Urban,Town,1
+79,"('Beira', 'Beira', 'Mozambique')",Urban Village,Urban,Village,1
+94,"('Bimbilla', 'Bimbila', 'Ghana')",Non-Urban Village,Non-Urban,Village,1
+93,"('Bimbilla', 'Bimbila', 'Ghana')",Non-Urban Town,Non-Urban,Town,2
+98,"('Blantyre', 'Blantyre', 'Malawi')",Urban Town,Urban,Town,1
+99,"('Blantyre', 'Blantyre', 'Malawi')",Urban Village,Urban,Village,4
+102,"('Bobo-Dioulasso', 'Bobo-Dioulasso', 'Burkina Faso')",Urban City,Urban,City,1
+103,"('Bobo-Dioulasso', 'Bobo-Dioulasso', 'Burkina Faso')",Urban Village,Urban,Village,1
+104,"('Bolgatanga', 'Bolgatanga', 'Ghana')",Non-Urban Town,Non-Urban,Town,11
+105,"('Bolgatanga', 'Bolgatanga', 'Ghana')",Non-Urban Village,Non-Urban,Village,3
+109,"('Brits', 'Brits', 'South Africa')",Urban Town,Urban,Town,1
+110,"('Brits', 'Brits', 'South Africa')",Urban Village,Urban,Village,1
+112,"('Bujumbura', 'Bujumbura', 'Burundi')",Urban Village,Urban,Village,4
+111,"('Bujumbura', 'Bujumbura', 'Burundi')",Urban Town,Urban,Town,6
+113,"('Bukavu', 'Bukavu', 'Democratic Republic of the Congo')",Urban Town,Urban,Town,3
+114,"('Bukavu', 'Bukavu', 'Democratic Republic of the Congo')",Urban Village,Urban,Village,8
+120,"('Bulawayo', 'Bulawayo', 'Zimbabwe')",Urban City,Urban,City,1
+121,"('Bulawayo', 'Bulawayo', 'Zimbabwe')",Urban Town,Urban,Town,12
+122,"('Bulawayo', 'Bulawayo', 'Zimbabwe')",Urban Village,Urban,Village,14
+126,"('Bungoma', 'Bungoma', 'Kenya')",Urban Village,Urban,Village,5
+125,"('Bungoma', 'Bungoma', 'Kenya')",Urban Town,Urban,Town,2
+129,"('Busia', 'Busia', 'Kenya')",Urban Town,Urban,Town,2
+130,"('Busia', 'Busia', 'Kenya')",Urban Village,Urban,Village,9
+149,"('Diffa', 'Diffa', 'Niger')",Non-Urban City,Non-Urban,City,1
+150,"('Diffa', 'Diffa', 'Niger')",Non-Urban Village,Non-Urban,Village,1
+156,"('Durban', 'Durban', 'South Africa')",Urban Town,Urban,Town,3
+157,"('Durban', 'Durban', 'South Africa')",Urban Village,Urban,Village,2
+160,"('Dzodze', 'Dzodze', 'Ghana')",Non-Urban Village,Non-Urban,Village,1
+159,"('Dzodze', 'Dzodze', 'Ghana')",Non-Urban Town,Non-Urban,Town,1
+164,"('Ejisu', 'Ejisu', 'Ghana')",Urban Town,Urban,Town,1
+165,"('Ejisu', 'Ejisu', 'Ghana')",Urban Village,Urban,Village,1
+168,"('Eldoret', 'Eldoret', 'Kenya')",Urban Village,Urban,Village,2
+167,"('Eldoret', 'Eldoret', 'Kenya')",Urban Town,Urban,Town,1
+171,"('Embu', 'Embu', 'Kenya')",Non-Urban Town,Non-Urban,Town,2
+172,"('Embu', 'Embu', 'Kenya')",Non-Urban Village,Non-Urban,Village,3
+175,"('Enugu', 'Enugu', 'Nigeria')",Urban Village,Urban,Village,2
+173,"('Enugu', 'Enugu', 'Nigeria')",Urban City,Urban,City,1
+174,"('Enugu', 'Enugu', 'Nigeria')",Urban Town,Urban,Town,10
+190,"('Garissa', 'Garissa', 'Kenya')",Non-Urban Village,Non-Urban,Village,1
+189,"('Garissa', 'Garissa', 'Kenya')",Non-Urban Town,Non-Urban,Town,1
+210,"('Harare', 'Harare', 'Zimbabwe')",Urban Town,Urban,Town,5
+209,"('Harare', 'Harare', 'Zimbabwe')",Urban City,Urban,City,1
+211,"('Harare', 'Harare', 'Zimbabwe')",Urban Village,Urban,Village,2
+218,"('Ho', 'Ho', 'Ghana')",Urban Town,Urban,Town,7
+219,"('Ho', 'Ho', 'Ghana')",Urban Village,Urban,Village,2
+221,"('Homa Bay', 'Homa Bay', 'Kenya')",Non-Urban Town,Non-Urban,Town,1
+222,"('Homa Bay', 'Homa Bay', 'Kenya')",Non-Urban Village,Non-Urban,Village,7
+228,"('Ilorin', 'Ilorin', 'Nigeria')",Urban Village,Urban,Village,1
+227,"('Ilorin', 'Ilorin', 'Nigeria')",Urban Town,Urban,Town,2
+235,"('Johannesburg', 'Johannesburg', 'South Africa')",Urban City,Urban,City,1
+237,"('Johannesburg', 'Johannesburg', 'South Africa')",Urban Village,Urban,Village,1
+236,"('Johannesburg', 'Johannesburg', 'South Africa')",Urban Town,Urban,Town,35
+240,"('Juba', 'Juba', 'South Sudan')",Non-Urban Village,Non-Urban,Village,4
+239,"('Juba', 'Juba', 'South Sudan')",Non-Urban Town,Non-Urban,Town,2
+245,"('Kakamega', 'Kakamega', 'Kenya')",Urban Village,Urban,Village,15
+244,"('Kakamega', 'Kakamega', 'Kenya')",Urban Town,Urban,Town,3
+248,"('Kampala', 'Kampala', 'Uganda')",Urban City,Urban,City,1
+250,"('Kampala', 'Kampala', 'Uganda')",Urban Village,Urban,Village,5
+249,"('Kampala', 'Kampala', 'Uganda')",Urban Town,Urban,Town,5
+264,"('Kawangware', 'Kawangware', 'Kenya')",Urban Town,Urban,Town,1
+263,"('Kawangware', 'Kawangware', 'Kenya')",Urban City,Urban,City,1
+266,"('Kayole', 'Kayole', 'Kenya')",Urban Village,Urban,Village,1
+265,"('Kayole', 'Kayole', 'Kenya')",Urban City,Urban,City,1
+272,"('Kerugoya', 'Kerugoya', 'Kenya')",Urban Town,Urban,Town,1
+273,"('Kerugoya', 'Kerugoya', 'Kenya')",Urban Village,Urban,Village,1
+279,"('Kiambu', 'Kiambu', 'Kenya')",Urban Village,Urban,Village,5
+278,"('Kiambu', 'Kiambu', 'Kenya')",Urban Town,Urban,Town,1
+280,"('Kigali', 'Kigali', 'Rwanda')",Urban Town,Urban,Town,1
+281,"('Kigali', 'Kigali', 'Rwanda')",Urban Village,Urban,Village,1
+290,"('Kinshasa', 'Kinshasa', 'Democratic Republic of the Congo')",Urban Town,Urban,Town,2
+289,"('Kinshasa', 'Kinshasa', 'Democratic Republic of the Congo')",Urban City,Urban,City,5
+291,"('Kinshasa', 'Kinshasa', 'Democratic Republic of the Congo')",Urban Village,Urban,Village,6
+295,"('Kisii', 'Kisii', 'Kenya')",Urban Village,Urban,Village,16
+294,"('Kisii', 'Kisii', 'Kenya')",Urban Town,Urban,Town,2
+297,"('Kisumu', 'Kisumu', 'Kenya')",Urban Village,Urban,Village,24
+296,"('Kisumu', 'Kisumu', 'Kenya')",Urban Town,Urban,Town,7
+299,"('Kitale', 'Kitale', 'Kenya')",Urban Village,Urban,Village,2
+298,"('Kitale', 'Kitale', 'Kenya')",Urban Town,Urban,Town,3
+302,"('Koforidua', 'Koforidua', 'Ghana')",Urban Town,Urban,Town,9
+303,"('Koforidua', 'Koforidua', 'Ghana')",Urban Village,Urban,Village,3
+308,"('Kpalime', 'Kpalime', 'Togo')",Urban City,Urban,City,2
+310,"('Kpalime', 'Kpalime', 'Togo')",Urban Village,Urban,Village,2
+309,"('Kpalime', 'Kpalime', 'Togo')",Urban Town,Urban,Town,1
+318,"('Kumasi', 'Kumasi', 'Ghana')",Urban Town,Urban,Town,6
+319,"('Kumasi', 'Kumasi', 'Ghana')",Urban Village,Urban,Village,3
+323,"('Kwekwe', 'Kwekwe', 'Zimbabwe')",Urban Village,Urban,Village,2
+322,"('Kwekwe', 'Kwekwe', 'Zimbabwe')",Urban Town,Urban,Town,1
+327,"('La', 'Accra', 'Ghana')",Urban Town,Urban,Town,1
+326,"('La', 'Accra', 'Ghana')",Urban City,Urban,City,1
+330,"('Lagos', 'Lagos', 'Nigeria')",Unclassified City,Unclassified,City,1
+331,"('Lagos', 'Lagos', 'Nigeria')",Unclassified Town,Unclassified,Town,17
+336,"('Lawra', 'Lawra', 'Ghana')",Non-Urban Village,Non-Urban,Village,1
+335,"('Lawra', 'Lawra', 'Ghana')",Non-Urban Town,Non-Urban,Town,1
+350,"('Lome', 'Lome', 'Togo')",Urban Village,Urban,Village,2
+349,"('Lome', 'Lome', 'Togo')",Urban Town,Urban,Town,13
+348,"('Lome', 'Lome', 'Togo')",Urban City,Urban,City,3
+356,"('Lubumbashi', 'Lubumbashi', 'Democratic Republic of the Congo')",Urban Village,Urban,Village,1
+355,"('Lubumbashi', 'Lubumbashi', 'Democratic Republic of the Congo')",Urban Town,Urban,Town,1
+357,"('Lusaka', 'Lusaka', 'Zambia')",Urban City,Urban,City,2
+359,"('Lusaka', 'Lusaka', 'Zambia')",Urban Village,Urban,Village,1
+358,"('Lusaka', 'Lusaka', 'Zambia')",Urban Town,Urban,Town,1
+361,"('Machakos', 'Machakos', 'Kenya')",Urban Town,Urban,Town,2
+362,"('Machakos', 'Machakos', 'Kenya')",Urban Village,Urban,Village,16
+369,"('Madina', 'Madina', 'Ghana')",Urban Town,Urban,Town,3
+368,"('Madina', 'Madina', 'Ghana')",Urban City,Urban,City,11
+394,"('Maputo', 'Maputo', 'Mozambique')",Urban Village,Urban,Village,8
+393,"('Maputo', 'Maputo', 'Mozambique')",Urban Town,Urban,Town,6
+400,"('Maseru', 'Maseru', 'Lesotho')",Urban Town,Urban,Town,1
+401,"('Maseru', 'Maseru', 'Lesotho')",Urban Village,Urban,Village,5
+399,"('Maseru', 'Maseru', 'Lesotho')",Urban City,Urban,City,1
+406,"('Matatiele', 'Matatiele', 'South Africa')",Urban Village,Urban,Village,3
+405,"('Matatiele', 'Matatiele', 'South Africa')",Urban Town,Urban,Town,1
+417,"('Migori', 'Migori', 'Kenya')",Non-Urban Town,Non-Urban,Town,3
+418,"('Migori', 'Migori', 'Kenya')",Non-Urban Village,Non-Urban,Village,9
+424,"('Minembwe', 'Minembwe', 'Democratic Republic of the Congo')",Non-Urban Village,Non-Urban,Village,10
+423,"('Minembwe', 'Minembwe', 'Democratic Republic of the Congo')",Non-Urban Town,Non-Urban,Town,3
+429,"('Mombasa', 'Mombasa', 'Kenya')",Urban Village,Urban,Village,2
+428,"('Mombasa', 'Mombasa', 'Kenya')",Urban Town,Urban,Town,1
+433,"('Morogoro', 'Morogoro', 'Tanzania')",Non-Urban Town,Non-Urban,Town,1
+432,"('Morogoro', 'Morogoro', 'Tanzania')",Non-Urban City,Non-Urban,City,1
+437,"('Mpraeso', 'Mpraeso', 'Ghana')",Non-Urban Town,Non-Urban,Town,2
+438,"('Mpraeso', 'Mpraeso', 'Ghana')",Non-Urban Village,Non-Urban,Village,1
+446,"('Muranga', 'Muranga', 'Kenya')",Urban Village,Urban,Village,2
+445,"('Muranga', 'Muranga', 'Kenya')",Urban Town,Urban,Town,3
+457,"('Nairobi', 'Nairobi', 'Kenya')",Urban Village,Urban,Village,7
+455,"('Nairobi', 'Nairobi', 'Kenya')",Urban City,Urban,City,1
+456,"('Nairobi', 'Nairobi', 'Kenya')",Urban Town,Urban,Town,21
+460,"('Nakuru', 'Nakuru', 'Kenya')",Urban Village,Urban,Village,5
+459,"('Nakuru', 'Nakuru', 'Kenya')",Urban Town,Urban,Town,1
+466,"('Nelspruit', 'Nelspruit', 'South Africa')",Urban Town,Urban,Town,1
+467,"('Nelspruit', 'Nelspruit', 'South Africa')",Urban Village,Urban,Village,3
+479,"('Niamey', 'Niamey', 'Niger')",Urban Village,Urban,Village,5
+478,"('Niamey', 'Niamey', 'Niger')",Urban Town,Urban,Town,13
+477,"('Niamey', 'Niamey', 'Niger')",Urban City,Urban,City,1
+480,"('Nima', 'Nima', 'Ghana')",Urban City,Urban,City,1
+481,"('Nima', 'Nima', 'Ghana')",Urban Town,Urban,Town,2
+492,"('Nqutu', 'Nquthu', 'South Africa')",Urban Town,Urban,Town,1
+493,"('Nqutu', 'Nquthu', 'South Africa')",Urban Village,Urban,Village,1
+496,"('Nsawam', 'Nsawam', 'Ghana')",Non-Urban Town,Non-Urban,Town,2
+495,"('Nsawam', 'Nsawam', 'Ghana')",Non-Urban City,Non-Urban,City,1
+499,"('Nyamira', 'Nyamira', 'Kenya')",Urban Village,Urban,Village,7
+498,"('Nyamira', 'Nyamira', 'Kenya')",Urban Town,Urban,Town,4
+502,"('Nyeri', 'Nyeri', 'Kenya')",Urban Village,Urban,Village,2
+501,"('Nyeri', 'Nyeri', 'Kenya')",Urban Town,Urban,Town,2
+507,"('Oda', 'Oda', 'Ghana')",Non-Urban Village,Non-Urban,Village,1
+506,"('Oda', 'Oda', 'Ghana')",Non-Urban Town,Non-Urban,Town,1
+525,"('Ouagadougou', 'Ouagadougou', 'Burkina Faso')",Urban Village,Urban,Village,3
+524,"('Ouagadougou', 'Ouagadougou', 'Burkina Faso')",Urban Town,Urban,Town,3
+528,"('Oyugis', 'Oyugis', 'Kenya')",Urban Village,Urban,Village,4
+527,"('Oyugis', 'Oyugis', 'Kenya')",Urban Town,Urban,Town,1
+542,"('Plumtree', 'Plumtree', 'Zimbabwe')",Non-Urban City,Non-Urban,City,1
+543,"('Plumtree', 'Plumtree', 'Zimbabwe')",Non-Urban Village,Non-Urban,Village,1
+546,"('Port Elizabeth', 'Port Elizabeth', 'South Africa')",Urban Town,Urban,Town,1
+547,"('Port Elizabeth', 'Port Elizabeth', 'South Africa')",Urban Village,Urban,Village,1
+550,"('Porto-Novo', 'Porto-Novo', 'Benin')",Urban Town,Urban,Town,5
+551,"('Porto-Novo', 'Porto-Novo', 'Benin')",Urban Village,Urban,Village,1
+553,"('Pretoria', 'Pretoria', 'South Africa')",Urban Village,Urban,Village,1
+552,"('Pretoria', 'Pretoria', 'South Africa')",Urban Town,Urban,Town,2
+585,"('Siaya', 'Siaya', 'Kenya')",Non-Urban Village,Non-Urban,Village,15
+584,"('Siaya', 'Siaya', 'Kenya')",Non-Urban Town,Non-Urban,Town,3
+589,"('Sogakope', 'Sogakope', 'Ghana')",Non-Urban Village,Non-Urban,Village,1
+588,"('Sogakope', 'Sogakope', 'Ghana')",Non-Urban Town,Non-Urban,Town,1
+607,"('Tamale', 'Tamale', 'Ghana')",Urban City,Urban,City,2
+609,"('Tamale', 'Tamale', 'Ghana')",Urban Village,Urban,Village,8
+608,"('Tamale', 'Tamale', 'Ghana')",Urban Town,Urban,Town,17
+616,"('Techiman', 'Techiman', 'Ghana')",Non-Urban Village,Non-Urban,Village,1
+615,"('Techiman', 'Techiman', 'Ghana')",Non-Urban Town,Non-Urban,Town,2
+629,"('Tororo', 'Tororo', 'Uganda')",Urban Town,Urban,Town,1
+630,"('Tororo', 'Tororo', 'Uganda')",Urban Village,Urban,Village,1
+636,"('Tzaneen', 'Tzaneen', 'South Africa')",Urban Village,Urban,Village,1
+635,"('Tzaneen', 'Tzaneen', 'South Africa')",Urban Town,Urban,Town,2
+660,"('Wote', 'Wote', 'Kenya')",Urban Town,Urban,Town,3
+661,"('Wote', 'Wote', 'Kenya')",Urban Village,Urban,Village,1
+663,"('Xai Xai', 'Xai Xai', 'Mozambique')",Urban City,Urban,City,1
+664,"('Xai Xai', 'Xai Xai', 'Mozambique')",Urban Town,Urban,Town,1
+671,"('Yendi', 'Yendi', 'Ghana')",Non-Urban Village,Non-Urban,Village,2
+670,"('Yendi', 'Yendi', 'Ghana')",Non-Urban Town,Non-Urban,Town,2
+705,"('nan', 'Kayole', 'Kenya')",Urban Town,Urban,Town,1
+704,"('nan', 'Kayole', 'Kenya')",Urban City,Urban,City,1
+729,"('nan', 'Nqutu', 'South Africa')",Urban Village,Urban,Village,1
+728,"('nan', 'Nqutu', 'South Africa')",Urban Town,Urban,Town,1
+746,"('nan', 'nan', 'nan')",Unclassified Town,Unclassified,Town,23
+745,"('nan', 'nan', 'nan')",Unclassified City,Unclassified,City,17
+747,"('nan', 'nan', 'nan')",Unclassified Village,Unclassified,Village,69
