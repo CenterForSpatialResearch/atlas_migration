@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>map_trajectory</title>       
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <!-- <script src='d3-4.js'></script> -->
+	<style type="text/css">
+            body{
+                font-family:univers;
+                }
+			p {
+				font-family: sans-serif;
+				font-size: 15px;
+			}
+			#tooltip {
+				/* position: absolute; */
+				position: fixed;
+                right:20;
+				width: 200px;
+				height: auto;
+				padding: 10px;
+				background-color: #ffffff;
+				outline: black solid 1px;
+			}
+			
+			#tooltip.hidden {
+				display: none;
+			}
+			
+			#tooltip p {
+				margin: 0px;
+				font-family: sans-serif;
+				font-size: 16px;
+				line-height: 20px;
+			}
+
+
+			input[type=radio] {
+				margin-left: 40px;
+			}
+            .migration-text{
+                font-size:11px;
+                fill: #969696;
+            }
+
+	</style>
+</head>
+<body>
+	<script type="text/javascript">
+
+    //Width and height
+    var w = 1800;
+    var h = 900;
+    var dataset
+
+    /* ------ STEP 1A: CHOOSE WHICH CITY TO ISOLATE THE DATA ------ */
+    var citySelector = 'Johannesburg'
+
+    
+
+    // define colors
+    // define colors countries
+    var colorDict = {'-19': '#2B1766',
+                            'Algeria': '#D1556B',
+                            'Angola': '#AA3A5D',
+                            'Australia': '#83CDCA',
+                            'Bangladesh': '#418DC1',
+                            'Belgium': '#EFA747',
+                            'Benin': '#5EE0B6',
+                            'Botswana': '#00FDE5',
+                            'Burkina Faso': '#B34F93',
+                            'Burundi': '#4072E6',
+                            'Cameroon': '#426CF7',
+                            'Canada': '#A50816',
+                            'Cape Coast': '#A75549',
+                            'China': '#0FB1D2',
+                            'Chingola': '#7AD87D',
+                            'Colombia': '#22683F',
+                            'Czech Republic': '#AADC25',
+                            "Ivory Coast": '#ff00f7',
+                            'Democratic Republic of the Congo': '#CAC17D',
+                            'Egypt': '#08A0B2',
+                            'Eswatini': '#47C951',
+                            'Ethiopia':'#ffc50e',
+                            // 'Ethiopia': '#BE033C',
+                            'France': '#451B19',
+                            'Gabon': '#AA1047',
+                            'Germany': '#79DD19',
+                            'Ghana': '#fa9600',
+                            'Greece': '#BC7263',
+                            'Hungary': '#B69C09',
+                            'India': '#A8106C',
+                            'Iran': '#16C4A0',
+                            'Iraq': '#D54689',
+                            'Israel': '#5E67B2',
+                            'Italy': '#E259DE',
+                            'Japan': '#91DA83',
+                            'Kenya': '#98b759',
+                            // 'Kenya': '#1E86FA',
+                            'Kiambu': '#A8BE57',
+                            'Kisii': '#352664',
+                            'Kitale': '#5B3F52',
+                            'Kumasi': '#F70D2A',
+                            'KwaZulu-Natal': '#A6A0FA',
+                            'Lesotho': '#BDF5F1',
+                            'Liberia': '#73C471',
+                            'Libya': '#8B7827',
+                            // 'Malawi': '#C8F6BF',
+                            'Malawi':'#BA845A',
+                            'Malaysia': '#58DDC7',
+                            'Mali': '#2B728F',
+                            'Mombasa': '#A8E55A',
+                            'Morocco': '#618564',
+                            'Mozambique':'#ff9896',
+                            // 'Mozambique': '#4414C2',
+                            'Netherlands': '#E1B448',
+                            'New Zealand': '#F7185A',
+                            'Nicaragua': '#3E4CB0',
+                            'Niger': '#9C69DB',
+                            'Nigeria': '#17becf',
+                            'None': '#7E00CA',
+                            'Norway': '#89C861',
+                            'Nyeri': '#68BBAA',
+                            'Oman': '#B5730E',
+                            'Pakistan': '#632D41',
+                            'Qatar': '#626176',
+                            'Republic of the Congo': '#282585',
+                            'Russia': '#9C9FA4',
+                            'Rwanda': '#2E1EB8',
+                            'Saudi Arabia': '#1B7E63',
+                            'Senegal': '#0C068A',
+                            'Seychelles': '#F8EB02',
+                            'Siaya': '#B31590',
+                            'Sierra Leone': '#0FCF9E',
+                            'Singapore': '#C0AFE4',
+                            'Somalia': '#4FCDA8',
+                            'South Africa':'#24709E',
+                            // 'South Africa': '#EC52D6',
+                            'South Korea': '#F2D8C0',
+                            'South Sudan': '#495D3A',
+                            'Spain': '#E456A7',
+                            'Sudan': '#1BA0C1',
+                            'Sweden': '#E42410',
+                            'Switzerland': '#5EFDA6',
+                            'Tana River': '#F32282',
+                            // 'Tanzania': '#BA845A',
+                            'Tanzania':'#e014c9',
+                            'Thika': '#880E17',
+                            'Togo': '#E1D4EE',
+                            'Turkey': '#9AD959',
+                            'Uganda': '#c5b0d5',
+                            'United Arab Emirates': '#233296',
+                            'United Kingdom': '#3E61FE',
+                            'United States': '#572bbd',
+                            'Zambia': '#695DEF',
+                            // 'Zimbabwe':'#ffc50e',
+                            'Zimbabwe': '#5cbf75',
+                            // 'Zimbabwe': '#908ACF',
+                            'nan': '#E12991'}
+    
+    /* ------ STEP 2A: ADD COLOR PALETTE FOR NEW DATA ------ */                        
+
+    var city_color = "#f8961d"; // "#f6871f";
+    var town_color = "#e0c300"; // "#ffd400";
+    var vill_color = "#98b759"; // "#a6ce39";
+    var none_color = "#636466";
+    var over_color = "#ef4123";
+    var undr_color = "#5fbb46";
+    
+    var colorURUN = {
+        "Non-Urban City":vill_color,
+        "Non-Urban Town":vill_color,
+        "Non-Urban Village":vill_color,
+        "Unclassified City":none_color,
+        "Unclassified Town":none_color,
+        "Unclassified Village":none_color,
+        "Urban City":city_color,
+        "Urban Town":city_color,
+        "Urban Village":city_color
+    }
+
+    var colorURACMS = {
+        "Non-Urban City":city_color,
+        "Non-Urban Town":town_color,
+        "Non-Urban Village":vill_color,
+        "Unclassified City":city_color,
+        "Unclassified Town":town_color,
+        "Unclassified Village":vill_color,
+        "Urban City":city_color,
+        "Urban Town":town_color,
+        "Urban Village":vill_color
+    }
+
+    var colorURX = {
+            "Non-Urban City":city_color,
+            "Non-Urban Town":"#686868",
+            "Non-Urban Village":"#606060",
+            "Unclassified City":"#808080",
+            "Unclassified Town":"#787878",
+            "Unclassified Village":"#707070",
+            "Urban City":"#909090",
+            "Urban Town":"#888888",
+            "Urban Village":vill_color
+    }
+
+    var colorReasons = {
+        "Education": "#faa61a", // "#ff00f7"
+        "Work": "#007dc5", // "#17becf"
+        "Housing": "#f26522", // "#fcba03"
+        "Restart": "#21409a", // "#79dc53"
+        "Kin": "#ed1a3b", // "#5cbf75"
+        "Remain": "#cf128c", // "#695DEF"
+        "Safety": "#5fbb46" // "#E12991"
+    }
+
+    var colorTypes = {
+        "future":"#ff00f7",
+        "connections_fin":"#17becf",
+        "connections_ppl":"#fcba03",
+        "household":"#79dc53",
+        "moves200":"#00000"
+    }  
+
+    
+    // color scale to annotate by current city
+    var color = d3.scaleOrdinal()
+                    .range(['#20876f','#a87b00','#c732b5',])
+                    .domain(['Nairobi','Accra',citySelector]);
+    
+    var color2 = d3.scaleOrdinal()
+                    .range(['#31d6b0','#ffbb00','#ff00e1',])
+                    .domain(['Nairobi','Accra',citySelector]);
+
+    /* ------ STEP 1B: Comment out the right Scope ------ */
+
+    //Define map projection
+    var projection = d3.geoAzimuthalEquidistant()
+                        // .center([0,-0.2]) // nairobi
+                        // .rotate([-35.83,0]) // nairobi
+                        // .center([0,3.5]) // nairobi most rec
+                        //.rotate([-28.83,0]) // nairobi most rec
+
+
+                        // .center([0,10]) // accra for all most rec
+                        // .rotate(-0.21,0) // accra for all most rec
+                        // .center([0,19]) // accra for all migrations
+                        // .rotate(-0.21,0) // accra for all migrations
+
+
+                        .center([0,-20]) // johannesburg for most rec
+                        .rotate([-28,0]) // johannesburgfor most rec
+                        // .center([0,7]) // johannesburg for all migrations
+                        // .rotate([-15,0]) // johannesburg for all migrations
+                        
+                        .translate([w/2, h/2])
+
+                        // .scale([2000]) // nairobi most rec
+
+                        .scale([1500]) // johannesburg most rec
+                        // .scale([500]) // johannesburg all
+
+                        // .scale([4500]); // accra for all most rec
+                        // .scale([750]); // accra for all migrations
+
+    // // // FOR OVERVIEW // // n.b. change w & h to 600 also
+    // var projection = d3.geoAzimuthalEqualArea()
+    //                             .center([0,3.32]) // nairobi
+    //                             .rotate([-20.83,0]) // nairobi
+	// 						    .translate([w/2, h/2])
+    //                             .scale([150]);
+
+    //Define path generator, using the Albers USA projection
+    var path = d3.geoPath()
+                    .projection(projection);
+
+    var graticule = d3.geoGraticule()
+                        .step([1, 1])
+    //Create SVG element
+    var svg = d3.select("body")
+                .append("svg")
+                .attr("width", w)
+                .attr("height", h);
+    
+    /* ADD AND COMMENT NEW DATA */
+    d3.queue()
+    
+        .defer(d3.json, "data/ref/countries-10m.geo.json")//high resolution
+        // // .defer(d3.json, "data/ref/world_countries.geo.json")// low resolution world
+        .defer(d3.json, "data/ref/world-urban-polygons.geojson")
+        // .defer(d3.json, "data/ref/africapopclu.geojson") // population urban clusters v1 (covers screen, fix in illustrator)
+        .defer(d3.json, "data/ref/Africa_Pop_UrbClust_AzimEqui.geojson") // population urban clusters v2 (projected azimuthal)
+        .defer(d3.json,"data/ref/h2o-.geo.json")
+        .defer(d3.csv, "data/star_all_distances.csv")
+        // .defer(d3.csv,"data/origin_migrations.csv") // for origin locations
+        // .defer(d3.csv,"data/origin_migrations_UR.csv") // for origin locations (with Urban Rural)
+        // .defer(d3.csv, "data/level1_migrations.csv") // for last migration location 
+        // .defer(d3.csv, "data/level1_migrations_Reasons.csv") // for last migration location (with Reasons) v1 (original from Adeline)
+        .defer(d3.csv, "data/level1_migrations_UR_R.csv") // for last migration location (with Reasons) v2 (csv)
+        .defer(d3.json, "data/level1_migrations_UR_R.geojson") // for last migration location (with Reasons) v2 (points json)
+        // .defer(d3.csv, "data/level2_migrations.csv")
+        
+        // .defer(d3.csv, "flights.csv", typeFlight)
+        .await(ready);
+
+    function ready(error, world,urban,clust,water,allpts,migr1,migrpts) {
+        console.log(world)
+    // function ready(error, migr1) {
+    if (error) throw error;
+
+    var line = d3.line()
+                .x(function(d){
+                    // console.log(projection([d.lat, d.lon]))
+                    return projection([d.lat, d.lon])[0]})
+                .y(d => projection([d.lat, d.lon])[1]);
+    // WORLD // //
+    // Bind data and create one path per GeoJSON feature
+    var worldMap = svg.append("g")
+                        .attr("class","world-map")
+    
+    var baseMap = worldMap.selectAll("path")
+                    .data(world.features)
+                    .enter()
+                    .append("path")
+                    .attr("d", path)
+                    .attr("fill","#f0f0f0")
+                    .attr("stroke","#d1d1d1")
+                    .attr("stroke-width", .5);
+    
+    /* Optional Layer: Urban Cluster to reimport into Illustrator Files */
+    // var clustBasemap = svg.append("g")
+    //                     .attr("class","cluster-layer")
+    // var clusterLayer = clustBasemap.selectAll("path")
+    //                 .data(clust.features)
+    //                 .enter()
+    //                 .append("path")
+    //                 .attr("d", path)
+    //                 .attr("fill",city_color)
+    //                 .attr("stroke",city_color)
+    //                 .attr("stroke-width", .125)
+
+    var gridLines = svg.append("g")
+            .attr("class","graticule")
+    
+                    var waterMap = svg.append("g")
+                        .attr("class","water-map")
+    var baseWaterMap = waterMap.selectAll("path")
+                    .data(water.features)
+                    .enter()
+                    .append("path")
+                    .attr("d", path)
+                    .attr("fill","#ffffff")
+                    .attr("stroke","#ffffff")
+                    .attr("stroke-width", .25);
+
+    gridLines.append("path")
+                .datum(graticule)
+                .attr("class", "graticule")
+                .attr("d", path)
+                .attr("stroke","#cccccc")
+                .attr("stroke-width",.25)
+                .attr("fill","none")
+
+    var urbanBasemap = svg.append("g")
+                        .attr("class","urban-layer")
+    var urbanLayer = urbanBasemap.selectAll("path")
+                    .data(urban.features)
+                    .enter()
+                    .append("path")
+                    .attr("d", path)
+                    .attr("fill","#dedede")
+                    .attr("stroke","#dedede")
+                    .attr("stroke-width", .25);
+       
+    // // // POINTS // //
+    // var dataset = allpts;
+    // console.log(allpts)
+    // var respondGroups = d3.nest()
+    //                     // .key(d => d.current_city)
+    //                     .key(d=>d.ID)
+    //                     .entries(dataset)
+
+    // var ptsGroup = svg.append("g")
+    //                     .attr("class",'points')
+
+    // var peopleGroup = ptsGroup.selectAll("g")
+    //                         .data(respondGroups)
+    //                         .enter()
+    //                         .append("g")
+    // peopleGroup.selectAll("circle")
+    //             .data(d=>d.values.filter(d=>(d.grouping=='moves200')&&(d.city_8 == citySelector)))
+    //             .enter()
+    //             .append("circle")
+    //             .attr("cx", d => projection([d.lat, d.lon])[0])
+    //             .attr("cy", d=> projection([d.lat, d.lon])[1])
+    //             .attr("r", 2.5)
+    //             .attr("fill",function(d){var color = colorDict[d.location_country]
+    //                         // console.log(d)
+    //                     return color})
+    //             // .style("fill", d=> colorTypes[d.grouping])  
+    //             .style("opacity", 0.5)
+    //             .on("mouseover", function(d) {
+    //                     //Update the tooltip position and value
+    //                     d3.select("#tooltip")
+    //                         .select("#val")
+    //                         .text(" Respondent " + d.ID + " is from " + d.orig_country_103 + " now live in " + d.city_8)
+    //                     //Show the tooltip
+    //                     d3.select("#tooltip").classed("hidden", false);
+    //                     })
+    //             .on("mouseout", function() {
+    //                     //Hide the tooltip
+    //                     d3.select("#tooltip").classed("hidden", true);});
+    // console.log(respondGroups)
+    // peopleGroup.append("path")
+    //                     .datum(d=>d.values.filter(d=>(d.grouping=='moves200')&&(d.city_8 == citySelector)))
+    //                     .attr("class","line")
+    //                     .attr("d",line)
+    //                     .attr("fill","none")
+    //                     .attr("stroke-width",.15)
+    //                     .attr("stroke", "black")
+    //                     .attr("opacity",0.7)
+    
+    // peopleGroup.selectAll("text")
+    //             .data(d=>d.values.filter(d=>(d.grouping=='moves200')&&(d.city_8 == citySelector)&&(d.dist>1000)))
+    //             .enter()
+    //             .append("text")
+    //             // .attr("class","migration-text")
+    //             .attr("x", d => projection([d.lat, d.lon])[0])
+    //             .attr("y", d=> projection([d.lat, d.lon])[1])
+    //             .text(d=>d.location_l+", "+d.location_country)
+    ///MIGRATIONS // //
+    dataLines = migr1;
+    
+    function clamp(num, min, max) {
+            return num <= min 
+                ? min 
+                : num >= max 
+                ? max 
+                : num
+    }
+
+    var locGroups = d3.nest()
+                        .key(d=>d.location_pair_id)
+                        .entries(dataLines)
+
+    var line = d3.line()
+                .x(function(d){
+                    // console.log(projection([d.lat, d.lon]))
+                    return projection([d.lat, d.lon])[0]})
+                .y(d => projection([d.lat, d.lon])[1]);
+    
+    var line1 = svg.append("g")
+                    .attr("class",'migration1')
+    
+    /* CHANGE LINE VISUALIZATION */
+    var lineGroup = line1.selectAll("g")
+                        // .data(locGroups)
+                        .data(locGroups.filter(function(d){
+                            var filter = d.values[0].city_8 == citySelector
+                            return filter
+                        }))
+
+                        .enter()
+                        .append("g")
+                        .attr("class","lines")
+                        // .attr("stroke", d=>colorDict[d.values[0].country])
+                        // .attr("stroke", d=>colorReasons[d.values[0].out_thm]) //change color to reasons
+                        // .attr("stroke", d=>colorURACMS[d.values[0].Q100_1_URX]) //change color to urban rural, ACMS response definition
+                        // .attr("stroke", d=>colorURACMS[d.values[0].Q100_1_URX]) //change color to urban rural, UN WPP definition
+                        // .attr("stroke", d=>colorURX[d.values[0].Q100_1_URX]) //change color to urban rural, discrepancies
+                        .attr("stroke", d=>colorReasons[d.values[0].out_thm]) //change color to reasons
+                        // .attr("stroke-width", (d)=>d.values[0].num_moves*3)
+                        .attr("stroke-width", (d)=>d.values[0].move_count_out*3)
+
+                        
+            
+    lineGroup.append("path")
+            .datum(function(d){
+                var datalayer = d.values
+                return datalayer})
+            // .attr("class","line")
+            .attr("d",line)
+            .attr("fill","none")
+            .attr("opacity",0.5)
+            .attr("id",function(d,i){
+                return "line"+i
+            })
+    
+    // / Points for locations 
+
+    var points = svg.append("g")
+                        // .attr("class","migration-text")
+
+    var ptsGrp = points.selectAll("g")
+                        .data(locGroups.filter(function(d){
+                            var filter = d.values[0].city_8 == citySelector
+                            // console.log(filter)
+                            return filter
+                        }))
+                        .data(locGroups)
+                        .enter()
+                        .append("g")
+                        .attr("fill", d=>colorReasons[d.values[0].in_thm])
+                        .attr("stroke", d=>colorReasons[d.values[0].in_thm])
+
+        
+        ptsGrp.selectAll("circle")
+            .data(d=>d.values.filter(d=>(d.city_8==citySelector)))
+            .enter()
+            .append("circle")
+            .attr("cx", function(d){
+                var value = d
+                var xloc = projection([d.lat, d.lon])[0] 
+                // console.log(value)
+                return xloc 
+            })
+            .attr("cy", d=> projection([d.lat, d.lon])[1])
+            // .text(d=>d.loc2+","+d.country)
+            // .attr("r", 1.5)
+            .attr("r", 1.5)
+            .attr("stroke","none")
+            .attr("stroke-width",0)
+            .attr("fill","#969696")
+            // .attr("fill", d=>colorReasons[d.values[0].in_thm])
+    
+        ptsGrp.selectAll("text")
+            .data(d=>d.values.filter(d=>(d.city_8==citySelector)&&(d.num_moves==1)))
+            .enter()
+            .append("text")
+            .attr("x", function(d){
+                var value = d
+                var xloc = projection([d.lat, d.lon])[0] 
+                // console.log(value)
+                return xloc 
+            })
+            .attr("y", d=> projection([d.lat, d.lon])[1])
+            .text(d=>d.loc1+","+d.country)
+            .attr("fill","#000000")
+            .attr("stroke-width",0)
+
+        ptsGrp.selectAll("g")
+            .data(d=>d.values.filter(d=>(d.city_8==citySelector)))
+            .enter()
+            .append("circle")
+            .attr("cx", function(d){
+                var value = d
+                var xloc = projection([d.lat, d.lon])[0] 
+                // console.log(value)
+                return xloc 
+            })
+            .attr("cy", d=> projection([d.lat, d.lon])[1])
+            .attr("r", function(d){
+                var value = d
+                var rad1 = 1+d.move_count_in*6
+                // var rad2 = clamp(rad1, 0, 20) // Accra
+                var rad2 = clamp(rad1, 0, 8.888) // Nairobi
+                return rad2
+            })
+            // .attr("r", 8)
+            .attr("opacity",0.2)
+            // .attr("fill","none")
+            .attr("stroke-width",1)
+        
+        
+
+
+    
+    // // // // MIGRATIONS 2 // //
+    // dataLines2 = migr2;
+
+    // console.table(dataLines2,["location_pair_id","lat","lon","city_8","num_moves"])
+
+    // var locGroups2 = d3.nest()
+    //                     .key(d=>d.location_pair_id)
+    //                     .entries(dataLines2)
+    // console.log(locGroups2)
+
+    // var line2 = d3.line()
+    //             .x(function(d){
+    //                 // console.log(projection([d.lat, d.lon]))
+    //                 return projection([d.lat, d.lon])[0]})
+    //             .y(d => projection([d.lat, d.lon])[1]);
+    
+    // var line2 = svg.append("g")
+    //                 .attr("class",'migration2')
+
+    // var lineGroup2 = line2.selectAll("g")
+    //                     .data(locGroups2.filter(d=>d.values[0].city_8 == 'Nairobi'))
+    //                     .enter()
+    //                     .append("g")
+    //                     .attr("stroke", 'black')
+    //                     .style("stroke-dasharray", ("2, 3"))
+    //                     .attr("stroke-width", (d)=>d.values[0].num_moves*.25)
+    //                     // .attr("stroke", d=>colorDict[d.values[0].country])
+
+    // lineGroup2.append("path")
+    //         .datum(d=>d.values)
+    //         .attr("class","line")
+    //         .attr("d",line)
+    //         .attr("fill","none")
+    //         .attr("stroke-width",0.5)
+    //         .attr("stroke-width",function(d){
+    //             // console.log((d)=>d.values[0])
+    //         })
+
+
+
+    };
+
+    
+
+
+    
+
+    
+</script>
+</body>
+</html>
