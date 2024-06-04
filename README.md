@@ -3,6 +3,7 @@ Jupyter Notebooks and other relevant files for the analysis and visualization fo
 
 # Glossary
 Abbrevation | Meaning
+--- | ---
 UR        | Urban-Rural
 UR_R      | Reasons 
 level1    | Most Recent Locations
