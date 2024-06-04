@@ -2,7 +2,7 @@
 Jupyter Notebooks and other relevant files for the analysis and visualization for Atlas of Migration
 
 # Glossary
-Abbrevation | Meaning
+Abbreviation | Meaning
 --- | ---
 UR        | Urban-Rural
 UR_R      | Reasons 
