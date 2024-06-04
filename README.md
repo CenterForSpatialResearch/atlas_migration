@@ -5,10 +5,10 @@ This repository Jupyter Notebooks, D3/Adobe Illustrator visualizations, and othe
 
 # On-Boarding
 ## Glossary
-File Abbreviation | Meaning |
---- | --- |
+File Abbreviation | Meaning | Example
+--- | --- | ---
 UR        | Urban-Rural | 
-UR_R      | Reasons     |
+UR_R      | Urban-Rural & Reasons |
 origin    | Birthplace  |
 level1    | Most Recent Location (before Current Location) |
 level12   | All Locations (used in the 2021 Star Charts). This does not include some of the intermediate locations that were cleaned up 2023-2024 |
