@@ -5,11 +5,18 @@ This repository Jupyter Notebooks, D3/Adobe Illustrator visualizations, and othe
 
 # On-Boarding
 ## Glossary
-File Abbreviation | Meaning | Example
+Term / Abbreviation | Meaning | Example
 --- | --- | ---
-UR        | Urban-Rural | 
-UR_R      | Urban-Rural & Reasons |
-origin    | Birthplace  |
+O, origin    | Birthplace  |
 level1    | Most Recent Location (before Current Location) |
 level12   | All Locations (used in the 2021 Star Charts). This does not include some of the intermediate locations that were cleaned up 2023-2024 |
-destination | Current Location (in 2021) |
+D, destination | Current Location (in March-April 2021) |
+trajectory | Path of all locations of residence from birthplace (origin) to current location (destination} |
+spread | Connections to other places outside of trajectory, such as family members or property owned in other cities |
+aspiration | Intended future trajectory |
+UR        | Urban-Rural | 
+UR_R      | Urban-Rural & Reasons |
+A, inR    | "In-Reason," or the Reason for Locating a location on the trajectory. |
+B, outR   | "Out-Reason," of the Reason for Leaving a location on the trajectory. |
+
+
