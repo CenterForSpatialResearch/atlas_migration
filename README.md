@@ -14,9 +14,10 @@ D, destination | Current Location (in March-April 2021) |
 trajectory | Path of all locations of residence from birthplace (origin) to current location (destination} |
 spread | Connections to other places outside of trajectory, such as family members or property owned in other cities |
 aspiration | Intended future trajectory |
-UR        | Urban-Rural | 
-UR_R      | Urban-Rural & Reasons |
-A, inR    | "In-Reason," or the Reason for Locating a location on the trajectory. |
-B, outR   | "Out-Reason," of the Reason for Leaving a location on the trajectory. |
+UR        | "Urban-Rural;" the data should have attributes on the urban-rural classification, based on "100: Village, City, or Town" in the survey and classifying CIESIN's WPP raster based the U.N. DEGURBA definition.  |
+UR_R      | "Urban-Rural & Reasons; the data should have both urban-rural classification and reasons for leaving or locating" |
+R         | "Reasons;" reasons for leaving or locating a location on the trajectory.
+A, inR    | "In-Reason;" or the Reason for Locating a location on the trajectory. |
+B, outR   | "Out-Reason;" of the Reason for Leaving a location on the trajectory. |
 
 
