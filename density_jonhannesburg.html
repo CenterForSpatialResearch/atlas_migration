@@ -219,36 +219,6 @@
                 g.selectAll("path").attr("d", line);
             }
 
-            // Legend
-            const legendContainer = d3.select("#legend-container");
-            const legend = legendContainer.append("svg")
-                .attr("width", 200)
-                .attr("height", 200);
-
-            const legendData = [
-                { category: "Village", color: '#98b759' },
-                { category: "Town", color: '#e0c300' },
-                { category: "City", color: '#f8961d' }
-            ];
-
-            legend.selectAll("rect")
-                .data(legendData)
-                .enter()
-                .append("rect")
-                .attr("x", 0)
-                .attr("y", (d, i) => i * 20)
-                .attr("width", 10)
-                .attr("height", 10)
-                .attr("fill", d => d.color);
-
-            legend.selectAll("text")
-                .data(legendData)
-                .enter()
-                .append("text")
-                .attr("x", 20)
-                .attr("y", (d, i) => i * 20 + 9)
-                .text(d => d.category)
-                .attr("class", "legend-text");
         }
 
 // Legend and Chart
