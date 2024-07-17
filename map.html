@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Map Visualization</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <!-- D3.js -->
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+
+    <style>
+        #map { height: 600px; }
+    </style>
+</head>
+<body>
+    <div id="filters">
+        <label for="citySelect">Select City:</label>
+        <select id="citySelect">
+            <option value="all">All</option>
+            <option value="Accra">Accra</option>
+            <option value="Nairobi">Nairobi</option>
+            <option value="Johannesburg">Johannesburg</option>
+        </select>
+
+        <label for="neighborhoodSelect">Select Neighborhood:</label>
+        <select id="neighborhoodSelect">
+            <option value="all">All</option>
+        </select>
+    </div>
+    <div id="map"></div>
+
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([0, 0], 6); // Centered globally
+
+        // Add a tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // SVG layer
+        L.svg().addTo(map);
+
+       // Function to update positions
+function projectPoint(lat, lon) {
+    var point = map.latLngToLayerPoint(new L.LatLng(lat, lon));
+    return [point.x, point.y];
+}
+
+// Load data
+const dataFiles = [
+    { type: 'csv', path: "data/star_all_distances.csv" },
+    { type: 'csv', path: "data/level1_migrations_UR.csv" },
+    { type: 'csv', path: "data/origin_migrations_UR.csv" }
+];
+
+const dataPromises = dataFiles.map(file => {
+    return d3.csv(file.path).then(data => {
+        return data.map(d => {
+            // Clean up the data: trim whitespace from string fields
+            d.city_8 = d.city_8 ? d.city_8.trim() : '';
+            d.neighborhood_9 = d.neighborhood_9 ? d.neighborhood_9.trim() : '';
+            return d;
+        });
+    }).catch(error => {
+        console.error(`Error loading CSV file: ${file.path}`, error);
+        return null;
+    });
+});
+
+Promise.all(dataPromises).then(data => {
+    if (data.includes(null)) {
+        console.error('One or more data files failed to load.');
+        return;
+    }
+    ready(data);
+    console.log('Data loaded:', data); // Check what's inside your data
+}).catch(error => {
+    console.error('Error loading data:', error);
+});
+
+function ready([allpts, migr1, originMigr]) {
+    console.log('Data loaded', {allpts, migr1, originMigr});
+
+    var svg = d3.select("#map").select("svg");
+    var g = svg.append("g").attr("class", "leaflet-zoom-hide");
+
+    // Draw migration paths
+    var line = d3.line()
+        .x(d => projectPoint(d.lon, d.lat)[0])
+        .y(d => projectPoint(d.lon, d.lat)[1]);
+
+    function updateMap(city, neighborhood) {
+        g.selectAll("path").remove();
+
+        console.log('Initial Data:', migr1); // Initial data
+        let filteredData = migr1;
+
+        if (city !== "all") {
+            filteredData = filteredData.filter(d => {
+                const cityMatch = d.city_8.toLowerCase() === city.toLowerCase();
+                console.log(`City filter - comparing "${d.city_8}" with "${city}": ${cityMatch}`);
+                return cityMatch;
+            });
+            console.log(`Filtered Data by City (${city}):`, filteredData);
+        }
+
+        if (neighborhood !== "all") {
+            filteredData = filteredData.filter(d => {
+                if (!d.neighborhood_9) {
+                    console.log(`Skipping undefined neighborhood for entry:`, d);
+                    return false;
+                }
+                const neighborhoodMatch = d.neighborhood_9.toLowerCase() === neighborhood.toLowerCase();
+                console.log(`Neighborhood filter - comparing "${d.neighborhood_9}" with "${neighborhood}": ${neighborhoodMatch}`);
+                return neighborhoodMatch;
+            });
+            console.log(`Filtered Data by Neighborhood (${neighborhood}):`, filteredData);
+        }
+
+        console.log('Filtered Data for Map:', filteredData); // Debugging statement
+
+        if (filteredData.length > 0) {
+            var locGroups = d3.group(filteredData, d => d.neighborhood_9);
+
+            locGroups.forEach((values, key) => {
+                console.log(`Drawing path for neighborhood: ${key}`, values);
+                g.append("path")
+                    .datum(values)
+                    .attr("class", "line")
+                    .attr("d", line)
+                    .attr("fill", "none")
+                    .attr("stroke", "#ff00f7")
+                    .attr("stroke-width", 2)
+                    .attr("opacity", 0.7);
+            });
+
+            const firstEntry = filteredData[0];
+            const lat = parseFloat(firstEntry.orig_lat);
+            const lon = parseFloat(firstEntry.orig_lon);
+
+            if (!isNaN(lat) && !isNaN(lon)) {
+                map.setView([lat, lon], 10); // Set zoom level closer to 10
+            } else {
+                map.setView([0, 0], 4); // Center globally if no valid coordinates
+            }
+        } else {
+            map.setView([0, 0], 8); // Center globally if no data
+        }
+    }
+
+    function updateNeighborhoodOptions(city) {
+        const neighborhoodSelect = document.getElementById('neighborhoodSelect');
+        neighborhoodSelect.innerHTML = '<option value="all">All</option>'; // Reset options
+
+        let filteredData = allpts;
+        if (city !== "all") {
+            filteredData = allpts.filter(d => d.city_8 && d.city_8.toLowerCase() === city.toLowerCase());
+        }
+
+        console.log('Filtered Data for Neighborhoods:', filteredData); // Debugging statement
+
+        const neighborhoods = Array.from(new Set(filteredData.map(d => d.neighborhood_9).filter(n => n)));
+        console.log('Neighborhoods:', neighborhoods); // Debugging statement
+
+        neighborhoods.forEach(neighborhood => {
+            if (neighborhood) {
+                const option = document.createElement('option');
+                option.value = neighborhood;
+                option.textContent = neighborhood;
+                neighborhoodSelect.appendChild(option);
+            }
+        });
+    }
+
+    function initCitySelect(data) {
+        const citySelect = document.getElementById('citySelect');
+        citySelect.addEventListener('change', function() {
+            const city = this.value;
+            updateNeighborhoodOptions(city);
+            updateMap(city, document.getElementById('neighborhoodSelect').value);
+        });
+    }
+
+    // Initialize neighborhood options and map with all cities' data
+    updateNeighborhoodOptions("all");
+    updateMap("all", "all");
+
+    // Call initCitySelect after data is loaded
+    initCitySelect(allpts);
+
+    // Reposition elements on map view reset and zoom
+    map.on("viewreset", reset);
+    map.on("zoomend", reset);
+    reset();
+
+    function reset() {
+        g.selectAll("path").attr("d", line);
+    } 
+}
+    </script>
+</body>
+</html>
