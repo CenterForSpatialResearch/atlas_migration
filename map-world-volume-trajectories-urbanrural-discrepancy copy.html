@@ -224,6 +224,8 @@
                     // console.log(projection([d.lat, d.lon]))
                     return projection([d.lat, d.lon])[0]})
                 .y(d => projection([d.lat, d.lon])[1]);
+
+    
     // WORLD // //
     // Bind data and create one path per GeoJSON feature
     var worldMap = svg.append("g")
