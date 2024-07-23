@@ -2,8 +2,7 @@
 
 This repository Jupyter Notebooks, D3/Adobe Illustrator visualizations, and other relevant files in support of the collaboration by Center for Spatial Research (CSR) and the African Center of Migration and Society (ACMS) on the Atlas of Uncertainty.
 
-# On-Boarding
-## Glossary
+# Glossary
 Term / Abbreviation | Meaning | Example
 --- | --- | ---
 O, origin    | Birthplace  |
@@ -19,4 +18,5 @@ R         | "Reasons;" reasons for leaving or locating a location on the traject
 A, inR    | "In-Reason;" or the Reason for Locating a location on the trajectory. |
 B, outR   | "Out-Reason;" of the Reason for Leaving a location on the trajectory. |
 
-
+## File Setup
+There is reference file that needs to be added inorder for some maps to work. Please see .gitignore file. 
