@@ -222,15 +222,16 @@
     
         .defer(d3.json, "data/ref/countries-10m.geo.json")//high resolution
         //  .defer(d3.json, "data/ref/world_countries.geo.json")// low resolution world
-        // .defer(d3.json, "data/ref/world-urban-polygons.geojson")
-        
-       
-        // .defer(d3.csv, "data/level1_migrations.csv") // for last migration location 
-        .defer(d3.csv, "data/level1_migrations_UR.csv") // for last migration location  (with UN Urban-Rural Designation)
-        // .defer(d3.csv,"data/origin_migrations.csv") // for origin locations
+        .defer(d3.json, "data/ref/world-urban-polygons.geojson")
         .defer(d3.json,"data/ref/h2o-.geo.json")
-        .defer(d3.csv, "data/star_all_distances.csv")
+
+        // .defer(d3.csv, "data/level1_migrations.csv") // for last migration location 
+        // .defer(d3.csv, "data/level1_migrations_UR.csv") // for last migration location  (with UN Urban-Rural Designation)
+        
+        // .defer(d3.csv, "data/star_all_distances.csv")
+       
         .defer(d3.csv,"data/origin_migrations_UR.csv") // for origin locations (with UN Urban-Rural Designation)
+        .defer(d3.csv,"data/origin_migrations.csv") // for origin locations
         // .defer(d3.csv, "data/level2_migrations.csv")
         
         // .defer(d3.csv, "flights.csv", typeFlight)
@@ -348,6 +349,7 @@
     //             .attr("x", d => projection([d.lat, d.lon])[0])
     //             .attr("y", d=> projection([d.lat, d.lon])[1])
     //             .text(d=>d.location_l+", "+d.location_country)
+    
     ///MIGRATIONS // //
     dataLines = migr1;
 
