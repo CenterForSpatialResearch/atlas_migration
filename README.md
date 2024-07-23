@@ -1,5 +1,4 @@
 # Atlas of Uncertainty, 2023-2024
-*Prepared by Graduate Research Assistant, Will Cao (wpc2106@columbia.edu) June 2024 *
 
 This repository Jupyter Notebooks, D3/Adobe Illustrator visualizations, and other relevant files in support of the collaboration by Center for Spatial Research (CSR) and the African Center of Migration and Society (ACMS) on the Atlas of Uncertainty.
 
