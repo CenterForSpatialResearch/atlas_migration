@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Map and Star Chart</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style type="text/css">
+        body {
+            font-family: univers;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .title {
+            font-family: "StanhopeRR Bold";
+            font-size: 18px;
+        }
+
+        #tooltip {
+            position: fixed;
+            right: 20px;
+            width: 200px;
+            height: auto;
+            padding: 10px;
+            background-color: #ffffff;
+            outline: black solid 1px;
+        }
+
+        #tooltip.hidden {
+            display: none;
+        }
+
+        #tooltip p {
+            margin: 0px;
+            font-size: 16px;
+            line-height: 20px;
+        }
+
+        .scale-path {
+            font-size: 11px;
+            fill: #969696;
+        }
+
+        .legend-text {
+            font-size: 11px;
+        }
+
+        .scale {
+            stroke: #969696;
+            stroke-width: 0.25px;
+        }
+
+        .scale-dashed {
+            stroke: #969696;
+            stroke-width: 0.25px;
+            stroke-dasharray: 3, 3;
+        }
+
+        #chart-container {
+            margin-right: 20px;
+        }
+
+        #legend-container {
+            margin-left: 20px;
+        }
+
+        #map {
+            height: 600px;
+            width: 100vw;
+        }
+
+        #filter {
+            top: 10px;
+            left: 10px;
+            background: white;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .legend {
+            line-height: 18px;
+            color: #555;
+        }
+
+        .legend i {
+            width: 18px;
+            height: 18px;
+            float: left;
+            margin-right: 8px;
+            opacity: 0.7;
+        }
+
+        #legend {
+            padding: 40px;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .map-container {
+            position: relative;
+        }
+
+        .map-line {
+            position: absolute;
+            stroke: black;
+            stroke-width: 1px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="tooltip" class="hidden">
+        <p><span id="val"></span></p>
+    </div>
+
+    <div id="filter-container">
+        <label for="city-select">Select City: </label>
+        <select id="city-select">
+            <option value="all">All</option>
+            <option value="Johannesburg">Johannesburg</option>
+            <option value="Nairobi">Nairobi</option>
+            <option value="Accra">Accra</option>
+        </select>
+
+        <label for="neighborhood-select">Select Neighborhood: </label>
+        <select id="neighborhood-select">
+            <option value="all">All</option>
+        </select>
+    </div>
+    <div id="map"></div>
+    <div id="legend">
+        <div id="chart-container"></div>
+        <div id="legend-container"></div>
+    </div>
+
+    <script type="text/javascript">
+        var width = 1000;
+        var height = 600;
+
+        var projection = d3.geoMercator()
+            .center([0, 20])
+            .scale(150)
+            .translate([width / 2, height / 2]);
+
+        var path = d3.geoPath()
+            .projection(projection);
+
+        var svg = d3.select("#map").append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        var cityColor = "#f8961d";
+        var townColor = "#e0c300";
+        var villageColor = "#98b759";
+
+        var cityCoordinates = {
+            'Johannesburg': [28.0473, -26.2041],
+            'Nairobi': [36.8219, -1.2921],
+            'Accra': [-0.1870, 5.6037]
+        };
+
+        var validNairobiNeighborhoods = new Set(["Kawangware", "Kayole", "Ongata Rongai"]);
+
+        var distanceMarkers = {
+            "Nairobi": [
+                { location: "Nairobi", dist: 2900, name: "Johannesburg, South Africa" },
+                { location: "Nairobi", dist: 500, name: "Kampala, Uganda" },
+                { location: "Nairobi", dist: 60, name: "Machakos, Kenya" }
+            ],
+            "Accra": [
+                { location: "Accra", dist: 400, name: "Lagos, Nigeria" },
+                { location: "Accra", dist: 4300, name: "Nairobi, Kenya" },
+                { location: "Accra", dist: 160, name: "Lome, Togo" }
+            ],
+            "Johannesburg": [
+                { location: "Johannesburg", dist: 3456, name: "Addis Ababa, Ethiopia" },
+                { location: "Johannesburg", dist: 450, name: "Maputo, Mozambique" },
+                { location: "Johannesburg", dist: 50, name: "Pretoria, South Africa" }
+            ]
+        };
+
+        var polylines = []; // Array to store polylines
+        var neighborhoodsByCity = {}; // Object to store neighborhoods by city
+
+        Promise.all([
+            d3.json("data/ref/countries-10m.geo.json"), // High resolution
+            d3.json("data/ref/world_countries.geo.json"), // Low resolution
+            d3.json("data/ref/world-urban-polygons.geojson"),
+            d3.json("data/ref/h2o-.geo.json"),
+            d3.csv("data/star_all_distances.csv"),
+            d3.csv("data/level1_migrations_UR.csv"),
+            d3.csv("data/origin_migrations_UR.csv") // This data will have the data of num_move and the type of migration
+        ]).then(function (data) {
+            var highResWorld = data[0];
+            var lowResWorld = data[1];
+            var urbanPolygons = data[2];
+            var waterBodies = data[3];
+            var allpts = data[4];
+            var migrations = data[5];
+            var originMigrations = data[6];
+
+            svg.append("g")
+                .selectAll("path")
+                .data(highResWorld.features)
+                .enter().append("path")
+                .attr("d", path)
+                .attr("fill", "#ccc")
+                .attr("stroke", "#fff");
+
+            var locationToNeighborhood = createLocationToNeighborhoodMapping(allpts);
+            populateNeighborhoodsByCity(migrations, locationToNeighborhood);
+            ready(migrations, originMigrations, locationToNeighborhood);
+        }).catch(function (error) {
+            console.error('Error loading data:', error);
+        });
+
+        function createLocationToNeighborhoodMapping(data) {
+            var mapping = {};
+            data.forEach(function (d) {
+                mapping[d.location] = d.neighborhood_9;
+            });
+            return mapping;
+        }
+
+        function populateNeighborhoodsByCity(migrations, locationToNeighborhood) {
+            migrations.forEach(function (migration) {
+                var city = migration.city_8;
+                var location = migration.location;
+                var neighborhood = locationToNeighborhood[location] || 'Unknown';
+
+                if (city === 'Nairobi' && !validNairobiNeighborhoods.has(neighborhood)) {
+                    return; // Skip neighborhoods not in the valid set for Nairobi
+                }
+
+                if (!neighborhoodsByCity[city]) {
+                    neighborhoodsByCity[city] = new Set();
+                }
+                neighborhoodsByCity[city].add(neighborhood);
+            });
+
+            console.log(neighborhoodsByCity); // Debugging log to check the neighborhoods by city
+        }
+
+        function updateNeighborhoodDropdown(city) {
+            var neighborhoodSelect = document.getElementById('neighborhood-select');
+            neighborhoodSelect.innerHTML = '<option value="all">All</option>'; // Reset options
+
+            if (neighborhoodsByCity[city]) {
+                neighborhoodsByCity[city].forEach(function (neighborhood) {
+                    var option = document.createElement('option');
+                    option.value = neighborhood;
+                    option.text = neighborhood;
+                    neighborhoodSelect.appendChild(option);
+                });
+            }
+        }
+
+        function getColorByQ100(value) {
+            if (value === 'City') return cityColor;
+            if (value === 'Town') return townColor;
+            if (value === 'Village') return villageColor;
+            return null; // Return null if no match
+        }
+
+        function ready(migrations, originMigrations, locationToNeighborhood) {
+            console.log(locationToNeighborhood); // Debugging log to check the location to neighborhood mapping
+
+            // Create a mapping for the Q100_1_URACMS column
+            var locationToQ100 = {};
+            originMigrations.forEach(function (d) {
+                locationToQ100[d.location] = d.Q100_1_URACMS;
+            });
+
+            // Draw lines from selected cities to each destination using migrations
+            migrations.forEach(function (migration) {
+                var city = migration.city_8;
+                if (cityCoordinates[city]) {
+                    var location = migration.location; // Get the location from migration data
+                    var neighborhood = locationToNeighborhood[location] || 'Unknown';
+                    if (city === 'Nairobi' && !validNairobiNeighborhoods.has(neighborhood)) {
+                        return; // Skip neighborhoods not in the valid set for Nairobi
+                    }
+
+                    var q100Value = locationToQ100[location];
+                    var color = getColorByQ100(q100Value);
+
+                    var startPoint = projection(cityCoordinates[city]); // City coordinates
+                    var endPoint = projection([+migration.lat, +migration.lon]); // Ensure the coordinates are numbers
+
+                    console.log('Drawing line from', startPoint, 'to', endPoint, 'with weight', migration.num_moves, 'color', color); // Debugging log
+                    console.log('Path:', {
+                        start: startPoint,
+                        end: endPoint,
+                        neighborhood: neighborhood,
+                        location: location,
+                        q100Value: q100Value
+                    });
+
+                    var line = svg.append("line")
+                        .attr("x1", startPoint[0])
+                        .attr("y1", startPoint[1])
+                        .attr("x2", endPoint[0])
+                        .attr("y2", endPoint[1])
+                        .attr("stroke", color)
+                        .attr("stroke-width", migration.num_moves)
+                        .attr("opacity", 0.7)
+                        .datum({ city: city, neighborhood: neighborhood, lon: migration.lon, lat: migration.lat }); // Save coordinates for zoom
+
+                    polylines.push(line); // Store the line
+                }
+            });
+
+            // Initialize filters
+            filterPolylines();
+        }
+
+        document.getElementById('city-select').addEventListener('change', function () {
+            var selectedCity = this.value;
+            updateNeighborhoodDropdown(selectedCity);
+            filterPolylines();
+            zoomToCity(selectedCity);
+        });
+
+        document.getElementById('neighborhood-select').addEventListener('change', function () {
+            filterPolylines();
+        });
+
+        function filterPolylines() {
+            var selectedCity = document.getElementById('city-select').value.toLowerCase();
+            var selectedNeighborhood = document.getElementById('neighborhood-select').value.toLowerCase();
+
+            svg.selectAll("line").remove(); // Remove all lines first
+
+            polylines.forEach(function (line) {
+                var cityMatches = selectedCity === 'all' || line.datum().city.toLowerCase() === selectedCity;
+                var neighborhoodMatches = selectedNeighborhood === 'all' || line.datum().neighborhood.toLowerCase() === selectedNeighborhood;
+                if (cityMatches && neighborhoodMatches) {
+                    svg.append("line")
+                        .attr("x1", projection(cityCoordinates[line.datum().city])[0])
+                        .attr("y1", projection(cityCoordinates[line.datum().city])[1])
+                        .attr("x2", projection([+line.datum().lat, +line.datum().lon])[0])
+                        .attr("y2", projection([+line.datum().lat, +line.datum().lon])[1])
+                        .attr("stroke", line.attr("stroke"))
+                        .attr("stroke-width", line.attr("stroke-width"))
+                        .attr("opacity", line.attr("opacity"));
+                }
+            });
+
+            console.log("Filtered for city: " + selectedCity + " and neighborhood: " + selectedNeighborhood);
+        }
+
+        function zoomToCity(city) {
+            var zoomLevel = 2; // Default zoom level for 'all'
+            var center = [0, 20]; // Default center for 'all'
+
+            if (city !== 'all' && cityCoordinates[city]) {
+                zoomLevel = 6; // Adjust zoom level as needed
+                center = cityCoordinates[city];
+            }
+
+            projection
+                .center(center)
+                .scale(150 * zoomLevel); // Adjust scale for zoom
+
+            svg.selectAll("path")
+                .attr("d", path); // Redraw paths
+
+        }
+
+        var zoom = d3.zoom()
+            .scaleExtent([1, 8])
+            .on("zoom", zoomed);
+
+        svg.call(zoom);
+
+        function zoomed(event) {
+            var { transform } = event;
+
+            svg.selectAll("path")
+                .attr("transform", transform);
+
+            svg.selectAll("line")
+                .attr("transform", transform);
+        }
+
+        var chartWidth = 300;
+        var chartHeight = 300;
+        var padding = 10;
+
+        var categoryColors = {
+            "City": cityColor,
+            "Town": townColor,
+            "Village": villageColor
+        };
+
+        var rowConverter = function (d) {
+            return {
+                resp_id: d.ID,
+                city: d.location_l,
+                nearcity: d.location_near,
+                country_location: d.location_country,
+                country_orig: d.orig_country_103,
+                num_moves: d.number_moves_200,
+                cumulative_dist: parseFloat(d.dist),
+                current_city: d.city_8,
+                neighborhood: d.neighborhood_9,
+                ur_acms: d.Q100_1_URACMS
+            };
+        };
+
+        var radialScale = d3.scaleLog()
+            .domain([.002, 10000])
+            .range([0, chartWidth / 2 - padding]);
+
+        var ticks_set = [.01, 10, 100, 1000, 10000];
+
+        function angleToCoordinate(angle, value) {
+            var x = Math.cos(angle) * radialScale(value);
+            var y = Math.sin(angle) * radialScale(value);
+            return { "x": x, "y": y }; // Remove offset to center in the group
+        }
+
+        function polarCoords(value, index, list) {
+            var angle = Math.PI / 2 + ((index * 2 * Math.PI) / (list.length));
+            return angleToCoordinate(angle, value);
+        }
+
+        var chartContainer = d3.select("#chart-container");
+        var legendContainer = d3.select("#legend-container");
+
+        function updateChart(selectedCity, selectedNeighborhood) {
+            chartContainer.selectAll("*").remove();
+            legendContainer.selectAll("*").remove();
+
+            var filteredData = dataset.filter(d => (selectedCity === "all" || d.current_city.toLowerCase() === selectedCity) &&
+                (selectedNeighborhood === "all" || d.neighborhood.toLowerCase() === selectedNeighborhood));
+
+            // Filter out data points with NaN cumulative_dist
+            filteredData = filteredData.filter(d => !isNaN(d.cumulative_dist));
+
+            // Sort data first by ur_acms (category/color) and then by cumulative_dist
+            filteredData.sort((a, b) => {
+                if (categoryColors[a.ur_acms] < categoryColors[b.ur_acms]) return -1;
+                if (categoryColors[a.ur_acms] > categoryColors[b.ur_acms]) return 1;
+                return b.cumulative_dist - a.cumulative_dist;
+            });
+
+            var svg = chartContainer.append("svg")
+                .attr("width", 400)
+                .attr("height", 400);
+
+            var circle_group = svg.append("g")
+                .attr("class", "chart")
+                .attr("transform", "translate(" + chartWidth / 2 + "," + chartHeight / 2 + ")"); // Center the group
+
+            var lines = circle_group.append("g")
+                .attr("class", "lines");
+
+            lines.selectAll("line")
+                .data(filteredData)
+                .enter()
+                .append("line")
+                .attr("x1", 0)
+                .attr("x2", (d, i, n) => polarCoords(d.cumulative_dist, i, n).x)
+                .attr("y1", 0)
+                .attr("y2", function (d, i, n) {
+                    var coordinate = polarCoords(d.cumulative_dist, i, n).y;
+                    return coordinate;
+                })
+                .attr("stroke", d => categoryColors[d.ur_acms])
+                .attr("stroke-width", .5)
+                .on("mouseover", function (event, d) {
+                    d3.select("#tooltip")
+                        .select("#val")
+                        .text(d.ur_acms + " dist: " + d.cumulative_dist + " Respondent " + d.resp_id + " is from " + d.city + ", " + d.country_orig + " which is " + d.cumulative_dist + " kilometers away from " + d.current_city);
+                    d3.select("#tooltip").classed("hidden", false);
+                })
+                .on("mouseout", function () {
+                    d3.select("#tooltip").classed("hidden", true);
+                });
+
+            var scale = circle_group.append("g")
+                .attr("class", "scale");
+            scale.selectAll("circle")
+                .data(ticks_set)
+                .enter()
+                .append("circle")
+                .attr("class", "scale")
+                .attr("id", (d, i) => "fixed-dist" + i)
+                .attr("cx", 0)
+                .attr("cy", 0)
+                .attr("fill", "none")
+                .attr("r", d => radialScale(d))
+                .attr("stroke-width", .25);
+
+            scale.selectAll("text")
+                .data(ticks_set)
+                .enter()
+                .append("text")
+                .attr("x", 0)
+                .attr("y", d => -radialScale(d))
+                .text(d => d + " km")
+                .attr("class", "scale-path")
+                .attr("text-anchor", "middle"); // Center the text
+
+            var scale_relative = circle_group.append("g")
+                .attr("class", "scale_rel");
+
+            var dist_markers = distanceMarkers[selectedCity.charAt(0).toUpperCase() + selectedCity.slice(1)] || [];
+
+            scale_relative.selectAll("circle")
+                .data(dist_markers)
+                .enter()
+                .append("circle")
+                .attr("class", "scale-dashed")
+                .attr("id", (d, i) => "cities-dist" + d.dist)
+                .attr("cx", 0)
+                .attr("cy", 0)
+                .attr("fill", "none")
+                .attr("r", function (d) {
+                    return radialScale(d.dist);
+                })
+                .attr("stroke-width", .5);
+
+            scale_relative.selectAll("text")
+                .data(dist_markers)
+                .enter()
+                .append("text")
+                .attr("x", d => -radialScale(d.dist))
+                .attr("y", d => chartHeight / 2 - radialScale(d.dist))
+                .text(d => d.name + ", " + d.dist + " km")
+                .attr("class", "scale-path")
+                .attr("text-anchor", "left");
+
+            var legendData = [
+                { category: "City", color: cityColor },
+                { category: "Town", color: townColor },
+                { category: "Village", color: villageColor }
+            ];
+
+            var legend = legendContainer.append("svg")
+                .attr("width", 200)
+                .attr("height", 200);
+
+            legend.selectAll("rect")
+                .data(legendData)
+                .enter()
+                .append("rect")
+                .attr("x", 0)
+                .attr("y", (d, i) => i * 20)
+                .attr("width", 10)
+                .attr("height", 10)
+                .attr("fill", d => d.color);
+
+            legend.selectAll("text")
+                .data(legendData)
+                .enter()
+                .append("text")
+                .attr("x", 20)
+                .attr("y", (d, i) => i * 20 + 9)
+                .text(d => d.category)
+                .attr("class", "legend-text");
+
+            var totalResponses = filteredData.length;
+            legend.append("text")
+                .attr("x", 0)
+                .attr("y", 100)
+                .text("Total Responses: " + totalResponses)
+                .attr("class", "legend-text");
+
+            var categoryCounts = d3.rollup(filteredData, v => v.length, d => d.ur_acms);
+
+            var yOffset = 120;
+            categoryCounts.forEach((count, category) => {
+                legend.append("text")
+                    .attr("x", 0)
+                    .attr("y", yOffset)
+                    .text(category + ": " + count)
+                    .attr("class", "legend-text");
+                yOffset += 20;
+            });
+        }
+
+        var dataset;
+
+        d3.csv("data/star_origins_UR.csv", rowConverter).then(function (data) {
+            dataset = data;
+
+            var cities = Array.from(new Set(data.map(d => d.current_city)));
+            cities.unshift("all"); // Add "all" option
+            var citySelect = d3.select("#city-select");
+
+            citySelect.selectAll("option")
+                .data(cities)
+                .enter()
+                .append("option")
+                .text(d => d)
+                .attr("value", d => d);
+
+            citySelect.on("change", function () {
+                var selectedCity = d3.select(this).property("value").toLowerCase();
+
+                var neighborhoods = Array.from(new Set(dataset.filter(d => selectedCity === "all" || d.current_city.toLowerCase() === selectedCity).map(d => d.neighborhood)));
+                neighborhoods = neighborhoods.filter(n => n !== '-3'); // Exclude "-3" neighborhood
+                neighborhoods.unshift("all"); // Add "all" option
+                var neighborhoodSelect = d3.select("#neighborhood-select");
+
+                neighborhoodSelect.selectAll("option").remove();
+                neighborhoodSelect.selectAll("option")
+                    .data(neighborhoods)
+                    .enter()
+                    .append("option")
+                    .text(d => d)
+                    .attr("value", d => d);
+
+                neighborhoodSelect.on("change", function () {
+                    var selectedNeighborhood = d3.select(this).property("value").toLowerCase();
+                    updateChart(selectedCity, selectedNeighborhood);
+                    filterPolylines(); // Update the map when the neighborhood is changed
+                });
+
+                // Update chart for the first neighborhood
+                neighborhoodSelect.property("value", "all").dispatch("change");
+            });
+
+            // Initial chart rendering for "all" city and "all" neighborhood
+            citySelect.property("value", "all").dispatch("change");
+        }).catch(function (error) {
+            console.error('Error loading or parsing data:', error);
+        });
+    </script>
+</body>
+
+</html>
