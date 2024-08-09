@@ -608,12 +608,16 @@ function updateChart(selectedCity, selectedNeighborhood) {
         return b.cumulative_dist - a.cumulative_dist;
     });
 
-    // Group by neighborhood and sort within each neighborhood to get top 5
-    var neighborhoods = d3.group(filteredData, d => d.neighborhood);
+// Group by neighborhood and sort within each neighborhood to get top 5 by num_moves
+var neighborhoods = d3.group(filteredData, d => d.neighborhood);
     neighborhoods.forEach((places, neighborhood) => {
-        var top5 = places.sort((a, b) => b.cumulative_dist - a.cumulative_dist).slice(0, 5);
-        console.log(`Top 5 places in ${neighborhood}:`, top5);
-    });
+        var top5 = places.sort((a, b) => b.num_moves - a.num_moves).slice(0, 5); // Sort by num_moves
+        console.log(`\nTop 5 places in "${neighborhood}" by number of moves:`);
+        top5.forEach((place, index) => {
+            const type = place.ur_acms === 'City' ? 'City' : place.ur_acms === 'Town' ? 'Town' : 'Village';
+            console.log(`${index + 1}. Respondent ID: ${place.resp_id}, Number of Moves: ${place.num_moves}, Type: ${type}, Location: ${place.city}, ${place.country_orig}`);
+        });
+    });;
 
     var svg = chartContainer.append("svg")
         .attr("width", 400)
