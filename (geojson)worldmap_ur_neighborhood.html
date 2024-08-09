@@ -610,7 +610,10 @@
     var neighborhoods = d3.group(filteredData, d => d.neighborhood);
     neighborhoods.forEach((places, neighborhood) => {
         var top5 = places.sort((a, b) => b.cumulative_dist - a.cumulative_dist).slice(0, 5);
-        console.log(`Top 5 places in ${neighborhood}:`, top5);
+        console.log(`\nTop 5 places in "${neighborhood}":`);
+        top5.forEach((place, index) => {
+            console.log(`${index + 1}. Respondent ID: ${place.resp_id}, Distance: ${place.cumulative_dist} km, Location: ${place.city}, ${place.country_orig}`);
+        });
     });
 
     var svg = chartContainer.append("svg")
@@ -735,7 +738,6 @@
             .text(`Urban-Rural Categorization of migration paths for respondents currently living in ${capitalizeFirstLetter(selectedCity)}, using the WPP definition of "urban" as having 300 or more people per square kilometer.`);
     }
 }
-
 
         function updateLeftLegend(filteredData) {
             var leftLegendContainer = d3.select("#left-legend-container");
