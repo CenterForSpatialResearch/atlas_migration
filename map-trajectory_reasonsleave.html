@@ -285,6 +285,16 @@
         var cityColor = "#f8961d";
         var townColor = "#e0c300";
         var villageColor = "#98b759";
+        
+        var colorReasons = {
+            "Education": "#faa61a", // "#ff00f7"
+            "Work": "#007dc5", // "#17becf"
+            "Housing": "#f26522", // "#fcba03"
+            "Restart": "#21409a", // "#79dc53"
+            "Kin": "#ed1a3b", // "#5cbf75"
+            "Remain": "#cf128c", // "#695DEF"
+            "Safety": "#5fbb46" // "#E12991"
+        };
 
         var cityCoordinates = {
             'Johannesburg': [28.0473, -26.2041],
@@ -388,11 +398,9 @@
             }
         }
 
-        function getColorByQ100(value) {
-            if (value === 'City') return cityColor;
-            if (value === 'Town') return townColor;
-            if (value === 'Village') return villageColor;
-            return null; // Return null if no match
+        // Function to get color based on the out_thm value
+        function getColorByOutThm(out_thm) {
+            return colorReasons[out_thm] || null; // Default to black if not found
         }
 
         function ready(migrations, originMigrations, locationToNeighborhood) {
@@ -414,8 +422,8 @@
                         return; // Skip neighborhoods not in the valid set for Nairobi
                     }
 
-                    var q100Value = locationToQ100[location];
-                    var color = getColorByQ100(q100Value);
+                    var out_thm = migration.out_thm; // Get the out_thm value from your data
+                    var color = getColorByOutThm(out_thm);
 
                     var startPoint = projection(cityCoordinates[city]); // City coordinates
                     var endPoint = projection([+migration.lat, +migration.lon]); // Ensure the coordinates are numbers
@@ -426,7 +434,7 @@
                         end: endPoint,
                         neighborhood: neighborhood,
                         location: location,
-                        q100Value: q100Value
+                        q100Value: locationToQ100[location]
                     });
 
                     var line = svg.append("line")
@@ -540,69 +548,63 @@
                 .attr("transform", transform);
         }
 
-        var chartWidth = 300;
-        var chartHeight = 300;
-        var padding = 10;
+var chartWidth = 300;
+var chartHeight = 300;
+var padding = 10;
 
-        var categoryColors = {
-            "City": cityColor,
-            "Town": townColor,
-            "Village": villageColor
-        };
+var rowConverter = function (d) {
+    return {
+        resp_id: d.ID,
+        city: d.location_l,
+        nearcity: d.location_near,
+        country_location: d.location_country,
+        country_orig: d.orig_country_103,
+        num_moves: d.number_moves_200,
+        cumulative_dist: parseFloat(d.dist),
+        current_city: d.city_8,
+        neighborhood: d.neighborhood_9,
+        ur_acms: d.Q100_1_URACMS,
+        outR: d.out_thm
+    };
+};
 
-        var rowConverter = function (d) {
-            return {
-                resp_id: d.ID,
-                city: d.location_l,
-                nearcity: d.location_near,
-                country_location: d.location_country,
-                country_orig: d.orig_country_103,
-                num_moves: d.number_moves_200,
-                cumulative_dist: parseFloat(d.dist),
-                current_city: d.city_8,
-                neighborhood: d.neighborhood_9,
-                ur_acms: d.Q100_1_URACMS
-            };
-        };
+var radialScale = d3.scaleLog()
+    .domain([.002, 10000])
+    .range([0, chartWidth / 2 - padding]);
 
-        var radialScale = d3.scaleLog()
-            .domain([.002, 10000])
-            .range([0, chartWidth / 2 - padding]);
+var ticks_set = [.01, 10, 100, 1000, 10000];
 
-        var ticks_set = [.01, 10, 100, 1000, 10000];
+function angleToCoordinate(angle, value) {
+    var x = Math.cos(angle) * radialScale(value);
+    var y = Math.sin(angle) * radialScale(value);
+    return { "x": x, "y": y }; // Remove offset to center in the group
+}
 
-        function angleToCoordinate(angle, value) {
-            var x = Math.cos(angle) * radialScale(value);
-            var y = Math.sin(angle) * radialScale(value);
-            return { "x": x, "y": y }; // Remove offset to center in the group
-        }
+function polarCoords(value, index, list) {
+    var angle = Math.PI + ((index * 2 * Math.PI) / (list.length)); // Original angle calculation
+    var rotatedAngle = angle + Math.PI; // Rotate by an additional 90 degrees (π/2 radians)
+    return angleToCoordinate(rotatedAngle, value); // Use the rotated angle
+}
 
-        function polarCoords(value, index, list) {
-            var angle = Math.PI / 2 + ((index * 2 * Math.PI) / (list.length));
-            return angleToCoordinate(angle, value);
-        }
+var chartContainer = d3.select("#chart-container");
+var legendContainer = d3.select("#legend-container");
 
-        var chartContainer = d3.select("#chart-container");
-        var legendContainer = d3.select("#legend-container");
-
-        function updateChart(selectedCity, selectedNeighborhood) {
+function updateChart(selectedCity, selectedNeighborhood) {
     chartContainer.selectAll("*").remove();
     legendContainer.selectAll("*").remove();
     d3.select("#chart-title-container").selectAll("*").remove(); // Clear existing title container
     d3.select("#chart-subtext-container").selectAll("*").remove(); // Clear existing subtext container
 
-    var filteredData = dataset.filter(d => 
-        (selectedCity === "all" || d.current_city.toLowerCase() === selectedCity) &&
-        (selectedNeighborhood === "all" || d.neighborhood.toLowerCase() === selectedNeighborhood)
-    );
+    var filteredData = dataset.filter(d => (selectedCity === "all" || d.current_city.toLowerCase() === selectedCity) &&
+        (selectedNeighborhood === "all" || d.neighborhood.toLowerCase() === selectedNeighborhood));
 
     // Filter out data points with NaN cumulative_dist
     filteredData = filteredData.filter(d => !isNaN(d.cumulative_dist));
 
-    // Sort data first by ur_acms (category/color) and then by cumulative_dist
+    // Sort data first by outR (category/color) and then by cumulative_dist
     filteredData.sort((a, b) => {
-        if (a.ur_acms < b.ur_acms) return -1;
-        if (a.ur_acms > b.ur_acms) return 1;
+        if (a.outR < b.outR) return -1;
+        if (a.outR > b.outR) return 1;
         return b.cumulative_dist - a.cumulative_dist;
     });
 
@@ -635,12 +637,12 @@
             var coordinate = polarCoords(d.cumulative_dist, i, n).y;
             return coordinate;
         })
-        .attr("stroke", d => categoryColors[d.ur_acms])
+        .attr("stroke", d => getColorByOutThm(d.outR))  // Use outR (which is out_thm) for color
         .attr("stroke-width", .5)
         .on("mouseover", function (event, d) {
             d3.select("#tooltip")
                 .select("#val")
-                .text(d.ur_acms + " dist: " + d.cumulative_dist + " Respondent " + d.resp_id + " is from " + d.city + ", " + d.country_orig + " which is " + d.cumulative_dist + " kilometers away from " + d.current_city);
+                .text(d.out_thm + " dist: " + d.cumulative_dist + " Respondent " + d.resp_id + " is from " + d.city + ", " + d.country_orig + " which is " + d.cumulative_dist + " kilometers away from " + d.current_city);
             d3.select("#tooltip").classed("hidden", false);
         })
         .on("mouseout", function () {
@@ -700,283 +702,164 @@
         .attr("class", "scale-path")
         .attr("text-anchor", "left");
 
-    // City-specific examples for each category
-    var cityExamples = {
-        'accra': {
-            'City': ["Madina, Ghana", "Bamako, Mali"],
-            'Town': ["Gushiegu, Ghana", "Enugu, Nigeria"],
-            'Village': ["Yendi, Ghana", "Sokode, Togo"]
-        },
-        'nairobi': {
-            'City': ["Mwanza, Tanzania", "Khartoum, Sudan"],
-            'Town': ["Wote, Kenya", "Garissa, Kenya"],
-            'Village': ["Siaya, Kenya", "Minembwe, D.R.C."]
-        },
-        'johannesburg': {
-            'City': ["Mwanza, Tanzania", "Khartoum, Sudan"],
-            'Town': ["Wote, Kenya", "Garissa, Kenya"],
-            'Village': ["Kranskop, South Africa", "Mzimba, Malawi"]
-        }
-    };
-
-    var examples = cityExamples[selectedCity] || cityExamples[''];
-
     // Update legends
-    updateLeftLegend(filteredData);
-    updateRightLegend(examples, filteredData, selectedCity);
+    updateRightLegend(filteredData);
+
+    // Update chart title and subtitle based on the selected city
+    let cityName, countryName;
+    if (selectedCity === 'nairobi') {
+        cityName = "Nairobi";
+        countryName = "Kenya";
+    } else if (selectedCity === 'accra') {
+        cityName = "Accra";
+        countryName = "Ghana";
+    } else if (selectedCity === 'johannesburg') {
+        cityName = "Johannesburg";
+        countryName = "South Africa";
+    } else {
+        cityName = "City";
+        countryName = "Country";
+    }
 
     if (selectedCity !== 'all') {
         d3.select("#chart-title-container").append("div")
             .attr("class", "chart-title")
-            .text(`Urban vs. Rural Origins to ${capitalizeFirstLetter(selectedCity)}, by density`);
+            .style("text-align", "center")
+            .text(`Compiled reasons to leave most recent city of residence`);
 
         d3.select("#chart-subtext-container").append("div")
             .attr("class", "chart-subtext")
-            .text(`Urban-Rural Categorization of migration paths for respondents currently living in ${capitalizeFirstLetter(selectedCity)}, using the WPP definition of "urban" as having 300 or more people per square kilometer.`);
+            .style("text-align", "center")
+            .text(`for respondents currently living in ${cityName}, ${countryName} using the 200's group of survey columns`);
     }
 }
 
 
-        function updateLeftLegend(filteredData) {
-            var leftLegendContainer = d3.select("#left-legend-container");
-            leftLegendContainer.selectAll("*").remove();
+function updateRightLegend(filteredData) {
+    var rightLegendContainer = d3.select("#right-legend-container");
+    rightLegendContainer.selectAll("*").remove();
 
-            var totalResponses = filteredData.length;
-            var categoryCounts = d3.rollup(filteredData, v => v.length, d => d.ur_acms);
+    var totalResponses = filteredData.length;
+    var categoryCounts = d3.rollup(filteredData, v => v.length, d => d.outR);
 
-            var urbanCount = categoryCounts.get('City') || 0;
-            var townCount = categoryCounts.get('Town') || 0;
-            var villageCount = categoryCounts.get('Village') || 0;
-            var unclassifiedCount = totalResponses - urbanCount - townCount - villageCount;
+    // Prepare legend data with colors, percentages, and counts
+    var legendData = Object.keys(colorReasons).map(category => {
+        var count = categoryCounts.get(category) || 0;
+        var percentage = ((count / totalResponses) * 100).toFixed(1);
+        return {
+            category: category,
+            color: colorReasons[category],
+            percentage: percentage + "%",
+            count: count
+        };
+    });
 
-            var legendCombinedContainer = leftLegendContainer.append("div")
-                .attr("class", "legend-combined-container");
+    // Sort legend data by percentage descending
+    legendData.sort((a, b) => b.count - a.count);
 
-            var legendHeaderContainer = legendCombinedContainer.append("div")
-                .attr("class", "legend-header-container");
+    // Calculate Responses and Non-Responses
+    var responses = legendData.reduce((sum, item) => sum + item.count, 0);
+    var nonResponses = totalResponses - responses;
+    var responsePercentage = ((responses / totalResponses) * 100).toFixed(1);
+    var nonResponsePercentage = ((nonResponses / totalResponses) * 100).toFixed(1);
 
-            legendHeaderContainer.append("div")
-                .attr("class", "legend-header")
-                .text("U.N. WPP");
+    // Add title and subtitle
+    rightLegendContainer.append("div")
+        .attr("class", "legend-title")
+        .style("font-weight", "bold")
+        .style("margin-bottom", "8px")
+        .text("% of most recent migrations");
 
-            legendHeaderContainer.append("div")
-                .attr("class", "legend-subtext")
-                .text("> 300k pop / km²");
+    rightLegendContainer.append("div")
+        .attr("class", "legend-subtitle")
+        .style("font-weight", "bold")
+        .style("margin-bottom", "8px")
+        .style("font-size", "16px")
+        .text("Push Factor Themes");
 
-            var legendTitleContainer = legendCombinedContainer.append("div")
-                .attr("class", "legend-title-container");
+    // Add the legend items
+    legendData.forEach(item => {
+        var legendItem = rightLegendContainer.append("div")
+            .attr("class", "legend-item")
+            .style("display", "flex")
+            .style("align-items", "center")
+            .style("margin-bottom", "4px");
 
-            legendTitleContainer.append("div")
-                .attr("class", "legend-header")
-                .text("100: Village, City, or Town");
+        legendItem.append("div")
+            .attr("class", "legend-color")
+            .style("background-color", item.color)
+            .style("width", "18px")
+            .style("height", "18px")
+            .style("margin-right", "8px");
 
-            var legendSVGContainer = leftLegendContainer.append("div")
-                .attr("class", "legend-svg-container");
+        var textContainer = legendItem.append("div")
+            .attr("class", "legend-text")
+            .style("flex-grow", "1");
 
-            var legendSVG = legendSVGContainer.append("svg")
-                .attr("width", 300)
-                .attr("height", 120);
+        textContainer.append("div")
+            .attr("class", "legend-category")
+            .style("font-weight", "bold")
+            .text(`${item.category}`);
 
-            var legendGroup = legendSVG.append("g")
-                .attr("transform", "translate(10, 40)");
+        textContainer.append("div")
+            .attr("class", "legend-percentage")
+            .style("margin-left", "auto")
+            .text(` ${item.percentage}`);
+    });
 
-            // Labels for categories
-            legendGroup.append("text")
-                .attr("x", 50)
-                .attr("y", 0)
-                .attr("class", "legend-category")
-                .attr("text-anchor", "middle")
-                .text("people");
+    // Add a divider line
+    rightLegendContainer.append("hr")
+        .style("border", "none")
+        .style("border-top", "1px solid #ccc")
+        .style("margin", "8px 0");
 
-            legendGroup.append("text")
-                .attr("x", 150)
-                .attr("y", 0)
-                .attr("class", "legend-category")
-                .attr("text-anchor", "middle")
-                .text("city");
+    // Add Responses and Non-Responses
+    var responsesItem = rightLegendContainer.append("div")
+        .attr("class", "legend-item")
+        .style("display", "flex")
+        .style("align-items", "center")
+        .style("margin-bottom", "4px");
 
-            legendGroup.append("text")
-                .attr("x", 200)
-                .attr("y", 0)
-                .attr("class", "legend-category")
-                .attr("text-anchor", "middle")
-                .text("town");
+    responsesItem.append("div")
+        .attr("class", "legend-color")
+        .style("background-color", "#ffffff") // Adjust color as needed
+        .style("width", "18px")
+        .style("height", "18px")
+        .style("margin-right", "8px");
 
-            legendGroup.append("text")
-                .attr("x", 250)
-                .attr("y", 0)
-                .attr("class", "legend-category")
-                .attr("text-anchor", "middle")
-                .text("village");
+    responsesItem.append("div")
+        .attr("class", "legend-text")
+        .style("flex-grow", "1")
+        .text("Responses");
 
-            // People count with line
-            legendGroup.append("text")
-                .attr("x", 50)
-                .attr("y", 40)
-                .attr("class", "legend-number")
-                .attr("text-anchor", "middle")
-                .text(totalResponses);
+    responsesItem.append("div")
+        .attr("class", "legend-percentage")
+        .style("margin-left", "auto")
+        .text(`${responsePercentage}%`);
 
-            legendGroup.append("line")
-                .attr("x1", 90)
-                .attr("y1", 36)
-                .attr("x2", 140)
-                .attr("y2", 36)
-                .attr("stroke", "black")
-                .attr("stroke-width", 1);
+    var nonResponsesItem = rightLegendContainer.append("div")
+        .attr("class", "legend-item")
+        .style("display", "flex")
+        .style("align-items", "center");
 
-            legendGroup.append("text")
-                .attr("x", 90)
-                .attr("y", 40)
-                .attr("class", "legend-label")
-                .attr("text-anchor", "start")
+    nonResponsesItem.append("div")
+        .attr("class", "legend-color")
+        .style("background-color", "#f0f0f0") // Light grey for Non-Responses
+        .style("width", "18px")
+        .style("height", "18px")
+        .style("margin-right", "8px");
 
-            // City count
-            legendGroup.append("rect")
-                .attr("x", 140)
-                .attr("y", 20)
-                .attr("width", 40)
-                .attr("height", 40)
-                .attr("fill", cityColor);
+    nonResponsesItem.append("div")
+        .attr("class", "legend-text")
+        .style("flex-grow", "1")
+        .text("Non-Responses");
 
-            legendGroup.append("text")
-                .attr("x", 160)
-                .attr("y", 45)
-                .attr("class", "legend-number")
-                .attr("text-anchor", "middle")
-                .text(urbanCount);
+    nonResponsesItem.append("div")
+        .attr("class", "legend-percentage")
+        .style("margin-left", "auto")
+        .text(`${nonResponsePercentage}%`);
+}
 
-            // Line connecting city to town
-            legendGroup.append("line")
-                .attr("x1", 180)
-                .attr("y1", 36)
-                .attr("x2", 280)
-                .attr("y2", 36)
-                .attr("stroke", "black")
-                .attr("stroke-width", 1);
-
-            // Line under legend 
-            legendGroup.append("line")
-                .attr("x1", 25)
-                .attr("y1", 72)
-                .attr("x2", 280)
-                .attr("y2", 72)
-                .attr("stroke", "black")
-                .attr("stroke-width", 1);
-
-            // Town count
-            legendGroup.append("rect")
-                .attr("x", 190)
-                .attr("y", 20)
-                .attr("width", 40)
-                .attr("height", 40)
-                .attr("fill", townColor);
-
-            legendGroup.append("text")
-                .attr("x", 210)
-                .attr("y", 45)
-                .attr("class", "legend-number")
-                .attr("text-anchor", "middle")
-                .text(townCount);
-
-            // Line connecting town to village
-            legendGroup.append("line")
-                .attr("x1", 240)
-                .attr("y1", 36)
-                .attr("x2", 280)
-                .attr("y2", 36)
-                .attr("stroke", "black")
-                .attr("stroke-width", 1);
-
-            // Village count
-            legendGroup.append("rect")
-                .attr("x", 240)
-                .attr("y", 20)
-                .attr("width", 40)
-                .attr("height", 40)
-                .attr("fill", villageColor);
-
-            legendGroup.append("text")
-                .attr("x", 260)
-                .attr("y", 45)
-                .attr("class", "legend-number")
-                .attr("text-anchor", "middle")
-                .text(villageCount);
-
-            // Adding other text elements
-            var details = [
-                { label: 'urban', value: urbanCount },
-                { label: 'unclassified', value: unclassifiedCount },
-                { label: 'non-urban', value: townCount + villageCount },
-            ];
-
-            details.forEach(detail => {
-                var detailContainer = leftLegendContainer.append("div")
-                    .attr("class", "legend-detail-container");
-
-                detailContainer.append("div")
-                    .attr("class", "legend-subtext-2")
-                    .text(detail.label);
-
-                detailContainer.append("div")
-                    .attr("class", "legend-number")
-                    .text(detail.value);
-            });
-        }
-
-
-        function updateRightLegend(examples, filteredData, selectedCity) {
-            var rightLegendContainer = d3.select("#right-legend-container");
-            rightLegendContainer.selectAll("*").remove();
-
-            var totalResponses = filteredData.length;
-            var categoryCounts = d3.rollup(filteredData, v => v.length, d => d.ur_acms);
-
-            var urbanCount = categoryCounts.get('City') || 0;
-            var townCount = categoryCounts.get('Town') || 0;
-            var villageCount = categoryCounts.get('Village') || 0;
-            var unclassifiedCount = totalResponses - urbanCount - townCount - villageCount;
-
-            var urbanPercentage = ((urbanCount / totalResponses) * 100).toFixed(1);
-            var townPercentage = ((townCount / totalResponses) * 100).toFixed(1);
-            var villagePercentage = ((villageCount / totalResponses) * 100).toFixed(1);
-
-            rightLegendContainer.append("div")
-                .attr("class", "legend-title")
-                .text("Percentages of migration origins");
-
-            rightLegendContainer.append("div")
-                .attr("class", "legend-subtext")
-                .text("100: Village, City, or Town");
-
-            var legendData = [
-                { category: "City", color: cityColor, percentage: urbanPercentage + "%", examples: examples['City'] },
-                { category: "Town", color: townColor, percentage: townPercentage + "%", examples: examples['Town'] },
-                { category: "Village", color: villageColor, percentage: villagePercentage + "%", examples: examples['Village'] }
-            ];
-
-            legendData.forEach(item => {
-                var legendItem = rightLegendContainer.append("div")
-                    .attr("class", "legend-item");
-
-                legendItem.append("div")
-                    .attr("class", "legend-color")
-                    .style("background-color", item.color)
-                    .style("width", "18px")
-                    .style("height", "18px");
-
-                var textContainer = legendItem.append("div")
-                    .attr("class", "legend-text");
-
-                textContainer.append("div")
-                    .attr("class", "legend-category")
-                    .html(`<span>${item.category}</span><span class="legend-percentage">${item.percentage}</span>`);
-
-                textContainer.append("div")
-                    .attr("class", "legend-subtext")
-                    .html(`i.e ${item.examples.join(", ")}`);
-            });
-        }
 
         function capitalizeFirstLetter(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
@@ -984,7 +867,7 @@
 
         var dataset;
 
-        d3.csv("data/star_origins_UR.csv", rowConverter).then(function (data) {
+        d3.csv("data/star_recent_R_UseThis_3.csv", rowConverter).then(function (data) {
             dataset = data;
 
             var cities = Array.from(new Set(data.map(d => d.current_city)));
@@ -1030,6 +913,27 @@
             console.error('Error loading or parsing data:', error);
         });
 
+        function createLegend() {
+            var legend = d3.select("#legend-reason");
+
+            legend.append("div")
+                .attr("class", "legend-title")
+                .text("Reasons for Migration");
+
+            Object.keys(colorReasons).forEach(function (key) {
+                var legendItem = legend.append("div")
+                    .attr("class", "legend-item");
+
+                legendItem.append("div")
+                    .attr("class", "legend-color")
+                    .style("background-color", colorReasons[key]);
+
+                legendItem.append("div")
+                    .attr("class", "legend-text")
+                    .text(key);
+            });
+        }
+
         function downloadSVG() {
             var svgElement = document.querySelector("#map svg"); // Select the SVG element
 
@@ -1063,72 +967,70 @@
         }
 
         function downloadLegend() {
-    var legendElement = document.querySelector("#legend");
-    var svgWidth = legendElement.offsetWidth;
-    var svgHeight = legendElement.offsetHeight;
+            var legendElement = document.querySelector("#legend");
+            var svgWidth = legendElement.offsetWidth;
+            var svgHeight = legendElement.offsetHeight;
 
-    var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.setAttribute("width", svgWidth);
-    svg.setAttribute("height", svgHeight);
-    svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+            var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svg.setAttribute("width", svgWidth);
+            svg.setAttribute("height", svgHeight);
+            svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
 
-    appendDivAsSvgElement(svg, document.querySelector("#left-legend-container"), 0, 0);
-    appendDivAsSvgElement(svg, document.querySelector("#right-legend-container"), 300, 0);
-    appendDivAsSvgElement(svg, document.querySelector("#chart-container"), 600, 0);
-    appendDivAsSvgElement(svg, document.querySelector("#chart-title-container"), 600, 200);
-    appendDivAsSvgElement(svg, document.querySelector("#chart-subtext-container"), 600, 250);
+            appendDivAsSvgElement(svg, document.querySelector("#left-legend-container"), 0, 0);
+            appendDivAsSvgElement(svg, document.querySelector("#right-legend-container"), 300, 0);
+            appendDivAsSvgElement(svg, document.querySelector("#chart-container"), 600, 0);
+            appendDivAsSvgElement(svg, document.querySelector("#chart-title-container"), 600, 200);
+            appendDivAsSvgElement(svg, document.querySelector("#chart-subtext-container"), 600, 250);
 
-    var serializer = new XMLSerializer();
-    var svgBlob = new Blob([serializer.serializeToString(svg)], { type: "image/svg+xml;charset=utf-8" });
-    var svgUrl = URL.createObjectURL(svgBlob);
-    var downloadLink = document.createElement("a");
-    downloadLink.href = svgUrl;
-    downloadLink.download = "legend.svg";
+            var serializer = new XMLSerializer();
+            var svgBlob = new Blob([serializer.serializeToString(svg)], { type: "image/svg+xml;charset=utf-8" });
+            var svgUrl = URL.createObjectURL(svgBlob);
+            var downloadLink = document.createElement("a");
+            downloadLink.href = svgUrl;
+            downloadLink.download = "legend.svg";
 
-    // Trigger the download
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
-}
-
-function appendDivAsSvgElement(svg, divElement, offsetX, offsetY) {
-    var foreignObject = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
-    foreignObject.setAttribute("width", divElement.offsetWidth);
-    foreignObject.setAttribute("height", divElement.offsetHeight);
-    foreignObject.setAttribute("x", offsetX);
-    foreignObject.setAttribute("y", offsetY);
-
-    var div = document.createElement("div");
-    div.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
-    div.style.width = divElement.offsetWidth + "px";
-    div.style.height = divElement.offsetHeight + "px";
-
-    var clonedDiv = divElement.cloneNode(true);
-    inlineAllStyles(clonedDiv);
-    div.appendChild(clonedDiv);
-
-    foreignObject.appendChild(div);
-    svg.appendChild(foreignObject);
-}
-
-function inlineAllStyles(element) {
-    var allElements = element.querySelectorAll("*");
-    allElements.forEach(function(el) {
-        var computedStyle = getComputedStyle(el);
-        var styleString = "";
-        for (var key of computedStyle) {
-            if (computedStyle.getPropertyValue(key)) {
-                styleString += key + ":" + computedStyle.getPropertyValue(key) + ";";
-            }
+            // Trigger the download
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
         }
-        el.setAttribute("style", styleString);
-    });
-}
 
-document.getElementById("download-svg").addEventListener("click", downloadSVG);
-document.getElementById("download-legend").addEventListener("click", downloadLegend);
+        function appendDivAsSvgElement(svg, divElement, offsetX, offsetY) {
+            var foreignObject = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+            foreignObject.setAttribute("width", divElement.offsetWidth);
+            foreignObject.setAttribute("height", divElement.offsetHeight);
+            foreignObject.setAttribute("x", offsetX);
+            foreignObject.setAttribute("y", offsetY);
 
+            var div = document.createElement("div");
+            div.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
+            div.style.width = divElement.offsetWidth + "px";
+            div.style.height = divElement.offsetHeight + "px";
 
-</script>
+            var clonedDiv = divElement.cloneNode(true);
+            inlineAllStyles(clonedDiv);
+            div.appendChild(clonedDiv);
+
+            foreignObject.appendChild(div);
+            svg.appendChild(foreignObject);
+        }
+
+        function inlineAllStyles(element) {
+            var allElements = element.querySelectorAll("*");
+            allElements.forEach(function(el) {
+                var computedStyle = getComputedStyle(el);
+                var styleString = "";
+                for (var key of computedStyle) {
+                    if (computedStyle.getPropertyValue(key)) {
+                        styleString += key + ":" + computedStyle.getPropertyValue(key) + ";";
+                    }
+                }
+                el.setAttribute("style", styleString);
+            });
+        }
+
+        document.getElementById("download-svg").addEventListener("click", downloadSVG);
+        document.getElementById("download-legend").addEventListener("click", downloadLegend);
+    </script>
 </body>
 </html>
