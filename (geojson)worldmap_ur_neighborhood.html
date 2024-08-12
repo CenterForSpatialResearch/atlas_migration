@@ -45,6 +45,17 @@
             fill: #969696;
         }
 
+        .svg-container {
+            position: absolute;
+            z-index: 10;
+        }
+        .line {
+            position: absolute;
+            background-color: black;
+            height: 2px;
+            z-index: 10;
+        }
+
         .legend-text {
             font-size: 14px;
             fill: #969696;
@@ -79,12 +90,25 @@
             stroke-dasharray: 3, 3;
         }
 
+        #container {
+            display: grid;
+            place-items: center;
+            position: relative;
+            /* height: 100vh;  */
+        }
+
         #chart-container {
             margin-right: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #chart-container svg, #map svg {
+            display: block; /* Ensure the SVG is visible */
         }
 
         #right-legend-container {
-            width: 200px;
+            width: 300px;
             margin-left: 20px;
         }
 
@@ -94,8 +118,11 @@
         }
 
         #map {
-            height: 600px;
-            width: 100vw;
+            /* height: 600px; */
+            /* width: 100vw; */
+            height: 900px;
+            width: 1800px;
+            margin: 50px;
         }
 
         #filter {
@@ -137,6 +164,8 @@
         .legend-title {
             font-size: 18px;
             margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: bold;
         }
 
         .legend-subtext {
@@ -182,12 +211,12 @@
         }
 
         #chart-title {
-            width: 200px;
+            width: 300px;
             margin-top: 20px;
         }
 
         #chart-title-container {
-            width: 200px;
+            width: 300px;
             margin-top: 20px;
         }
 
@@ -254,25 +283,31 @@
         <button onclick="downloadLegendPNG()">Download Legend PNG</button>
 
     </div>
-    <div id="map"></div>
-    <div id="legend">
-        <div id="left-legend-container"></div>
-        <div id="right-legend-container"></div>
-        <div id="chart-container"></div>
-        <div id="chart-title">
-            <div id="chart-title-container"></div>
-            <div id="chart-subtext-container"></div>
+    <div class="container">
+        <div id="map"></div>
+        <div id="legend">
+            <div id="left-legend-container"></div>
+            <div id="right-legend-container"></div>
+            <div id="chart-container"></div>
+            <div id="chart-title">
+                <div id="chart-title-container"></div>
+                <div id="chart-subtext-container"></div>
+            </div>
+            <div id="line" class="line"></div>
         </div>
     </div>
 
     <!-- script -->
     <script type="text/javascript">
-        var width = innerWidth;
-        var height = 600;
+        var mapContainer = document.getElementById('map');
+        var width = mapContainer.offsetWidth;
+        var height = mapContainer.offsetHeight;
 
-        var projection = d3.geoMercator()
-            .center([0, 20])
-            .scale(150)
+        // var projection = d3.geoMercator()
+        var projection = d3.geoAzimuthalEquidistant()
+            .center([0, -20])
+            // .scale(150)
+            .scale([1500])
             .translate([width / 2, height / 2]);
 
         var path = d3.geoPath()
@@ -291,6 +326,7 @@
             'Nairobi': [36.8219, -1.2921],
             'Accra': [-0.1870, 5.6037]
         };
+
 
         var validNairobiNeighborhoods = new Set(["Kawangware", "Kayole", "Ongata Rongai"]);
 
@@ -335,17 +371,58 @@
             svg.append("g")
                 .selectAll("path")
                 .data(highResWorld.features)
-                .enter().append("path")
+                .enter()
+                .append("path")
                 .attr("d", path)
-                .attr("fill", "#ccc")
-                .attr("stroke", "#fff");
+                .attr("fill","#f0f0f0")
+                .attr("stroke","#d1d1d1")
+                .attr("stroke-width", .5);
+            
+            svg.append("g")
+                    .selectAll("path")
+
+                    .data(waterBodies.features)
+                    .enter()
+                    .append("path")
+                    .attr("d", path)
+                    .attr("fill","#ffffff")
+                    .attr("stroke","#ffffff")
+                    .attr("stroke-width", .25)
+
+            svg.append("g")
+                    .selectAll("path")
+                    .attr("class","urban-layer")
+                    .data(urbanPolygons.features)
+                    .enter()
+                    .append("path")
+                    .attr("d", path)
+                    .attr("fill","#dedede")
+                    .attr("stroke","#dedede")
+                    .attr("stroke-width", .25);
 
             var locationToNeighborhood = createLocationToNeighborhoodMapping(allpts);
             populateNeighborhoodsByCity(migrations, locationToNeighborhood);
             ready(migrations, originMigrations, locationToNeighborhood);
+
+
+            var graticule = d3.geoGraticule()
+                            .step([2, 2]);
+
+            var gridLines = svg.append("g")
+                .attr("class", "graticule");
+
+            gridLines.append("path")
+                .datum(graticule)
+                .attr("class", "graticule")
+                .attr("d", path)
+                .attr("stroke", "#cccccc")
+                .attr("stroke-width", .25)
+                .attr("fill", "none");
+
         }).catch(function (error) {
             console.error('Error loading data:', error);
         });
+
 
         function createLocationToNeighborhoodMapping(data) {
             var mapping = {};
@@ -420,14 +497,14 @@
                     var startPoint = projection(cityCoordinates[city]); // City coordinates
                     var endPoint = projection([+migration.lat, +migration.lon]); // Ensure the coordinates are numbers
 
-                    console.log('Drawing line from', startPoint, 'to', endPoint, 'with weight', migration.num_moves, 'color', color); // Debugging log
-                    console.log('Path:', {
-                        start: startPoint,
-                        end: endPoint,
-                        neighborhood: neighborhood,
-                        location: location,
-                        q100Value: q100Value
-                    });
+                    // console.log('Drawing line from', startPoint, 'to', endPoint, 'with weight', migration.num_moves, 'color', color); // Debugging log
+                    // console.log('Path:', {
+                    //     start: startPoint,
+                    //     end: endPoint,
+                    //     neighborhood: neighborhood,
+                    //     location: location,
+                    //     q100Value: q100Value
+                    // });
 
                     var line = svg.append("line")
                         .attr("x1", startPoint[0])
@@ -504,21 +581,27 @@
             console.log("Filtered for city: " + selectedCity + " and neighborhood: " + selectedNeighborhood);
         }
 
+        var cityZoomLevels = {
+                'Johannesburg': { scale: 1500, center: [28.0473, -20] },// city center [28.0473, -26.2041]
+                'Nairobi': { scale: 4000, center: [36.8219, -1.2921] }, // city center [36.8219, -1.2921]
+                'Accra': { scale: 3000, center: [-0.1870, 5.6037] },
+                'all': { scale: 450, center: [0, 10] } // Default zoom level and center
+            };
+        
         function zoomToCity(city) {
-            var zoomLevel = 2; // Default zoom level for 'all'
-            var center = [0, 20]; // Default center for 'all'
-
-            if (city !== 'all' && cityCoordinates[city]) {
-                zoomLevel = 6; // Adjust zoom level as needed
-                center = cityCoordinates[city];
-            }
+            var zoomConfig = cityZoomLevels[city] || cityZoomLevels['all'];
 
             projection
-                .center(center)
-                .scale(150 * zoomLevel); // Adjust scale for zoom
+                .center(zoomConfig.center)
+                .scale(zoomConfig.scale);
 
             svg.selectAll("path")
                 .attr("d", path); // Redraw paths
+
+            svg.selectAll("line").remove(); // Remove all lines
+            svg.selectAll("text").remove(); // Remove all text labels
+
+            filterPolylines(); // Re-draw polylines at new zoom level
         }
 
         var zoom = d3.zoom()
@@ -686,7 +769,7 @@
                 .enter()
                 .append("text")
                 .attr("x", d => -radialScale(d.dist))
-                .attr("y", d => chartHeight / 2 - radialScale(d.dist))
+                .attr("y", d => chartHeight /2 - radialScale(d.dist))
                 .text(d => d.name + ", " + d.dist + " km")
                 .attr("class", "scale-path")
                 .attr("text-anchor", "left");
@@ -1020,6 +1103,11 @@
             console.error('Error loading or parsing data:', error);
         });
 
+
+
+
+
+
         function downloadSVG() {
             var svgElement = document.querySelector("#map svg"); // Select the SVG element
 
@@ -1115,8 +1203,10 @@ function inlineAllStyles(element) {
     });
 }
 
+
 document.getElementById("download-svg").addEventListener("click", downloadSVG);
 document.getElementById("download-legend").addEventListener("click", downloadLegend);
+
 
 
 </script>
