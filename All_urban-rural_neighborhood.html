@@ -9,7 +9,7 @@
 
     <style type="text/css">
         body {
-            display: flex;
+            display: grid;
             align-items: center;
             justify-content: center;
             flex-direction: column;
@@ -45,15 +45,26 @@
             fill: #969696;
         }
 
-        .svg-container {
+        /* .svg-container {
             position: absolute;
             z-index: 10;
-        }
+        } */
+
         .line {
             position: absolute;
             background-color: black;
             height: 2px;
-            z-index: 10;
+            z-index: 9;
+        }
+
+        .origin-text{
+            /* font-family: "StanhopeRR Bold"; */
+            font-family: "Univers";
+            font-size: 8px;
+            fill: black;
+            /* dy: .35em */
+            text-anchor: start;
+            z-index: 20;
         }
 
         .legend-text {
@@ -94,6 +105,8 @@
             display: grid;
             place-items: center;
             position: relative;
+            align-items: center;
+            justify-content: center;
             /* height: 100vh;  */
         }
 
@@ -136,6 +149,8 @@
         #legend {
             display: flex;
             flex-direction: row;
+            /* align-items: center; */
+            justify-content: center;
         }
 
         .legend-container {
@@ -170,14 +185,14 @@
 
         .legend-subtext {
             font-size: 12px;
-            color: #555;
+            color: #9c9c9c;
         }
 
         .legend-subtext-2 {
             font-size: 12px;
             width: 72px;
             text-align: end;
-            color: #555;
+            color: #9c9c9c;
         }
 
         .legend-highlight {
@@ -278,24 +293,28 @@
         <select id="neighborhood-select">
             <option value="all">All</option>
         </select>
-        <button id="download-svg">Download SVG</button>
-        <button id="download-legend">Download Legend</button>
+        <!-- <button id="download-page">Download SVG page</button> -->
+        <button id="download-svg">Download map SVG</button>
+        <button id="download-legend">Download Legend SVG</button>
+        <!-- <button id="download-png-button">Download PNG</button> -->
         <button onclick="downloadLegendPNG()">Download Legend PNG</button>
 
     </div>
-    <div class="container">
+    <div class="container" id="print-container">
         <div id="map"></div>
         <div id="legend">
             <div id="left-legend-container"></div>
             <div id="right-legend-container"></div>
             <div id="chart-container"></div>
             <div id="chart-title">
+                <div id="people-legend"></div>
                 <div id="chart-title-container"></div>
                 <div id="chart-subtext-container"></div>
             </div>
             <div id="line" class="line"></div>
         </div>
     </div>
+</body>
 
     <!-- script -->
     <script type="text/javascript">
@@ -304,9 +323,9 @@
         var height = mapContainer.offsetHeight;
 
         // var projection = d3.geoMercator()
-        var projection = d3.geoAzimuthalEquidistant()
+        // var projection = d3.geoAzimuthalEqualArea() // for globe view
+        var projection = d3.geoAzimuthalEquidistant() //for zoom in views
             .center([0, -20])
-            // .scale(150)
             .scale([1500])
             .translate([width / 2, height / 2]);
 
@@ -348,8 +367,10 @@
             ]
         };
 
+        // Global variables
         var polylines = []; // Array to store polylines
         var neighborhoodsByCity = {}; // Object to store neighborhoods by city
+        var migrations = []; // Global migrations variable
 
         Promise.all([
             d3.json("data/ref/countries-10m.geo.json"), // High resolution
@@ -365,7 +386,7 @@
             var urbanPolygons = data[2];
             var waterBodies = data[3];
             var allpts = data[4];
-            var migrations = data[5];
+            migrations = data[5]; // Correctly assign to global variable
             var originMigrations = data[6];
 
             svg.append("g")
@@ -377,39 +398,34 @@
                 .attr("fill","#f0f0f0")
                 .attr("stroke","#d1d1d1")
                 .attr("stroke-width", .5);
-            
-            svg.append("g")
-                    .selectAll("path")
-
-                    .data(waterBodies.features)
-                    .enter()
-                    .append("path")
-                    .attr("d", path)
-                    .attr("fill","#ffffff")
-                    .attr("stroke","#ffffff")
-                    .attr("stroke-width", .25)
 
             svg.append("g")
-                    .selectAll("path")
-                    .attr("class","urban-layer")
-                    .data(urbanPolygons.features)
-                    .enter()
-                    .append("path")
-                    .attr("d", path)
-                    .attr("fill","#dedede")
-                    .attr("stroke","#dedede")
-                    .attr("stroke-width", .25);
+                .selectAll("path")
+                .data(waterBodies.features)
+                .enter()
+                .append("path")
+                .attr("d", path)
+                .attr("fill","#ffffff")
+                .attr("stroke","#ffffff")
+                .attr("stroke-width", .25)
+
+            svg.append("g")
+                .attr("class","urban-layer")
+                .selectAll("path")
+                .data(urbanPolygons.features)
+                .enter()
+                .append("path")
+                .attr("d", path)
+                .attr("fill","#dedede")
+                .attr("stroke","#dedede")
+                .attr("stroke-width", .25);
 
             var locationToNeighborhood = createLocationToNeighborhoodMapping(allpts);
             populateNeighborhoodsByCity(migrations, locationToNeighborhood);
             ready(migrations, originMigrations, locationToNeighborhood);
 
-
-            var graticule = d3.geoGraticule()
-                            .step([2, 2]);
-
-            var gridLines = svg.append("g")
-                .attr("class", "graticule");
+            var graticule = d3.geoGraticule().step([1, 1]);
+            var gridLines = svg.append("g").attr("class", "graticule");
 
             gridLines.append("path")
                 .datum(graticule)
@@ -422,7 +438,6 @@
         }).catch(function (error) {
             console.error('Error loading data:', error);
         });
-
 
         function createLocationToNeighborhoodMapping(data) {
             var mapping = {};
@@ -448,7 +463,7 @@
                 neighborhoodsByCity[city].add(neighborhood);
             });
 
-            console.log(neighborhoodsByCity); // Debugging log to check the neighborhoods by city
+            // console.log(neighborhoodsByCity); // Debugging log to check the neighborhoods by city
         }
 
         function updateNeighborhoodDropdown(city) {
@@ -472,8 +487,9 @@
             return null; // Return null if no match
         }
 
-        function ready(migrations, originMigrations, locationToNeighborhood) {
-            console.log(locationToNeighborhood); // Debugging log to check the location to neighborhood mapping
+        function ready(loadedMigrations, originMigrations, locationToNeighborhood) {
+            migrations = loadedMigrations; // Ensure this is the global migrations variable
+            // console.log('Ready function migrations:', migrations); // Debugging line
 
             // Create a mapping for the Q100_1_URACMS column
             var locationToQ100 = {};
@@ -481,30 +497,25 @@
                 locationToQ100[d.location] = d.Q100_1_URACMS;
             });
 
-            // Draw lines from selected cities to each destination using migrations
-            migrations.forEach(function (migration) {
+            migrations.forEach(function(migration) {
+                // console.log('Migration item:', migration); // Debugging line
+
                 var city = migration.city_8;
                 if (cityCoordinates[city]) {
-                    var location = migration.location; // Get the location from migration data
+                    var location = migration.location;
                     var neighborhood = locationToNeighborhood[location] || 'Unknown';
                     if (city === 'Nairobi' && !validNairobiNeighborhoods.has(neighborhood)) {
-                        return; // Skip neighborhoods not in the valid set for Nairobi
+                        return;
                     }
 
                     var q100Value = locationToQ100[location];
                     var color = getColorByQ100(q100Value);
 
-                    var startPoint = projection(cityCoordinates[city]); // City coordinates
-                    var endPoint = projection([+migration.lat, +migration.lon]); // Ensure the coordinates are numbers
+                    var startPoint = projection(cityCoordinates[city]);
+                    var endPoint = projection([+migration.lat, +migration.lon]);
 
-                    // console.log('Drawing line from', startPoint, 'to', endPoint, 'with weight', migration.num_moves, 'color', color); // Debugging log
-                    // console.log('Path:', {
-                    //     start: startPoint,
-                    //     end: endPoint,
-                    //     neighborhood: neighborhood,
-                    //     location: location,
-                    //     q100Value: q100Value
-                    // });
+                    var locationParts = location.replace(/[()']/g, '').split(', ');
+                    var locationText = `${locationParts[0]}, ${locationParts[2]}`;
 
                     var line = svg.append("line")
                         .attr("x1", startPoint[0])
@@ -512,26 +523,17 @@
                         .attr("x2", endPoint[0])
                         .attr("y2", endPoint[1])
                         .attr("stroke", color)
-                        .attr("stroke-width", migration.num_moves)
+                        .attr("stroke-width", migration.num_moves*1.5)
                         .attr("opacity", 0.7)
-                        .datum({ city: city, neighborhood: neighborhood, lon: migration.lon, lat: migration.lat }); // Save coordinates for zoom
+                        .datum({ city: city, neighborhood: neighborhood, lon: migration.lon, lat: migration.lat, location: locationText });
 
-                    polylines.push(line); // Store the line
-
-                    // Add destination name text label
-                    svg.append("text")
-                        .attr("x", endPoint[0])
-                        .attr("y", endPoint[1])
-                        .attr("dy", ".35em")
-                        .attr("text-anchor", "middle")
-                        .style("font-size", "10px")
-                        .text(location);
+                    polylines.push(line);
                 }
             });
 
-            // Initialize filters
-            filterPolylines();
+            filterPolylines(); // Initialize filters
         }
+
 
         document.getElementById('city-select').addEventListener('change', function () {
             var selectedCity = this.value;
@@ -544,6 +546,7 @@
             filterPolylines();
         });
 
+
         function filterPolylines() {
             var selectedCity = document.getElementById('city-select').value.toLowerCase();
             var selectedNeighborhood = document.getElementById('neighborhood-select').value.toLowerCase();
@@ -551,12 +554,45 @@
             svg.selectAll("line").remove(); // Remove all lines first
             svg.selectAll("text").remove(); // Remove all text labels first
 
+            console.log('Filtered migrations before sorting:', migrations); // Debugging line
+
+            if (migrations.length === 0) {
+                console.warn('No migrations data available.');
+                return;
+            }
+
+            var sortedMigrations = migrations.slice().sort(function(a, b) {
+                return b.num_moves - a.num_moves;
+            });
+
+            var topMigrations = sortedMigrations.slice(0, 50)
+            var bottomMigrations = sortedMigrations.slice(800,820)
+            var combinedMigrations = topMigrations.concat(bottomMigrations);
+
+            var locationNames = new Set(combinedMigrations.map(function(m) { 
+                // Parse the location string
+                var locationParts = m.location.replace(/[()']/g, '').split(', ');
+
+                // Check if locationParts[0] is 'nan' and skip it
+                if (locationParts.length > 2 && locationParts[0].toLowerCase() !== 'nan') {
+                    return `${locationParts[0]}, ${locationParts[2]}`;
+                } else {
+                    return null;
+                }
+                }).filter(function(location) {
+                    return location !== null && location !== '';
+            }));
+
+            console.log('Top migrations:', topMigrations); // Debugging line
+            console.log('Origin locations:', locationNames); // Debugging line
+
             polylines.forEach(function (line) {
                 var cityMatches = selectedCity === 'all' || line.datum().city.toLowerCase() === selectedCity;
                 var neighborhoodMatches = selectedNeighborhood === 'all' || line.datum().neighborhood.toLowerCase() === selectedNeighborhood;
+
                 if (cityMatches && neighborhoodMatches) {
-                    var startPoint = projection(cityCoordinates[line.datum().city]); // City coordinates
-                    var endPoint = projection([+line.datum().lat, +line.datum().lon]); // Ensure the coordinates are numbers
+                    var startPoint = projection(cityCoordinates[line.datum().city]);
+                    var endPoint = projection([+line.datum().lat, +line.datum().lon]);
 
                     svg.append("line")
                         .attr("x1", startPoint[0])
@@ -567,24 +603,22 @@
                         .attr("stroke-width", line.attr("stroke-width"))
                         .attr("opacity", line.attr("opacity"));
 
-                    // Add destination name text label
-                    svg.append("text")
-                        .attr("x", endPoint[0])
-                        .attr("y", endPoint[1])
-                        .attr("dy", ".35em")
-                        .attr("text-anchor", "middle")
-                        .style("font-size", "10px")
-                        .text(line.datum().location);
+                    if (locationNames.has(line.datum().location)) {
+                        svg.append("text")
+                            .attr("x", endPoint[0])
+                            .attr("y", endPoint[1])
+                            .attr("class","origin-text")
+                            .attr("dy", ".35em")
+                            .text(line.datum().location);
+                    }
                 }
             });
-
-            console.log("Filtered for city: " + selectedCity + " and neighborhood: " + selectedNeighborhood);
         }
 
         var cityZoomLevels = {
                 'Johannesburg': { scale: 1500, center: [28.0473, -20] },// city center [28.0473, -26.2041]
-                'Nairobi': { scale: 4000, center: [36.8219, -1.2921] }, // city center [36.8219, -1.2921]
-                'Accra': { scale: 3000, center: [-0.1870, 5.6037] },
+                'Nairobi': { scale: 2500, center: [30.8219, 1] }, // city center [36.8219, -1.2921]
+                'Accra': { scale: 4000, center: [-0.1870, 10] }, // city center [-0.1870, 5.6037]
                 'all': { scale: 450, center: [0, 10] } // Default zoom level and center
             };
         
@@ -644,7 +678,8 @@
                 cumulative_dist: parseFloat(d.dist),
                 current_city: d.city_8,
                 neighborhood: d.neighborhood_9,
-                ur_acms: d.Q100_1_URACMS
+                ur_acms: d.Q100_1_URACMS,
+                ur_un: d.Q100_1_URUN
             };
         };
 
@@ -811,16 +846,21 @@
         }
 
         function updateLeftLegend(filteredData) {
+
+            // console.log(filteredData);
             var leftLegendContainer = d3.select("#left-legend-container");
             leftLegendContainer.selectAll("*").remove();
 
             var totalResponses = filteredData.length;
             var categoryCounts = d3.rollup(filteredData, v => v.length, d => d.ur_acms);
+            var UNCounts = d3.rollup(filteredData, v => v.length, d => d.ur_un);
 
             var urbanCount = categoryCounts.get('City') || 0;
             var townCount = categoryCounts.get('Town') || 0;
             var villageCount = categoryCounts.get('Village') || 0;
-            var unclassifiedCount = totalResponses - urbanCount - townCount - villageCount;
+            var unUrbanCount = UNCounts.get('Urban') || 0;
+            var unNonUrbanCount = UNCounts.get('Non-Urban') || 0;
+            var unclassifiedCount = UNCounts.get('Unclassified') || 0;
 
             var legendCombinedContainer = leftLegendContainer.append("div")
                 .attr("class", "legend-combined-container");
@@ -830,10 +870,13 @@
 
             legendHeaderContainer.append("div")
                 .attr("class", "legend-header")
-                .text("U.N. WPP");
+                .text("U.N. WPP")
+                // .attr("text-align","end")
+                .style("color","#9c9c9c");
 
             legendHeaderContainer.append("div")
                 .attr("class", "legend-subtext")
+                .style("text-align", "right")
                 .text("> 300k pop / km²");
 
             var legendTitleContainer = legendCombinedContainer.append("div")
@@ -978,10 +1021,12 @@
 
             // Adding other text elements
             var details = [
-                { label: 'urban', value: urbanCount },
+                { label: 'urban', value: unUrbanCount },
                 { label: 'unclassified', value: unclassifiedCount },
-                { label: 'non-urban', value: townCount + villageCount },
+                { label: 'non-urban', value: unNonUrbanCount },
+
             ];
+
 
             details.forEach(detail => {
                 var detailContainer = leftLegendContainer.append("div")
@@ -993,6 +1038,7 @@
 
                 detailContainer.append("div")
                     .attr("class", "legend-number")
+                    .style("color","#9c9c9c")
                     .text(detail.value);
             });
         }
@@ -1043,7 +1089,8 @@
 
                 textContainer.append("div")
                     .attr("class", "legend-category")
-                    .html(`<span>${item.category}</span><span class="legend-percentage">${item.percentage}</span>`);
+                    .html(`<span>${item.category}</span>&nbsp;<span class="legend-percentage">${item.percentage}</span>`);
+
 
                 textContainer.append("div")
                     .attr("class", "legend-subtext")
@@ -1054,6 +1101,57 @@
         function capitalizeFirstLetter(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
+
+        var legendDiv = d3.select("#people-legend");
+
+var svgWidth = 300;  // Set the initial desired width
+var svgHeight = 50; // Set the desired height
+var strokeThicknesses = [1, 2, 3, 4, 3]; // Line thicknesses
+var labels = [1, 3, 5, 7, 10]; // Labels to display below the lines
+
+var initialLineLength = svgWidth; // Starting length for the first line
+
+// Create the SVG element inside the div
+        var peopleLegend = legendDiv.append("svg")
+            .attr("width", svgWidth)
+            .attr("height", svgHeight);
+
+        var cumulativeY = 0;
+        strokeThicknesses.forEach(function(thickness, index) {
+            var currentLineLength = initialLineLength - (index * 50); // Decrease line length for each line
+
+            if (currentLineLength < 0) {
+                currentLineLength = 0; // Ensure the line length doesn't become negative
+            }
+
+            peopleLegend.append("line")
+                .attr("x1", svgWidth) // Start from the right side
+                .attr("x2", svgWidth - currentLineLength) // Draw to the left
+                .attr("y1", cumulativeY)
+                .attr("y2", cumulativeY)
+                .attr("stroke", "black")
+                .attr("stroke-width", thickness*2);
+
+            // Add text label below the line
+            peopleLegend.append("text")
+                .attr("x", svgWidth - currentLineLength )
+                .attr("y", 30)
+                .attr("class", "legend-subtext") 
+                .text(labels[index]); // Set the text to the corresponding label
+
+            cumulativeY += thickness; // Increase the cumulative y-coordinate by the thickness of the current line
+
+            peopleLegend.append("text")
+            .attr("x", svgWidth-40) 
+            .attr("y", 30)
+            .attr("class", "legend-subtext") 
+            .text('people')
+
+        });
+
+
+
+
 
         var dataset;
 
@@ -1105,11 +1203,25 @@
 
 
 
-
-
-
         function downloadSVG() {
-            var svgElement = document.querySelector("#map svg"); // Select the SVG element
+
+            var mapContainer = document.getElementById('map');
+            var svgElement = mapContainer.querySelector("svg"); // Select the SVG element inside the mapContainer
+
+            if (!svgElement) {
+                alert("No SVG element found inside the map container.");
+                return;
+            }
+
+            var width = mapContainer.offsetWidth;
+            var height = mapContainer.offsetHeight;
+
+            // Set the viewBox of the SVG element to crop it to the mapContainer dimensions
+            svgElement.setAttribute("viewBox", `0 0 ${width} ${height}`);
+            svgElement.setAttribute("width", width);
+            svgElement.setAttribute("height", height);
+
+            // var svgElement = document.querySelector("#map svg"); // Select the SVG element
 
             // Create a blob from the SVG XML
             var svgBlob = new Blob([svgElement.outerHTML], { type: "image/svg+xml;charset=utf-8" });
@@ -1140,54 +1252,54 @@
             });
         }
 
-        function downloadLegend() {
-    var legendElement = document.querySelector("#legend");
-    var svgWidth = legendElement.offsetWidth;
-    var svgHeight = legendElement.offsetHeight;
+    function downloadLegend() {
+        var legendElement = document.querySelector("#legend");
+        var svgWidth = legendElement.offsetWidth;
+        var svgHeight = legendElement.offsetHeight;
 
-    var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.setAttribute("width", svgWidth);
-    svg.setAttribute("height", svgHeight);
-    svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+        var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("width", svgWidth);
+        svg.setAttribute("height", svgHeight);
+        svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
 
-    appendDivAsSvgElement(svg, document.querySelector("#left-legend-container"), 0, 0);
-    appendDivAsSvgElement(svg, document.querySelector("#right-legend-container"), 300, 0);
-    appendDivAsSvgElement(svg, document.querySelector("#chart-container"), 600, 0);
-    appendDivAsSvgElement(svg, document.querySelector("#chart-title-container"), 600, 200);
-    appendDivAsSvgElement(svg, document.querySelector("#chart-subtext-container"), 600, 250);
+        appendDivAsSvgElement(svg, document.querySelector("#left-legend-container"), 0, 0);
+        appendDivAsSvgElement(svg, document.querySelector("#right-legend-container"), 300, 0);
+        appendDivAsSvgElement(svg, document.querySelector("#chart-container"), 600, 0);
+        appendDivAsSvgElement(svg, document.querySelector("#chart-title-container"), 600, 200);
+        appendDivAsSvgElement(svg, document.querySelector("#chart-subtext-container"), 600, 250);
 
-    var serializer = new XMLSerializer();
-    var svgBlob = new Blob([serializer.serializeToString(svg)], { type: "image/svg+xml;charset=utf-8" });
-    var svgUrl = URL.createObjectURL(svgBlob);
-    var downloadLink = document.createElement("a");
-    downloadLink.href = svgUrl;
-    downloadLink.download = "legend.svg";
+        var serializer = new XMLSerializer();
+        var svgBlob = new Blob([serializer.serializeToString(svg)], { type: "image/svg+xml;charset=utf-8" });
+        var svgUrl = URL.createObjectURL(svgBlob);
+        var downloadLink = document.createElement("a");
+        downloadLink.href = svgUrl;
+        downloadLink.download = "legend.svg";
 
-    // Trigger the download
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
-}
+        // Trigger the download
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+    }
 
-function appendDivAsSvgElement(svg, divElement, offsetX, offsetY) {
-    var foreignObject = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
-    foreignObject.setAttribute("width", divElement.offsetWidth);
-    foreignObject.setAttribute("height", divElement.offsetHeight);
-    foreignObject.setAttribute("x", offsetX);
-    foreignObject.setAttribute("y", offsetY);
+    function appendDivAsSvgElement(svg, divElement, offsetX, offsetY) {
+        var foreignObject = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+        foreignObject.setAttribute("width", divElement.offsetWidth);
+        foreignObject.setAttribute("height", divElement.offsetHeight);
+        foreignObject.setAttribute("x", offsetX);
+        foreignObject.setAttribute("y", offsetY);
 
-    var div = document.createElement("div");
-    div.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
-    div.style.width = divElement.offsetWidth + "px";
-    div.style.height = divElement.offsetHeight + "px";
+        var div = document.createElement("div");
+        div.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
+        div.style.width = divElement.offsetWidth + "px";
+        div.style.height = divElement.offsetHeight + "px";
 
-    var clonedDiv = divElement.cloneNode(true);
-    inlineAllStyles(clonedDiv);
-    div.appendChild(clonedDiv);
+        var clonedDiv = divElement.cloneNode(true);
+        inlineAllStyles(clonedDiv);
+        div.appendChild(clonedDiv);
 
-    foreignObject.appendChild(div);
-    svg.appendChild(foreignObject);
-}
+        foreignObject.appendChild(div);
+        svg.appendChild(foreignObject);
+    }   
 
 function inlineAllStyles(element) {
     var allElements = element.querySelectorAll("*");
@@ -1203,12 +1315,9 @@ function inlineAllStyles(element) {
     });
 }
 
-
+// Example usage: Attach function to a button click
 document.getElementById("download-svg").addEventListener("click", downloadSVG);
 document.getElementById("download-legend").addEventListener("click", downloadLegend);
 
-
-
 </script>
-</body>
 </html>
