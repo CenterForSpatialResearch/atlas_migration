@@ -294,7 +294,6 @@
             filterPolylines();
         });
 
-
         function filterPolylines() {
             var selectedCity = document.getElementById('city-select').value.toLowerCase();
             var selectedNeighborhood = document.getElementById('neighborhood-select').value.toLowerCase();
@@ -313,35 +312,22 @@
                 return b.num_moves - a.num_moves;
             });
 
-            var topMigrations = sortedMigrations.slice(0, 800)
-            var bottomMigrations = sortedMigrations.slice(800,820)
+            var topMigrations = sortedMigrations.slice(0, 800);
+            var bottomMigrations = sortedMigrations.slice(800, 820);
             var combinedMigrations = topMigrations.concat(bottomMigrations);
 
-            var locationNames = new Set(combinedMigrations.map(function(m) { 
-                // Parse the location string
-                var locationParts = m.location.replace(/[()']/g, '').split(', ');
-
-                // Check if locationParts[0] is 'nan' and skip it
-                if (locationParts.length > 2 && locationParts[0].toLowerCase() !== 'nan') {
-                    return `${locationParts[0]}, ${locationParts[2]}`;
-                } else {
-                    return null;
-                }
-                }).filter(function(location) {
-                    return location !== null && location !== '';
-            }));
-
-            console.log('Top migrations:', topMigrations); // Debugging line
-            console.log('Origin locations:', locationNames); // Debugging line
+            // Track locations with drawn polylines
+            var locationsWithPolylines = [];
 
             polylines.forEach(function (line) {
                 var cityMatches = selectedCity === 'all' || line.datum().city.toLowerCase() === selectedCity;
                 var neighborhoodMatches = selectedNeighborhood === 'all' || line.datum().neighborhood.toLowerCase() === selectedNeighborhood;
 
                 if (cityMatches && neighborhoodMatches) {
-                    var startPoint = projection(cityCoordinates[line.datum().city]);
-                    var endPoint = projection([+line.datum().lat, +line.datum().lon]);
+                    var startPoint = projection(cityCoordinates[line.datum().city]); // City coordinates
+                    var endPoint = projection([+line.datum().lat, +line.datum().lon]); // Ensure the coordinates are numbers
 
+                    // Draw the line
                     svg.append("line")
                         .attr("x1", startPoint[0])
                         .attr("y1", startPoint[1])
@@ -351,33 +337,26 @@
                         .attr("stroke-width", line.attr("stroke-width"))
                         .attr("opacity", line.attr("opacity"));
 
-                    if (locationNames.has(line.datum().location)) {
-                        svg.append("text")
-                            .attr("x", endPoint[0])
-                            .attr("y", endPoint[1])
-                            .attr("class","origin-text")
-                            .attr("dy", ".35em")
-                            .text(line.datum().location);
+                    // Track the location and end point for this line
+                    if (line.datum().location.toLowerCase().indexOf("nan") === -1) {
+                        locationsWithPolylines.push({ location: line.datum().location, endPoint: endPoint });
                     }
-
-                    line.on("mouseover", function(event, d) {
-                            console.log("Mouse over activated on line:", d)
-
-                            d3.select("#tooltip")
-                                .style("left", (event.pageX + 5) + "px")
-                                .style("top", (event.pageY - 28) + "px")
-                                .select("#val")
-                                .text(" Respondent " + d.resp_id + " is from the "+ d.ur_acms + "of" + d.city + ", " + d.country_orig + " which is " + d.cumulative_dist + " km away from " + d.current_city);
-
-                            d3.select("#tooltip").classed("hidden", false);
-                        })
-                        .on("mouseout", function() {
-                            d3.select("#tooltip").classed("hidden", true);
-                        });
-
                 }
             });
+
+            // Draw text labels for tracked locations at their corresponding end points
+            locationsWithPolylines.forEach(function(item) {
+                svg.append("text")
+                    .attr("x", item.endPoint[0])
+                    .attr("y", item.endPoint[1])
+                    .attr("class", "origin-text")
+                    .attr("dy", ".35em")
+                    .text(item.location);
+            });
         }
+
+
+
 
         var cityZoomLevels = {
                 'Johannesburg': { scale: 1500, center: [28.0473, -20] },// city center [28.0473, -26.2041]
@@ -513,7 +492,7 @@
                 .on("mouseover", function (event, d) {
                     d3.select("#tooltip")
                         .select("#val")
-                        .text(d.ur_acms + " dist: " + d.cumulative_dist + " Respondent " + d.resp_id + " is from " + d.city + ", " + d.country_orig + " which is " + d.cumulative_dist + " kilometers away from " + d.current_city);
+                        .text("Respondent " + d.resp_id + " is from the "+ d.ur_acms + "of" + d.city + ", " + d.country_orig + " which is " + d.cumulative_dist + " km away from " + d.current_city);
                     d3.select("#tooltip").classed("hidden", false);
                 })
                 .on("mouseout", function () {
