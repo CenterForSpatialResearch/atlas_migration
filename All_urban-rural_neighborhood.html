@@ -144,16 +144,16 @@
                 .attr("stroke","#ffffff")
                 .attr("stroke-width", .25)
 
-            svg.append("g")
-                .attr("class","urban-layer")
-                .selectAll("path")
-                .data(urbanPolygons.features)
-                .enter()
-                .append("path")
-                .attr("d", path)
-                .attr("fill","#dedede")
-                .attr("stroke","#dedede")
-                .attr("stroke-width", .25);
+            // svg.append("g")
+            //     .attr("class","urban-layer")
+            //     .selectAll("path")
+            //     .data(urbanPolygons.features)
+            //     .enter()
+            //     .append("path")
+            //     .attr("d", path)
+            //     .attr("fill","#dedede")
+            //     .attr("stroke","#dedede")
+            //     .attr("stroke-width", .25);
 
             var locationToNeighborhood = createLocationToNeighborhoodMapping(allpts);
             populateNeighborhoodsByCity(migrations, locationToNeighborhood);
@@ -651,7 +651,6 @@
             legendHeaderContainer.append("div")
                 .attr("class", "legend-header")
                 .text("U.N. WPP")
-                // .attr("text-align","end")
                 .style("color","#9c9c9c");
 
             legendHeaderContainer.append("div")
