@@ -6,229 +6,7 @@
     <title>Map and Star Chart</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
-    <style type="text/css">
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-
-        .title {
-            font-family: "StanhopeRR Bold";
-            font-size: 18px;
-        }
-
-        #tooltip {
-            position: fixed;
-            right: 20px;
-            width: 200px;
-            height: auto;
-            padding: 10px;
-            background-color: #ffffff;
-            outline: black solid 1px;
-        }
-
-        #tooltip.hidden {
-            display: none;
-        }
-
-        #tooltip p {
-            margin: 0px;
-            font-size: 16px;
-            line-height: 20px;
-        }
-
-        .scale-path {
-            font-size: 11px;
-            fill: #969696;
-        }
-
-        .legend-text {
-            font-size: 14px;
-            fill: #969696;
-        }
-
-        .legend-number {
-            font-size: 18px;
-            font-weight: bold;
-            fill: black;
-        }
-
-        .legend-label {
-            font-size: 14px;
-            font-weight: normal;
-            fill: black;
-        }
-
-        .legend-category {
-            font-size: 14px;
-            font-weight: normal;
-            fill: black;
-        }
-
-        .scale {
-            stroke: #969696;
-            stroke-width: 0.25px;
-        }
-
-        .scale-dashed {
-            stroke: #969696;
-            stroke-width: 0.25px;
-            stroke-dasharray: 3, 3;
-        }
-
-        #chart-container {
-            margin-right: 20px;
-        }
-
-        #right-legend-container {
-            width: 200px;
-            margin-left: 20px;
-        }
-
-        #left-legend-container {
-            width: 300px;
-            margin-left: 20px;
-        }
-
-        #map {
-            height: 600px;
-            width: 100vw;
-        }
-
-        #filter {
-            top: 10px;
-            left: 10px;
-            background: white;
-            padding: 10px;
-            border: 1px solid #ccc;
-        }
-
-        #legend {
-            display: flex;
-            flex-direction: row;
-        }
-
-        .legend-container {
-            display: flex;
-            flex-direction: column;
-            font-family: 'StanhopeRR Bold', sans-serif;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 5px;
-        }
-
-        .legend-color {
-            width: 18px;
-            height: 18px;
-            margin-right: 8px;
-        }
-
-        .legend-text {
-            font-size: 14px;
-            line-height: 18px;
-        }
-
-        .legend-title {
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-
-        .legend-subtext {
-            font-size: 12px;
-            color: #555;
-        }
-
-        .legend-subtext-2 {
-            font-size: 12px;
-            width: 72px;
-            text-align: end;
-            color: #555;
-        }
-
-        .legend-highlight {
-            font-weight: bold;
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
-
-        .legend-category {
-            font-size: 14px;
-            font-weight: normal;
-            fill: black;
-        }
-
-        .legend-percentage {
-            font-size: 14px;
-        }
-
-        .legend-header {
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .legend-counts {
-            font-size: 14px;
-        }
-
-        .legend-svg-container {
-            display: flex;
-            align-items: center;
-        }
-
-        #chart-title {
-            width: 200px;
-            margin-top: 20px;
-        }
-
-        #chart-title-container {
-            width: 200px;
-            margin-top: 20px;
-        }
-
-        .chart-title {
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        #chart-subtext-container {
-            margin-top: 10px;
-        }
-
-        .chart-subtext {
-            font-size: 14px;
-            color: #555;
-        }
-
-        .legend-header-container {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            margin-bottom: 10px;
-        }
-
-        .legend-title-container {
-            margin-bottom: 20px;
-        }
-
-        .legend-combined-container {
-            display: flex;
-            flex-direction: row;
-            gap: 20px;
-        }
-
-        .legend-detail-container {
-            display: flex;
-            flex-direction: row;
-            gap: 20px;
-            margin-bottom: 5px;
-        }
-    </style>
+    <link rel="stylesheet" href="main.css">
 </head>
 
 <body>
@@ -257,20 +35,27 @@
     <div id="map"></div>
     <div id="legend">
         <div id="left-legend-container"></div>
-        <div id="right-legend-container"></div>
         <div id="chart-container"></div>
         <div id="chart-title">
+            <div id="people-legend"></div>
             <div id="chart-title-container"></div>
             <div id="chart-subtext-container"></div>
         </div>
+        <div id="right-legend-container"></div>
     </div>
 
     <!-- script -->
     <script type="text/javascript">
-        var width = innerWidth;
-        var height = 600;
+        // var width = innerWidth;
+        // var height = 600;
 
-        var projection = d3.geoMercator()
+        var mapContainer = document.getElementById('map');
+        var width = mapContainer.offsetWidth;
+        var height = mapContainer.offsetHeight;
+
+        // var projection = d3.geoMercator()
+        // var projection = d3.geoAzimuthalEqualArea() // for globe view
+        var projection = d3.geoAzimuthalEquidistant() //for zoom in views
             .center([0, 20])
             .scale(150)
             .translate([width / 2, height / 2]);
@@ -323,6 +108,7 @@
         };
 
         var polylines = []; // Array to store polylines
+        var migrations = [];
         var neighborhoodsByCity = {}; // Object to store neighborhoods by city
 
         Promise.all([
@@ -347,8 +133,41 @@
                 .data(highResWorld.features)
                 .enter().append("path")
                 .attr("d", path)
-                .attr("fill", "#ccc")
-                .attr("stroke", "#fff");
+                .attr("fill","#f0f0f0")
+                .attr("stroke","#d1d1d1")
+                .attr("stroke-width", .5);
+
+            svg.append("g")
+                .selectAll("path")
+                .data(waterBodies.features)
+                .enter()
+                .append("path")
+                .attr("d", path)
+                .attr("fill","#ffffff")
+                .attr("stroke","#ffffff")
+                .attr("stroke-width", .25)
+
+            svg.append("g")
+                .attr("class","urban-layer")
+                .selectAll("path")
+                .data(urbanPolygons.features)
+                .enter()
+                .append("path")
+                .attr("d", path)
+                .attr("fill","#dedede")
+                .attr("stroke","#dedede")
+                .attr("stroke-width", .25);
+
+            var graticule = d3.geoGraticule().step([1, 1]);
+            var gridLines = svg.append("g").attr("class", "graticule");
+
+            gridLines.append("path")
+                .datum(graticule)
+                .attr("class", "graticule")
+                .attr("d", path)
+                .attr("stroke", "#cccccc")
+                .attr("stroke-width", .25)
+                .attr("fill", "none");
 
             var locationToNeighborhood = createLocationToNeighborhoodMapping(allpts);
             populateNeighborhoodsByCity(migrations, locationToNeighborhood);
@@ -381,7 +200,7 @@
                 neighborhoodsByCity[city].add(neighborhood);
             });
 
-            console.log(neighborhoodsByCity); // Debugging log to check the neighborhoods by city
+            // console.log(neighborhoodsByCity); // Debugging log to check the neighborhoods by city
         }
 
         function updateNeighborhoodDropdown(city) {
@@ -403,8 +222,9 @@
             return colorReasons[out_thm] || null; // Default to black if not found
         }
 
-        function ready(migrations, originMigrations, locationToNeighborhood) {
-            console.log(locationToNeighborhood); // Debugging log to check the location to neighborhood mapping
+        function ready(loadedMigrations, originMigrations, locationToNeighborhood) {
+            migrations = loadedMigrations;
+            // console.log(locationToNeighborhood); // Debugging log to check the location to neighborhood mapping
 
             // Create a mapping for the Q100_1_URACMS column
             var locationToQ100 = {};
@@ -428,14 +248,14 @@
                     var startPoint = projection(cityCoordinates[city]); // City coordinates
                     var endPoint = projection([+migration.lat, +migration.lon]); // Ensure the coordinates are numbers
 
-                    console.log('Drawing line from', startPoint, 'to', endPoint, 'with weight', migration.num_moves, 'color', color); // Debugging log
-                    console.log('Path:', {
-                        start: startPoint,
-                        end: endPoint,
-                        neighborhood: neighborhood,
-                        location: location,
-                        q100Value: locationToQ100[location]
-                    });
+                    // console.log('Drawing line from', startPoint, 'to', endPoint, 'with weight', migration.num_moves, 'color', color); // Debugging log
+                    // console.log('Path:', {
+                    //     start: startPoint,
+                    //     end: endPoint,
+                    //     neighborhood: neighborhood,
+                    //     location: location,
+                    //     q100Value: locationToQ100[location]
+                    // });
 
                     var line = svg.append("line")
                         .attr("x1", startPoint[0])
@@ -450,13 +270,13 @@
                     polylines.push(line); // Store the line
 
                     // Add destination name text label
-                    svg.append("text")
-                        .attr("x", endPoint[0])
-                        .attr("y", endPoint[1])
-                        .attr("dy", ".35em")
-                        .attr("text-anchor", "middle")
-                        .style("font-size", "10px")
-                        .text(location);
+                    // svg.append("text")
+                    //     .attr("x", endPoint[0])
+                    //     .attr("y", endPoint[1])
+                    //     .attr("dy", ".35em")
+                    //     .attr("text-anchor", "middle")
+                    //     .style("font-size", "10px")
+                    //     .text(location);
                 }
             });
 
@@ -482,6 +302,32 @@
             svg.selectAll("line").remove(); // Remove all lines first
             svg.selectAll("text").remove(); // Remove all text labels first
 
+            var sortedMigrations = migrations.slice().sort(function(a, b) {
+                return b.num_moves - a.num_moves;
+            });
+
+            var topMigrations = sortedMigrations.slice(0, 50)
+            var bottomMigrations = sortedMigrations.slice(800,820)
+            var combinedMigrations = topMigrations.concat(bottomMigrations);
+
+            var locationNames = new Set(combinedMigrations.map(function(m) { 
+                // Parse the location string
+                var locationParts = m.location.replace(/[()']/g, '').split(', ');
+
+                // Check if locationParts[0] is 'nan' and skip it
+                if (locationParts.length > 2 && locationParts[0].toLowerCase() !== 'nan') {
+                    return `${locationParts[0]}, ${locationParts[2]}`;
+                } else {
+                    return null;
+                }
+                }).filter(function(location) {
+                    return location !== null && location !== '';
+            }));
+
+            console.log('Top migrations:', topMigrations); // Debugging line
+            console.log('Origin locations:', locationNames); // Debugging line
+
+
             polylines.forEach(function (line) {
                 var cityMatches = selectedCity === 'all' || line.datum().city.toLowerCase() === selectedCity;
                 var neighborhoodMatches = selectedNeighborhood === 'all' || line.datum().neighborhood.toLowerCase() === selectedNeighborhood;
@@ -498,36 +344,44 @@
                         .attr("stroke-width", line.attr("stroke-width"))
                         .attr("opacity", line.attr("opacity"));
 
-                    // Add destination name text label
-                    svg.append("text")
-                        .attr("x", endPoint[0])
-                        .attr("y", endPoint[1])
-                        .attr("dy", ".35em")
-                        .attr("text-anchor", "middle")
-                        .style("font-size", "10px")
-                        .text(line.datum().location);
+                        if (locationNames.has(line.datum().location)) {
+                        svg.append("text")
+                            .attr("x", endPoint[0])
+                            .attr("y", endPoint[1])
+                            .attr("class","origin-text")
+                            .attr("dy", ".35em")
+                            .text(line.datum().location);
+                    }
                 }
             });
 
-            console.log("Filtered for city: " + selectedCity + " and neighborhood: " + selectedNeighborhood);
+            // console.log("Filtered for city: " + selectedCity + " and neighborhood: " + selectedNeighborhood);
         }
 
-        function zoomToCity(city) {
-            var zoomLevel = 2; // Default zoom level for 'all'
-            var center = [0, 20]; // Default center for 'all'
+        var cityZoomLevels = {
+                'Johannesburg': { scale: 1500, center: [28.0473, -20] },// city center [28.0473, -26.2041]
+                'Nairobi': { scale: 2500, center: [30.8219, 1] }, // city center [36.8219, -1.2921]
+                'Accra': { scale: 4000, center: [-0.1870, 10] }, // city center [-0.1870, 5.6037]
+                'all': { scale: 450, center: [0, 10] } // Default zoom level and center
+            };
 
-            if (city !== 'all' && cityCoordinates[city]) {
-                zoomLevel = 6; // Adjust zoom level as needed
-                center = cityCoordinates[city];
-            }
+        function zoomToCity(city) {
+            var zoomConfig = cityZoomLevels[city] || cityZoomLevels['all'];
 
             projection
-                .center(center)
-                .scale(150 * zoomLevel); // Adjust scale for zoom
+                .center(zoomConfig.center)
+                .scale(zoomConfig.scale);
 
             svg.selectAll("path")
                 .attr("d", path); // Redraw paths
+
+            svg.selectAll("line").remove(); // Remove all lines
+            svg.selectAll("text").remove(); // Remove all text labels
+
+            filterPolylines(); // Re-draw polylines at new zoom level
         }
+
+
 
         var zoom = d3.zoom()
             .scaleExtent([1, 8])
@@ -612,10 +466,10 @@ function updateChart(selectedCity, selectedNeighborhood) {
 var neighborhoods = d3.group(filteredData, d => d.neighborhood);
     neighborhoods.forEach((places, neighborhood) => {
         var top5 = places.sort((a, b) => b.num_moves - a.num_moves).slice(0, 5); // Sort by num_moves
-        console.log(`\nTop 5 places in "${neighborhood}" by number of moves:`);
+        // console.log(`\nTop 5 places in "${neighborhood}" by number of moves:`);
         top5.forEach((place, index) => {
             const type = place.ur_acms === 'City' ? 'City' : place.ur_acms === 'Town' ? 'Town' : 'Village';
-            console.log(`${index + 1}. Respondent ID: ${place.resp_id}, Number of Moves: ${place.num_moves}, Type: ${type}, Location: ${place.city}, ${place.country_orig}`);
+            // console.log(`${index + 1}. Respondent ID: ${place.resp_id}, Number of Moves: ${place.num_moves}, Type: ${type}, Location: ${place.city}, ${place.country_orig}`);
         });
     });;
 
@@ -740,7 +594,7 @@ var neighborhoods = d3.group(filteredData, d => d.neighborhood);
 
 
 function updateRightLegend(filteredData) {
-    var rightLegendContainer = d3.select("#right-legend-container");
+    var rightLegendContainer = d3.select("#left-legend-container");
     rightLegendContainer.selectAll("*").remove();
 
     var totalResponses = filteredData.length;
@@ -868,6 +722,52 @@ function updateRightLegend(filteredData) {
         function capitalizeFirstLetter(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
+
+    var legendDiv = d3.select("#people-legend");
+        var svgWidth = 300;  // Set the initial desired width
+        var svgHeight = 50; // Set the desired height
+        var strokeThicknesses = [1, 2, 3, 4, 3]; // Line thicknesses
+        var labels = [1, 3, 5, 7, 10]; // Labels to display below the lines
+
+        var initialLineLength = svgWidth; // Starting length for the first line
+
+        // Create the SVG element inside the div
+                var peopleLegend = legendDiv.append("svg")
+                    .attr("width", svgWidth)
+                    .attr("height", svgHeight);
+
+        var cumulativeY = 0;
+        strokeThicknesses.forEach(function(thickness, index) {
+            var currentLineLength = initialLineLength - (index * 50); // Decrease line length for each line
+
+            if (currentLineLength < 0) {
+                currentLineLength = 0; // Ensure the line length doesn't become negative
+            }
+
+            peopleLegend.append("line")
+                .attr("x1", svgWidth) // Start from the right side
+                .attr("x2", svgWidth - currentLineLength) // Draw to the left
+                .attr("y1", cumulativeY)
+                .attr("y2", cumulativeY)
+                .attr("stroke", "black")
+                .attr("stroke-width", thickness*2);
+
+            // Add text label below the line
+            peopleLegend.append("text")
+                .attr("x", svgWidth - currentLineLength )
+                .attr("y", 30)
+                .attr("class", "legend-subtext") 
+                .text(labels[index]); // Set the text to the corresponding label
+
+            cumulativeY += thickness; // Increase the cumulative y-coordinate by the thickness of the current line
+
+            peopleLegend.append("text")
+            .attr("x", svgWidth-40) 
+            .attr("y", 30)
+            .attr("class", "legend-subtext") 
+            .text('people')
+
+        });
 
         var dataset;
 
