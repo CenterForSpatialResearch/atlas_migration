@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <title>Map and Star Chart</title>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- <script src="https://d3js.org/d3.v7.min.js"></script> --> 
+    <script src="js/d3.v7.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link rel="stylesheet" href="main.css">
 </head>
@@ -158,7 +159,8 @@
             populateNeighborhoodsByCity(migrations, locationToNeighborhood);
             ready(migrations, originMigrations, locationToNeighborhood);
 
-            var graticule = d3.geoGraticule().step([1, 1]);
+            var graticule = d3.geoGraticule()
+                        .step([1, 1]); //degrees - default 10 if not set
             var gridLines = svg.append("g").attr("class", "graticule");
 
             gridLines.append("path")
@@ -222,7 +224,7 @@
         }
 
         function ready(loadedMigrations, originMigrations, locationToNeighborhood) {
-            migrations = loadedMigrations; // Ensure this is the global migrations variable
+            migrations = originMigrations; // Ensure this is the global migrations variable
             // console.log('Ready function migrations:', migrations); // Debugging line
 
             // Create a mapping for the Q100_1_URACMS column
@@ -259,7 +261,19 @@
                         .attr("stroke", color)
                         .attr("stroke-width", migration.num_moves*1.5)
                         .attr("opacity", 0.7)
-                        .datum({ city: city, neighborhood: neighborhood, lon: migration.lon, lat: migration.lat, location: locationText });
+                        .attr("z-index", 20)
+                        .datum({ 
+                            city: city, 
+                            neighborhood: neighborhood, 
+                            lon: migration.lon, 
+                            lat: migration.lat, 
+                            location: locationText,
+                            cumulative_dist: migration.cumulative_dist,
+                            ur_acms: migration.Q100_1_URACMS,
+                            resp_id: migration.resp_id,
+                            country_orig: migration.country_orig,
+                            current_city: migration.current_city 
+                        });
 
                     polylines.push(line);
                 }
@@ -299,7 +313,7 @@
                 return b.num_moves - a.num_moves;
             });
 
-            var topMigrations = sortedMigrations.slice(0, 50)
+            var topMigrations = sortedMigrations.slice(0, 800)
             var bottomMigrations = sortedMigrations.slice(800,820)
             var combinedMigrations = topMigrations.concat(bottomMigrations);
 
@@ -345,6 +359,22 @@
                             .attr("dy", ".35em")
                             .text(line.datum().location);
                     }
+
+                    line.on("mouseover", function(event, d) {
+                            console.log("Mouse over activated on line:", d)
+
+                            d3.select("#tooltip")
+                                .style("left", (event.pageX + 5) + "px")
+                                .style("top", (event.pageY - 28) + "px")
+                                .select("#val")
+                                .text(d.ur_acms + " dist: " + d.cumulative_dist + " Respondent " + d.resp_id + " is from " + d.city + ", " + d.country_orig + " which is " + d.cumulative_dist + " kilometers away from " + d.current_city);
+
+                            d3.select("#tooltip").classed("hidden", false);
+                        })
+                        .on("mouseout", function() {
+                            d3.select("#tooltip").classed("hidden", true);
+                        });
+
                 }
             });
         }
@@ -569,13 +599,29 @@
             updateRightLegend(examples, filteredData, selectedCity);
 
             if (selectedCity !== 'all') {
+
+                let descripTitle;
+                    if (selectedNeighborhood === "all") {
+                        descripTitle = `Urban vs. Rural Origins to ${capitalizeFirstLetter(selectedCity)}, by density`;
+                    } else {
+                        descripTitle = `Urban vs. Rural Origins to ${capitalizeFirstLetter(selectedNeighborhood)}, ${capitalizeFirstLetter(selectedCity)}, by density`;
+                    }
+
                 d3.select("#chart-title-container").append("div")
                     .attr("class", "chart-title")
-                    .text(`Urban vs. Rural Origins to ${capitalizeFirstLetter(selectedCity)}, by density`);
+                    .text(descripTitle);
 
-                d3.select("#chart-subtext-container").append("div")
-                    .attr("class", "chart-subtext")
-                    .text(`Urban-Rural Categorization of migration paths for respondents currently living in ${capitalizeFirstLetter(selectedCity)}, using the WPP definition of "urban" as having 300 or more people per square kilometer.`);
+                    let subtextContent;
+                    if (selectedNeighborhood === "all") {
+                        subtextContent = `Migration paths for all neighborhoods in ${capitalizeFirstLetter(selectedCity)} categorized by Q100 of the ACMS survey.`;
+                    } else {
+                        subtextContent = `Migration paths for respondents currently living in ${capitalizeFirstLetter(selectedNeighborhood)}, ${capitalizeFirstLetter(selectedCity)} categorized by Q100 of the ACMS survey.`;
+                    }
+
+                    d3.select("#chart-subtext-container").append("div")
+                        .attr("class", "chart-subtext")
+                        .text(subtextContent);
+
             }
         }
 
@@ -962,7 +1008,7 @@
             var svgUrl = URL.createObjectURL(svgBlob);
             var downloadLink = document.createElement("a");
             downloadLink.href = svgUrl;
-            downloadLink.download = "visualization.svg";
+            downloadLink.download = "map-viz.svg";
 
             // Trigger the download
             document.body.appendChild(downloadLink);

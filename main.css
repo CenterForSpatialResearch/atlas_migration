@@ -54,7 +54,7 @@ body {
     fill: black;
     /* dy: .35em */
     text-anchor: start;
-    z-index: 20;
+    z-index: 15;
 }
 
 .legend-text {
