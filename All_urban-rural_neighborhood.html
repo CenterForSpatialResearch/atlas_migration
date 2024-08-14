@@ -109,7 +109,7 @@
 
         Promise.all([
             d3.json("data/ref/countries-10m.geo.json"), // High resolution
-            d3.json("data/ref/world_countries.geo.json"), // Low resolution
+            // d3.json("data/ref/world_countries.geo.json"), // Low resolution
             d3.json("data/ref/world-urban-polygons.geojson"),
             d3.json("data/ref/h2o-.geo.json"),
             d3.csv("data/star_all_distances.csv"),
@@ -117,12 +117,12 @@
             d3.csv("data/origin_migrations_UR.csv") // This data will have the data of num_move and the type of migration
         ]).then(function (data) {
             var highResWorld = data[0];
-            var lowResWorld = data[1];
-            var urbanPolygons = data[2];
-            var waterBodies = data[3];
-            var allpts = data[4];
-            migrations = data[5]; // Correctly assign to global variable
-            var originMigrations = data[6];
+            // var lowResWorld = data[1];
+            var urbanPolygons = data[1];
+            var waterBodies = data[2];
+            var allpts = data[3];
+            migrations = data[4]; // Correctly assign to global variable
+            var originMigrations = data[5];
 
             svg.append("g")
                 .selectAll("path")
@@ -367,7 +367,7 @@
                                 .style("left", (event.pageX + 5) + "px")
                                 .style("top", (event.pageY - 28) + "px")
                                 .select("#val")
-                                .text(d.ur_acms + " dist: " + d.cumulative_dist + " Respondent " + d.resp_id + " is from " + d.city + ", " + d.country_orig + " which is " + d.cumulative_dist + " kilometers away from " + d.current_city);
+                                .text(" Respondent " + d.resp_id + " is from the "+ d.ur_acms + "of" + d.city + ", " + d.country_orig + " which is " + d.cumulative_dist + " km away from " + d.current_city);
 
                             d3.select("#tooltip").classed("hidden", false);
                         })

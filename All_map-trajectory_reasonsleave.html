@@ -113,7 +113,7 @@
 
         Promise.all([
             d3.json("data/ref/countries-10m.geo.json"), // High resolution
-            d3.json("data/ref/world_countries.geo.json"), // Low resolution
+            // d3.json("data/ref/world_countries.geo.json"), // Low resolution
             d3.json("data/ref/world-urban-polygons.geojson"),
             d3.json("data/ref/h2o-.geo.json"),
             d3.csv("data/star_all_distances.csv"),
@@ -121,12 +121,12 @@
             d3.csv("data/origin_migrations_UR.csv") // This data will have the data of num_move and the type of migration
         ]).then(function (data) {
             var highResWorld = data[0];
-            var lowResWorld = data[1];
-            var urbanPolygons = data[2];
-            var waterBodies = data[3];
-            var allpts = data[4];
-            var migrations = data[5];
-            var originMigrations = data[6]; // should not be used for locations...
+            // var lowResWorld = data[1];
+            var urbanPolygons = data[1];
+            var waterBodies = data[2];
+            var allpts = data[3];
+            var migrations = data[4];
+            var originMigrations = data[5]; // should not be used for locations...
 
             svg.append("g")
                 .selectAll("path")
@@ -582,7 +582,7 @@ var neighborhoods = d3.group(filteredData, d => d.neighborhood);
 
         d3.select("#chart-subtext-container").append("div")
             .attr("class", "chart-subtext")
-            .text(`For respondents currently living in ${cityName}, ${countryName} using the 200's group of survey columns`);
+            .text(`For respondents currently living in ${cityName}, ${countryName} using the Q200s ACMS survey columns`);
     }
 }
 
