@@ -110,7 +110,7 @@
         Promise.all([
             d3.json("data/ref/countries-10m.geo.json"), // High resolution
             // d3.json("data/ref/world_countries.geo.json"), // Low resolution
-            d3.json("data/ref/world-urban-polygons.geojson"),
+            // d3.json("data/ref/world-urban-polygons.geojson"),
             d3.json("data/ref/h2o-.geo.json"),
             d3.csv("data/star_all_distances.csv"),
             d3.csv("data/level1_migrations_UR.csv"),
@@ -118,11 +118,11 @@
         ]).then(function (data) {
             var highResWorld = data[0];
             // var lowResWorld = data[1];
-            var urbanPolygons = data[1];
-            var waterBodies = data[2];
-            var allpts = data[3];
-            migrations = data[4]; // Correctly assign to global variable
-            var originMigrations = data[5];
+            // var urbanPolygons = data[1];
+            var waterBodies = data[1];
+            var allpts = data[2];
+            migrations = data[3]; // Correctly assign to global variable
+            var originMigrations = data[4];
 
             svg.append("g")
                 .selectAll("path")

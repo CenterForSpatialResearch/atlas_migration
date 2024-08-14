@@ -303,8 +303,8 @@
                 return b.num_moves - a.num_moves;
             });
 
-            var topMigrations = sortedMigrations.slice(0, 50)
-            var bottomMigrations = sortedMigrations.slice(800,820)
+            var topMigrations = sortedMigrations.slice(0, 800)
+            var bottomMigrations = sortedMigrations.slice(800,1000)
             var combinedMigrations = topMigrations.concat(bottomMigrations);
 
             var locationNames = new Set(combinedMigrations.map(function(m) { 
@@ -532,6 +532,10 @@ var neighborhoods = d3.group(filteredData, d => d.neighborhood);
 
     var dist_markers = distanceMarkers[selectedCity.charAt(0).toUpperCase() + selectedCity.slice(1)] || [];
 
+    function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
     scale_relative.selectAll("circle")
         .data(dist_markers)
         .enter()
@@ -576,9 +580,17 @@ var neighborhoods = d3.group(filteredData, d => d.neighborhood);
     }
 
     if (selectedCity !== 'all') {
+
+        let titleText;
+                    if (selectedNeighborhood === "all") {
+                        titleText = `Compiled reasons to leave most recent city of residence to go to ${cityName}, ${countryName}`;
+                    } else {
+                        titleText = `Compiled reasons to leave most recent city of residence to go to ${capitalizeFirstLetter(selectedNeighborhood)}, ${cityName}, ${countryName}`;
+                    }
+
         d3.select("#chart-title-container").append("div")
             .attr("class", "chart-title")
-            .text(`Compiled reasons to leave most recent city of residence`);
+            .text(titleText);
 
         d3.select("#chart-subtext-container").append("div")
             .attr("class", "chart-subtext")

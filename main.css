@@ -128,12 +128,14 @@ body {
     margin: 50px;
 }
 
-#filter {
-    top: 10px;
-    left: 10px;
+#filter-container {
+    margin-top: 10px;
+    margin-left: 50px;
     background: white;
-    padding: 10px;
-    border: 1px solid #ccc;
+    /* padding: 10px; */
+    /* border: 1px solid #ccc; */
+    align-items: center;
+    justify-content: center;
 }
 
 #legend {
