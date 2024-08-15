@@ -114,7 +114,7 @@
         Promise.all([
             d3.json("data/ref/countries-10m.geo.json"), // High resolution
             // d3.json("data/ref/world_countries.geo.json"), // Low resolution
-            d3.json("data/ref/world-urban-polygons.geojson"),
+            // d3.json("data/ref/world-urban-polygons.geojson"), // remove for web
             d3.json("data/ref/h2o-.geo.json"),
             d3.csv("data/star_all_distances.csv"),
             d3.csv("data/level1_migrations_UR_R.csv"),
@@ -122,11 +122,11 @@
         ]).then(function (data) {
             var highResWorld = data[0];
             // var lowResWorld = data[1];
-            var urbanPolygons = data[1];
-            var waterBodies = data[2];
-            var allpts = data[3];
-            var migrations = data[4];
-            var originMigrations = data[5]; // should not be used for locations...
+            // var urbanPolygons = data[1];
+            var waterBodies = data[1];
+            var allpts = data[2];
+            var migrations = data[3];
+            var originMigrations = data[4]; // should not be used for locations...
 
             svg.append("g")
                 .selectAll("path")
@@ -147,16 +147,16 @@
                 .attr("stroke","#ffffff")
                 .attr("stroke-width", .25)
 
-            svg.append("g")
-                .attr("class","urban-layer")
-                .selectAll("path")
-                .data(urbanPolygons.features)
-                .enter()
-                .append("path")
-                .attr("d", path)
-                .attr("fill","#dedede")
-                .attr("stroke","#dedede")
-                .attr("stroke-width", .25);
+            // svg.append("g")
+            //     .attr("class","urban-layer")
+            //     .selectAll("path")
+            //     .data(urbanPolygons.features)
+            //     .enter()
+            //     .append("path")
+            //     .attr("d", path)
+            //     .attr("fill","#dedede")
+            //     .attr("stroke","#dedede")
+            //     .attr("stroke-width", .25);
 
             var graticule = d3.geoGraticule().step([1, 1]);
             var gridLines = svg.append("g").attr("class", "graticule");
@@ -292,7 +292,7 @@
             svg.selectAll("line").remove(); // Remove all lines first
             svg.selectAll("text").remove(); // Remove all text labels first
 
-            console.log('Filtered migrations before sorting:', migrations); // Debugging line
+            // console.log('Filtered migrations before sorting:', migrations); // Debugging line
 
             if (migrations.length === 0) {
                 console.warn('No migrations data available.');
@@ -303,34 +303,24 @@
                 return b.num_moves - a.num_moves;
             });
 
-            var topMigrations = sortedMigrations.slice(0, 800)
-            var bottomMigrations = sortedMigrations.slice(800,1000)
-            var combinedMigrations = topMigrations.concat(bottomMigrations);
+            var topMigrations = sortedMigrations.slice(0, 10);
+            var bottomMigrations = sortedMigrations.slice(819, 820);
+            var combinedMigrations = topMigrations.concat(bottomMigrations); // not used rn
 
-            var locationNames = new Set(combinedMigrations.map(function(m) { 
-                // Parse the location string
-                var locationParts = m.location.replace(/[()']/g, '').split(', ');
+            console.log('Top migrations',topMigrations);
 
-                // Check if locationParts[0] is 'nan' and skip it
-                if (locationParts.length > 2 && locationParts[0].toLowerCase() !== 'nan') {
-                    return `${locationParts[0]}, ${locationParts[2]}`;
-                } else {
-                    return null;
-                }
-                }).filter(function(location) {
-                    return location !== null && location !== '';
-            }));
-
-            console.log('Top migrations:', topMigrations); // Debugging line
-            console.log('Origin locations:', locationNames); // Debugging line
+            // Track locations with drawn polylines
+            var locationsWithPolylines = [];
 
             polylines.forEach(function (line) {
                 var cityMatches = selectedCity === 'all' || line.datum().city.toLowerCase() === selectedCity;
                 var neighborhoodMatches = selectedNeighborhood === 'all' || line.datum().neighborhood.toLowerCase() === selectedNeighborhood;
+
                 if (cityMatches && neighborhoodMatches) {
                     var startPoint = projection(cityCoordinates[line.datum().city]); // City coordinates
                     var endPoint = projection([+line.datum().lat, +line.datum().lon]); // Ensure the coordinates are numbers
 
+                    // Draw the line
                     svg.append("line")
                         .attr("x1", startPoint[0])
                         .attr("y1", startPoint[1])
@@ -340,18 +330,22 @@
                         .attr("stroke-width", line.attr("stroke-width"))
                         .attr("opacity", line.attr("opacity"));
 
-                        if (locationNames.has(line.datum().location)) {
-                        svg.append("text")
-                            .attr("x", endPoint[0])
-                            .attr("y", endPoint[1])
-                            .attr("class","origin-text")
-                            .attr("dy", ".35em")
-                            .text(line.datum().location);
+                    // Track the location and end point for this line
+                    if (line.datum().location.toLowerCase().indexOf("nan") === -1) {
+                        locationsWithPolylines.push({ location: line.datum().location, endPoint: endPoint });
                     }
                 }
             });
 
-            // console.log("Filtered for city: " + selectedCity + " and neighborhood: " + selectedNeighborhood);
+            // Draw text labels for tracked locations at their corresponding end points
+            locationsWithPolylines.forEach(function(item) {
+                svg.append("text")
+                    .attr("x", item.endPoint[0])
+                    .attr("y", item.endPoint[1])
+                    .attr("class", "origin-text")
+                    .attr("dy", ".35em")
+                    .text(item.location);
+            });
         }
 
         var cityZoomLevels = {
@@ -376,7 +370,6 @@
 
             filterPolylines(); // Re-draw polylines at new zoom level
         }
-
 
 
         var zoom = d3.zoom()
@@ -643,11 +636,11 @@ function updateRightLegend(filteredData) {
 
     // Add the legend items
     legendData.forEach(item => {
-        var legendItem = rightLegendContainer.append("div")
-            .attr("class", "legend-item")
-            .style("display", "flex")
-            .style("align-items", "center")
-            .style("margin-bottom", "4px");
+
+    var legendItem = rightLegendContainer.append("div")
+        .attr("class", "legend-item")
+        .style("display", "flex")
+        .style("align-items", "center");
 
         legendItem.append("div")
             .attr("class", "legend-color")
@@ -656,19 +649,26 @@ function updateRightLegend(filteredData) {
             .style("height", "18px")
             .style("margin-right", "8px");
 
-        var textContainer = legendItem.append("div")
-            .attr("class", "legend-text")
-            .style("flex-grow", "1");
-
-        textContainer.append("div")
+        legendItem.append("div")
             .attr("class", "legend-category")
             .style("font-weight", "bold")
+            .style("flex-grow", "1")
+            .style("display", "flex")
             .text(`${item.category}`);
 
-        textContainer.append("div")
+        legendItem.append("div")
             .attr("class", "legend-percentage")
             .style("margin-left", "auto")
             .text(` ${item.percentage}`);
+
+        // var textContainer = legendItem.append("div")
+        //     .attr("class", "legend-text")
+        //     // .style("flex-grow", "1");
+
+        // textContainer.append("div")
+            // .attr("class", "legend-percentage")
+            // .style("margin-left", "auto")
+            
     });
 
     // Add a divider line
@@ -708,7 +708,7 @@ function updateRightLegend(filteredData) {
 
     nonResponsesItem.append("div")
         .attr("class", "legend-color")
-        .style("background-color", "#f0f0f0") // Light grey for Non-Responses
+        .style("background-color", "#AFAFAF") // Light grey for Non-Responses
         .style("width", "18px")
         .style("height", "18px")
         .style("margin-right", "8px");
@@ -716,7 +716,7 @@ function updateRightLegend(filteredData) {
     nonResponsesItem.append("div")
         .attr("class", "legend-text")
         .style("flex-grow", "1")
-        .text("Non-Responses");
+        .text(`Non-Responses`);
 
     nonResponsesItem.append("div")
         .attr("class", "legend-percentage")

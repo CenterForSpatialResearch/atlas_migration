@@ -110,7 +110,7 @@
         Promise.all([
             d3.json("data/ref/countries-10m.geo.json"), // High resolution
             // d3.json("data/ref/world_countries.geo.json"), // Low resolution
-            // d3.json("data/ref/world-urban-polygons.geojson"),
+            d3.json("data/ref/world-urban-polygons.geojson"), //remove for web version
             d3.json("data/ref/h2o-.geo.json"),
             d3.csv("data/star_all_distances.csv"),
             d3.csv("data/level1_migrations_UR.csv"),
@@ -118,11 +118,11 @@
         ]).then(function (data) {
             var highResWorld = data[0];
             // var lowResWorld = data[1];
-            // var urbanPolygons = data[1];
-            var waterBodies = data[1];
-            var allpts = data[2];
-            migrations = data[3]; // Correctly assign to global variable
-            var originMigrations = data[4];
+            var urbanPolygons = data[1];
+            var waterBodies = data[2];
+            var allpts = data[3];
+            migrations = data[4]; // Correctly assign to global variable
+            var originMigrations = data[5];
 
             svg.append("g")
                 .selectAll("path")
@@ -144,16 +144,16 @@
                 .attr("stroke","#ffffff")
                 .attr("stroke-width", .25)
 
-            // svg.append("g")
-            //     .attr("class","urban-layer")
-            //     .selectAll("path")
-            //     .data(urbanPolygons.features)
-            //     .enter()
-            //     .append("path")
-            //     .attr("d", path)
-            //     .attr("fill","#dedede")
-            //     .attr("stroke","#dedede")
-            //     .attr("stroke-width", .25);
+            svg.append("g") //remove for web version
+                .attr("class","urban-layer")
+                .selectAll("path")
+                .data(urbanPolygons.features)
+                .enter()
+                .append("path")
+                .attr("d", path)
+                .attr("fill","#dedede")
+                .attr("stroke","#dedede")
+                .attr("stroke-width", .25);
 
             var locationToNeighborhood = createLocationToNeighborhoodMapping(allpts);
             populateNeighborhoodsByCity(migrations, locationToNeighborhood);
@@ -354,8 +354,6 @@
                     .text(item.location);
             });
         }
-
-
 
 
         var cityZoomLevels = {
