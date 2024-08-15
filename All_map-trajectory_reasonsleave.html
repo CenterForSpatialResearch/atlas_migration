@@ -219,7 +219,8 @@
 
         // Function to get color based on the out_thm value
         function getColorByOutThm(out_thm) {
-            return colorReasons[out_thm] || null; // Default to black if not found
+            // return colorReasons[out_thm] || null; // Default to black if not found
+            return colorReasons[out_thm] || "#AFAFAF";
         }
 
         function ready(loadedMigrations, originMigrations, locationToNeighborhood) {
