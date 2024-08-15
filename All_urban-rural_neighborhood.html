@@ -253,6 +253,8 @@
                     var locationParts = location.replace(/[()']/g, '').split(', ');
                     var locationText = `${locationParts[0]}, ${locationParts[2]}`;
 
+                    // console.log(migration);
+
                     var line = svg.append("line")
                         .attr("x1", startPoint[0])
                         .attr("y1", startPoint[1])
@@ -272,7 +274,8 @@
                             ur_acms: migration.Q100_1_URACMS,
                             resp_id: migration.resp_id,
                             country_orig: migration.country_orig,
-                            current_city: migration.current_city 
+                            current_city: migration.current_city,
+                            moves: migration.num_moves
                         });
 
                     polylines.push(line);
@@ -323,19 +326,56 @@
                 var cityMatches = selectedCity === 'all' || line.datum().city.toLowerCase() === selectedCity;
                 var neighborhoodMatches = selectedNeighborhood === 'all' || line.datum().neighborhood.toLowerCase() === selectedNeighborhood;
 
+
+                // console.log('whatis this',line.datum());
+                
                 if (cityMatches && neighborhoodMatches) {
                     var startPoint = projection(cityCoordinates[line.datum().city]); // City coordinates
                     var endPoint = projection([+line.datum().lat, +line.datum().lon]); // Ensure the coordinates are numbers
+                    var lineData = line.datum()
 
+                    // console.log(lineData);
+                   
                     // Draw the line
                     svg.append("line")
+                        .datum(lineData)
                         .attr("x1", startPoint[0])
                         .attr("y1", startPoint[1])
                         .attr("x2", endPoint[0])
                         .attr("y2", endPoint[1])
                         .attr("stroke", line.attr("stroke"))
                         .attr("stroke-width", line.attr("stroke-width"))
-                        .attr("opacity", line.attr("opacity"));
+                        .attr("opacity", line.attr("opacity"))
+                        .attr("z-index", 30)
+                        // .on("mouseover", function (event, d) {
+                        //         d3.select("#tooltip")
+                        //             .select("#val")
+                        //             .text(d.ur_acms + " of " + d.location + "with " + d.num_moves +" migrations");
+                        //         d3.select("#tooltip").classed("hidden", false);
+                        //     })
+                        // .on("mouseout", function () {
+                        //     d3.select("#tooltip").classed("hidden", true);
+                        // });
+
+                            // Add an invisible thicker line for easier hover detection
+                    svg.append("line")
+                        .datum(lineData) // Bind the lineData object to the invisible line
+                        .attr("x1", startPoint[0])
+                        .attr("y1", startPoint[1])
+                        .attr("x2", endPoint[0])
+                        .attr("y2", endPoint[1])
+                        .attr("stroke", "transparent")
+                        .attr("stroke-width", Math.max(line.attr("stroke-width") * 4, 8)) // Make the hit area 4 times thicker or at least 8px
+                        .attr("opacity", 0) // Keep it invisible
+                        .on("mouseover", function (event, d) {
+                            d3.select("#tooltip")
+                                .select("#val")
+                                .text("Respondent Classified "+ d.ur_acms + ", " + d.location + "with " + d.moves +" migrations to " + d.city );
+                            d3.select("#tooltip").classed("hidden", false);
+                        })
+                        .on("mouseout", function () {
+                            d3.select("#tooltip").classed("hidden", true);
+                        });
 
                     // Track the location and end point for this line
                     if (line.datum().location.toLowerCase().indexOf("nan") === -1) {
@@ -345,15 +385,15 @@
             });
 
             // Draw text labels for tracked locations at their corresponding end points
-        //     locationsWithPolylines.forEach(function(item) {
-        //         svg.append("text")
-        //             .attr("x", item.endPoint[0])
-        //             .attr("y", item.endPoint[1])
-        //             .attr("class", "origin-text")
-        //             .attr("dy", ".35em")
-        //             .text(item.location);
-        //     });
-        // }
+            // locationsWithPolylines.forEach(function(item) {
+            //     svg.append("text")
+            //         .attr("x", item.endPoint[0])
+            //         .attr("y", item.endPoint[1])
+            //         .attr("class", "origin-text")
+            //         .attr("dy", ".35em")
+            //         .text(item.location);
+            // });
+        }
 
 
 

@@ -254,6 +254,8 @@
                     //     q100Value: locationToQ100[location]
                     // });
 
+                    // console.log(migration);
+
                     var line = svg.append("line")
                         .attr("x1", startPoint[0])
                         .attr("y1", startPoint[1])
@@ -263,7 +265,20 @@
                         .attr("stroke-width", migration.num_moves*1.5)
                         .attr("opacity", 0.7)
                         // .datum({ city: city, neighborhood: neighborhood, lon: migration.lon, lat: migration.lat }); // Save coordinates for zoom
-                        .datum({ city: city, neighborhood: neighborhood, lon: migration.lon, lat: migration.lat, location: locationText });
+                        .datum({ 
+                            city: city, 
+                            neighborhood: neighborhood, 
+                            lon: migration.lon, 
+                            lat: migration.lat, 
+                            location: locationText,
+                            moves: migration.num_moves,
+                            edu: migration.In_Education,
+                            housing: migration.In_Housing,
+                            kin: migration.In_Kin,
+                            restart: migration.In_Restart,
+                            safety: migration.In_Safety,
+                            work: migration.In_Work
+                        });
 
                     polylines.push(line); // Store the line
 
@@ -319,6 +334,9 @@
                 if (cityMatches && neighborhoodMatches) {
                     var startPoint = projection(cityCoordinates[line.datum().city]); // City coordinates
                     var endPoint = projection([+line.datum().lat, +line.datum().lon]); // Ensure the coordinates are numbers
+                    var lineData = line.datum();
+
+                    console.log(lineData);
 
                     // Draw the line
                     svg.append("line")
@@ -329,6 +347,39 @@
                         .attr("stroke", line.attr("stroke"))
                         .attr("stroke-width", line.attr("stroke-width"))
                         .attr("opacity", line.attr("opacity"));
+
+                        svg.append("line")
+                        .datum(lineData) // Bind the lineData object to the invisible line
+                        .attr("x1", startPoint[0])
+                        .attr("y1", startPoint[1])
+                        .attr("x2", endPoint[0])
+                        .attr("y2", endPoint[1])
+                        .attr("stroke", "transparent")
+                        .attr("stroke-width", Math.max(line.attr("stroke-width") * 4, 8)) // Make the hit area 4 times thicker or at least 8px
+                        .attr("opacity", 0) // Keep it invisible
+                        .on("mouseover", function (event, d) {
+                            var eduText = (d.edu && d.edu !== "0.0") ? "Education: " + d.edu + ". " : ""; //only if text exist and is not 0
+                            var housingText = d.housing ? "Housing: " + d.housing + ". " : ""; 
+                            var kinText = (d.kin && d.kin !== "0.0") ? "Kin: " + d.kin + ". " : ""; 
+                            var restartText = (d.restart && d.restart !== "0.0") ? "Restart: " + d.restart + ". " : "";
+                            var safetyText = (d.safety && d.safety !== "0.0") ? "Safety: " + d.safety + ". " : "";
+                            var workText = (d.work && d.work !== "0.0") ? "Work: " + d.work + ". " : "";
+
+                            // var eduText = "Education: " + d.edu; //only if text exist and is not 0
+                            // var housingText = "Housing: " + d.housing; 
+                            // var kinText ="Kin: " + d.kin; 
+                            // var restartText ="Restart: " + d.restart;
+                            // var safetyText ="Safety: " + d.safety;
+                            // var workText ="Work: " + d.work;
+
+                            d3.select("#tooltip")
+                                .select("#val")
+                                .text( d.location + " with " + d.moves +" migrations to " + d.neighborhood +" , " + d.city + ". Top reason for leaving is " + workText + eduText + housingText + kinText +restartText +safetyText);
+                            d3.select("#tooltip").classed("hidden", false);
+                        })
+                        .on("mouseout", function () {
+                            d3.select("#tooltip").classed("hidden", true);
+                        });
 
                     // Track the location and end point for this line - remove for web
                     // if (line.datum().location.toLowerCase().indexOf("nan") === -1) {
@@ -489,7 +540,8 @@ var neighborhoods = d3.group(filteredData, d => d.neighborhood);
         .on("mouseover", function (event, d) {
             d3.select("#tooltip")
                 .select("#val")
-                .text(d.out_thm + " dist: " + d.cumulative_dist + " Respondent " + d.resp_id + " is from " + d.city + ", " + d.country_orig + " which is " + d.cumulative_dist + " kilometers away from " + d.current_city);
+                // .text(d.out_thm + " dist: " + d.cumulative_dist + " Respondent " + d.resp_id + " is from " + d.city + ", " + d.country_orig + " which is " + d.cumulative_dist + " kilometers away from " + d.current_city);
+                .text(" Respondent " + d.resp_id + " is from " + d.city + ", " + d.country_orig + " which is " + d.cumulative_dist + " kilometers away from " + d.current_city);
             d3.select("#tooltip").classed("hidden", false);
         })
         .on("mouseout", function () {
