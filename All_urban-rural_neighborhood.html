@@ -114,131 +114,120 @@
             d3.json("data/ref/h2o-.geo.json"),
             d3.csv("data/star_all_distances.csv"),
             d3.csv("data/level1_migrations_UR.csv"),
-            d3.csv("data/origin_migrations_UR.csv") // This data will have the data of num_move and the type of migration
+            d3.csv("data/origin_migrations_UR.csv"), // This data will have the data of num_move and the type of migration
+            d3.csv("data/location_data.csv") // Load the location_data.csv file
         ]).then(function (data) {
             var highResWorld = data[0];
             // var lowResWorld = data[1];
             // var urbanPolygons = data[1];
             var waterBodies = data[1];
             var allpts = data[2];
-            migrations = data[3]; // Correctly assign to global variable
+            var migrations = data[3]; // Correctly assign to global variable
             var originMigrations = data[4];
+            locationData = data[5]; // Store location data globally
 
-            svg.append("g")
-                .selectAll("path")
-                .data(highResWorld.features)
-                .enter()
-                .append("path")
-                .attr("d", path)
-                .attr("fill","#f0f0f0")
-                .attr("stroke","#d1d1d1")
-                .attr("stroke-width", .5);
+                svg.append("g")
+                    .selectAll("path")
+                    .data(highResWorld.features)
+                    .enter()
+                    .append("path")
+                    .attr("d", path)
+                    .attr("fill", "#f0f0f0")
+                    .attr("stroke", "#d1d1d1")
+                    .attr("stroke-width", .5);
 
-            svg.append("g")
-                .selectAll("path")
-                .data(waterBodies.features)
-                .enter()
-                .append("path")
-                .attr("d", path)
-                .attr("fill","#ffffff")
-                .attr("stroke","#ffffff")
-                .attr("stroke-width", .25)
+                svg.append("g")
+                    .selectAll("path")
+                    .data(waterBodies.features)
+                    .enter()
+                    .append("path")
+                    .attr("d", path)
+                    .attr("fill", "#ffffff")
+                    .attr("stroke", "#ffffff")
+                    .attr("stroke-width", .25);
 
-            // svg.append("g") //remove for web version
-            //     .attr("class","urban-layer")
-            //     .selectAll("path")
-            //     .data(urbanPolygons.features)
-            //     .enter()
-            //     .append("path")
-            //     .attr("d", path)
-            //     .attr("fill","#dedede")
-            //     .attr("stroke","#dedede")
-            //     .attr("stroke-width", .25);
+                var locationToNeighborhood = createLocationToNeighborhoodMapping(allpts);
+                populateNeighborhoodsByCity(migrations, locationToNeighborhood);
+                ready(migrations, originMigrations, locationToNeighborhood);
 
-            var locationToNeighborhood = createLocationToNeighborhoodMapping(allpts);
-            populateNeighborhoodsByCity(migrations, locationToNeighborhood);
-            ready(migrations, originMigrations, locationToNeighborhood);
+                var graticule = d3.geoGraticule().step([1, 1]); // degrees - default 10 if not set
+                var gridLines = svg.append("g").attr("class", "graticule");
 
-            var graticule = d3.geoGraticule()
-                        .step([1, 1]); //degrees - default 10 if not set
-            var gridLines = svg.append("g").attr("class", "graticule");
+                gridLines.append("path")
+                    .datum(graticule)
+                    .attr("class", "graticule")
+                    .attr("d", path)
+                    .attr("stroke", "#d6d6d6")
+                    .attr("stroke-width", .25)
+                    .attr("fill", "none");
 
-            gridLines.append("path")
-                .datum(graticule)
-                .attr("class", "graticule")
-                .attr("d", path)
-                .attr("stroke", "#d6d6d6")
-                .attr("stroke-width", .25)
-                .attr("fill", "none");
-
-        }).catch(function (error) {
-            console.error('Error loading data:', error);
-        });
-
-        function createLocationToNeighborhoodMapping(data) {
-            var mapping = {};
-            data.forEach(function (d) {
-                mapping[d.location] = d.neighborhood_9;
-            });
-            return mapping;
-        }
-
-        function populateNeighborhoodsByCity(migrations, locationToNeighborhood) {
-            migrations.forEach(function (migration) {
-                var city = migration.city_8;
-                var location = migration.location;
-                var neighborhood = locationToNeighborhood[location] || 'Unknown';
-
-                if (city === 'Nairobi' && !validNairobiNeighborhoods.has(neighborhood)) {
-                    return; // Skip neighborhoods not in the valid set for Nairobi
-                }
-
-                if (!neighborhoodsByCity[city]) {
-                    neighborhoodsByCity[city] = new Set();
-                }
-                neighborhoodsByCity[city].add(neighborhood);
-            });
-
-            // console.log(neighborhoodsByCity); // Debugging log to check the neighborhoods by city
-        }
-
-        function updateNeighborhoodDropdown(city) {
-            var neighborhoodSelect = document.getElementById('neighborhood-select');
-            neighborhoodSelect.innerHTML = '<option value="all">All</option>'; // Capitalize "All"
-
-            if (neighborhoodsByCity[city]) {
-                neighborhoodsByCity[city].forEach(function (neighborhood) {
-                    var option = document.createElement('option');
-                    option.value = neighborhood;
-                    option.text = neighborhood;
-                    neighborhoodSelect.appendChild(option);
+                }).catch(function (error) {
+                console.error('Error loading data:', error);
                 });
-            }
-        }
 
-        function getColorByQ100(value) {
-            if (value === 'City') return cityColor;
-            if (value === 'Town') return townColor;
-            if (value === 'Village') return villageColor;
-            return null; // Return null if no match
-        }
+                function createLocationToNeighborhoodMapping(data) {
+                var mapping = {};
+                data.forEach(function (d) {
+                    mapping[d.location] = d.neighborhood_9;
+                });
+                return mapping;
+                }
 
-        function ready(loadedMigrations, originMigrations, locationToNeighborhood) {
-            migrations = originMigrations; // Ensure this is the global migrations variable
-            // console.log('Ready function migrations:', migrations); // Debugging line
+                function populateNeighborhoodsByCity(migrations, locationToNeighborhood) {
+                migrations.forEach(function (migration) {
+                    var city = migration.city_8;
+                    var location = migration.location;
+                    var neighborhood = locationToNeighborhood[location] || 'Unknown';
 
-            // Create a mapping for the Q100_1_URACMS column
-            var locationToQ100 = {};
-            originMigrations.forEach(function (d) {
+                    if (city === 'Nairobi' && !validNairobiNeighborhoods.has(neighborhood)) {
+                        return; // Skip neighborhoods not in the valid set for Nairobi
+                    }
+
+                    if (!neighborhoodsByCity[city]) {
+                        neighborhoodsByCity[city] = new Set();
+                    }
+                    neighborhoodsByCity[city].add(neighborhood);
+                });
+                }
+
+                function updateNeighborhoodDropdown(city) {
+                var neighborhoodSelect = document.getElementById('neighborhood-select');
+                neighborhoodSelect.innerHTML = '<option value="all">All</option>'; // Capitalize "All"
+
+                if (neighborhoodsByCity[city]) {
+                    neighborhoodsByCity[city].forEach(function (neighborhood) {
+                        var option = document.createElement('option');
+                        option.value = neighborhood;
+                        option.text = neighborhood;
+                        neighborhoodSelect.appendChild(option);
+                    });
+                }
+                }
+
+                function getColorByQ100(value) {
+                if (value === 'City') return cityColor;
+                if (value === 'Town') return townColor;
+                if (value === 'Village') return villageColor;
+                return null; // Return null if no match
+                }
+
+                function ready(loadedMigrations, originMigrations, locationToNeighborhood) {
+                migrations = originMigrations; // Ensure this is the global migrations variable
+
+                // Create a mapping for the Q100_1_URACMS column
+                var locationToQ100 = {};
+                originMigrations.forEach(function (d) {
                 locationToQ100[d.location] = d.Q100_1_URACMS;
-            });
+                });
 
-            migrations.forEach(function(migration) {
-                // console.log('Migration item:', migration); // Debugging line
-
+                migrations.forEach(function(migration) {
                 var city = migration.city_8;
                 if (cityCoordinates[city]) {
                     var location = migration.location;
+
+                    var locationPartsMigration = location.replace(/['()]/g, '').split(',').map(part => part.trim());
+                    var locationKeyMigration = `${locationPartsMigration[1]}, ${locationPartsMigration[2]}`;
+
                     var neighborhood = locationToNeighborhood[location] || 'Unknown';
                     if (city === 'Nairobi' && !validNairobiNeighborhoods.has(neighborhood)) {
                         return;
@@ -250,10 +239,9 @@
                     var startPoint = projection(cityCoordinates[city]);
                     var endPoint = projection([+migration.lat, +migration.lon]);
 
-                    var locationParts = location.replace(/[()']/g, '').split(', ');
-                    var locationText = `${locationParts[0]}, ${locationParts[2]}`;
+                    var matchingLocation = findMatchingLocation(locationKeyMigration, locationData);
 
-                    // console.log(migration);
+                    var locationText = matchingLocation || `${locationPartsMigration[1]}, ${locationPartsMigration[2]}`;
 
                     var line = svg.append("line")
                         .attr("x1", startPoint[0])
@@ -261,7 +249,7 @@
                         .attr("x2", endPoint[0])
                         .attr("y2", endPoint[1])
                         .attr("stroke", color)
-                        .attr("stroke-width", migration.num_moves*1.5)
+                        .attr("stroke-width", migration.num_moves * 1.5)
                         .attr("opacity", 0.7)
                         .attr("z-index", 20)
                         .datum({ 
@@ -280,123 +268,159 @@
 
                     polylines.push(line);
                 }
-            });
+                });
 
-            filterPolylines(); // Initialize filters
-        }
+                filterPolylines(); // Initialize filters
+                }
 
 
-        document.getElementById('city-select').addEventListener('change', function () {
-            var selectedCity = this.value;
-            updateNeighborhoodDropdown(selectedCity);
-            filterPolylines();
-            zoomToCity(selectedCity);
-        });
+                // Helper function to find matching location in location_data.csv
+                function findMatchingLocation(locationKey, locationData) {
+                for (var i = 0; i < locationData.length; i++) {
+                var locationPartsData = locationData[i].location.split(',').map(part => part.trim());
+                var locationKeyData = `${locationPartsData[1]}, ${locationPartsData[2]}`;
 
-        document.getElementById('neighborhood-select').addEventListener('change', function () {
-            filterPolylines();
-        });
+                if (locationKey.includes(locationKeyData)) {
+                    return locationData[i].location; // Return the full matching location name
+                }
+                }
+                return null; // Return null if no match is found
+                }
+                document.getElementById('city-select').addEventListener('change', function () {
+                var selectedCity = this.value;
+                updateNeighborhoodDropdown(selectedCity);
+                filterPolylines();
+                zoomToCity(selectedCity);
+                });
 
-        function filterPolylines() {
-            var selectedCity = document.getElementById('city-select').value.toLowerCase();
-            var selectedNeighborhood = document.getElementById('neighborhood-select').value.toLowerCase();
+                document.getElementById('neighborhood-select').addEventListener('change', function () {
+                filterPolylines();
+                });
 
-            svg.selectAll("line").remove(); // Remove all lines first
-            svg.selectAll("text").remove(); // Remove all text labels first
+                function filterPolylines() {
+                var selectedCity = document.getElementById('city-select').value.toLowerCase();
+                var selectedNeighborhood = document.getElementById('neighborhood-select').value.toLowerCase();
 
-            console.log('Filtered migrations before sorting:', migrations); // Debugging line
+                svg.selectAll("line").remove(); // Remove all lines first
+                svg.selectAll("text").remove(); // Remove all text labels first
 
-            if (migrations.length === 0) {
+                if (migrations.length === 0) {
                 console.warn('No migrations data available.');
                 return;
-            }
-
-            var sortedMigrations = migrations.slice().sort(function(a, b) {
-                return b.num_moves - a.num_moves;
-            });
-
-            var topMigrations = sortedMigrations.slice(0, 800);
-            var bottomMigrations = sortedMigrations.slice(800, 820);
-            var combinedMigrations = topMigrations.concat(bottomMigrations);
-
-            // Track locations with drawn polylines
-            var locationsWithPolylines = [];
-
-            polylines.forEach(function (line) {
-                var cityMatches = selectedCity === 'all' || line.datum().city.toLowerCase() === selectedCity;
-                var neighborhoodMatches = selectedNeighborhood === 'all' || line.datum().neighborhood.toLowerCase() === selectedNeighborhood;
-
-
-                // console.log('whatis this',line.datum());
-                
-                if (cityMatches && neighborhoodMatches) {
-                    var startPoint = projection(cityCoordinates[line.datum().city]); // City coordinates
-                    var endPoint = projection([+line.datum().lat, +line.datum().lon]); // Ensure the coordinates are numbers
-                    var lineData = line.datum()
-
-                    // console.log(lineData);
-                   
-                    // Draw the line
-                    svg.append("line")
-                        .datum(lineData)
-                        .attr("x1", startPoint[0])
-                        .attr("y1", startPoint[1])
-                        .attr("x2", endPoint[0])
-                        .attr("y2", endPoint[1])
-                        .attr("stroke", line.attr("stroke"))
-                        .attr("stroke-width", line.attr("stroke-width"))
-                        .attr("opacity", line.attr("opacity"))
-                        .attr("z-index", 30)
-                        // .on("mouseover", function (event, d) {
-                        //         d3.select("#tooltip")
-                        //             .select("#val")
-                        //             .text(d.ur_acms + " of " + d.location + "with " + d.num_moves +" migrations");
-                        //         d3.select("#tooltip").classed("hidden", false);
-                        //     })
-                        // .on("mouseout", function () {
-                        //     d3.select("#tooltip").classed("hidden", true);
-                        // });
-
-                            // Add an invisible thicker line for easier hover detection
-                    svg.append("line")
-                        .datum(lineData) // Bind the lineData object to the invisible line
-                        .attr("x1", startPoint[0])
-                        .attr("y1", startPoint[1])
-                        .attr("x2", endPoint[0])
-                        .attr("y2", endPoint[1])
-                        .attr("stroke", "transparent")
-                        .attr("stroke-width", Math.max(line.attr("stroke-width") * 4, 8)) // Make the hit area 4 times thicker or at least 8px
-                        .attr("opacity", 0) // Keep it invisible
-                        .on("mouseover", function (event, d) {
-                            d3.select("#tooltip")
-                                .select("#val")
-                                .text("Respondent Classified "+ d.ur_acms + ", " + d.location + "with " + d.moves +" migrations to " + d.city );
-                            d3.select("#tooltip").classed("hidden", false);
-                        })
-                        .on("mouseout", function () {
-                            d3.select("#tooltip").classed("hidden", true);
-                        });
-
-                    // Track the location and end point for this line
-                    if (line.datum().location.toLowerCase().indexOf("nan") === -1) {
-                        locationsWithPolylines.push({ location: line.datum().location, endPoint: endPoint });
-                    }
                 }
+
+                var sortedMigrations = migrations.slice().sort(function(a, b) {
+                return b.num_moves - a.num_moves;
+                });
+
+                var topMigrations = sortedMigrations.slice(0, 800);
+                var bottomMigrations = sortedMigrations.slice(800, 820);
+                var combinedMigrations = topMigrations.concat(bottomMigrations);
+
+                var locationsWithPolylines = [];
+
+                polylines.forEach(function (line) {
+    var cityMatches = selectedCity === 'all' || line.datum().city.toLowerCase() === selectedCity;
+    var neighborhoodMatches = selectedNeighborhood === 'all' || line.datum().neighborhood.toLowerCase() === selectedNeighborhood;
+
+    if (cityMatches && neighborhoodMatches) {
+        var startPoint = projection(cityCoordinates[line.datum().city]);
+        var endPoint = projection([+line.datum().lat, +line.datum().lon]);
+        var lineData = line.datum();
+
+        // Draw the polylines on the map
+        var mapLine = svg.append("line")
+            .datum(lineData)
+            .attr("x1", startPoint[0])
+            .attr("y1", startPoint[1])
+            .attr("x2", endPoint[0])
+            .attr("y2", endPoint[1])
+            .attr("stroke", line.attr("stroke"))
+            .attr("stroke-width", line.attr("stroke-width"))
+            .attr("opacity", 0.7)
+            .attr("class", "map-polyline"); // Add class for easy selection
+
+        // Transparent line for interaction
+        svg.append("line")
+            .datum(lineData)
+            .attr("x1", startPoint[0])
+            .attr("y1", startPoint[1])
+            .attr("x2", endPoint[0])
+            .attr("y2", endPoint[1])
+            .attr("stroke", "transparent")
+            .attr("stroke-width", Math.max(line.attr("stroke-width") * 4, 8))
+            .attr("opacity", 0)
+            .on("mouseover", function (event, d) {
+                // Reduce the opacity of all other polylines
+                d3.selectAll(".map-polyline").style("opacity", 0.1);
+
+                // Highlight the hovered polyline
+                mapLine.style("opacity", 1);
+
+                // Check if there's a matching location in location_data.csv
+                var matchingLocation = findMatchingLocation(d.location, locationData);
+
+                if (matchingLocation && matchingLocation.toLowerCase().indexOf("nan") === -1) {
+                    // Construct the image URL using the matching location
+                    var imageName = matchingLocation + ".png";
+                    var imageUrl = "../image_statelite/" + imageName;
+
+                    // Check if the image exists
+                    var image = new Image();
+                    image.src = imageUrl;
+                    image.onload = function() {
+                        // Image exists, show it in the tooltip
+                        d3.select("#tooltip")
+                            .select("#val")
+                            .html("Respondent Classified " + d.ur_acms + ", " + d.location + " with " + d.moves + " migrations to " + d.city +
+                                  "<br><img src='" + imageUrl + "' width='100' height='100'>");
+                    };
+                    image.onerror = function() {
+                        // Image doesn't exist, show only the text
+                        d3.select("#tooltip")
+                            .select("#val")
+                            .text("Respondent Classified " + d.ur_acms + ", " + d.location + " with " + d.moves + " migrations to " + d.city);
+                    };
+                } else {
+                    // No matching location or NaN found, show only the text
+                    d3.select("#tooltip")
+                        .select("#val")
+                        .text("Respondent Classified " + d.ur_acms + ", " + d.location + " with " + d.moves + " migrations to " + d.city);
+                }
+                
+                d3.select("#tooltip").classed("hidden", false); 
+            })
+            .on("mouseout", function () {
+                d3.selectAll(".highlight-line").remove();  // Remove the highlight-line when not hovered
+                d3.selectAll(".map-polyline").style("opacity", 0.7); // Reset opacity
+
+                d3.select("#tooltip").classed("hidden", true);  
             });
 
-            // Draw text labels for tracked locations at their corresponding end points
-            locationsWithPolylines.forEach(function(item) {
-                svg.append("text")
-                    .attr("x", item.endPoint[0])
-                    .attr("y", item.endPoint[1])
-                    .attr("class", "origin-text")
-                    .attr("dy", ".35em")
-                    .text(item.location);
-            });
+        polylines.push(mapLine);
+
+        // Check if there's a matching location in location_data.csv
+        var matchingLocation = findMatchingLocation(lineData.location, locationData);
+
+        // Add the label, either with the matching location or ''
+        if (matchingLocation && matchingLocation.toLowerCase().indexOf("nan") === -1) {
+            locationsWithPolylines.push({ location: matchingLocation, endPoint: endPoint });
+        } else {
+            locationsWithPolylines.push({ location: "", endPoint: endPoint });
         }
+    }
+});
 
-
-
+// Draw labels for locations, using the matched location or 'unknown'
+locationsWithPolylines.forEach(function(item) {
+    svg.append("text")
+        .attr("x", item.endPoint[0])
+        .attr("y", item.endPoint[1])
+        .attr("class", "origin-text")
+        .attr("dy", ".35em")
+        .text(item.location);
+});
+                }
 
         var cityZoomLevels = {
                 'Johannesburg': { scale: 1500, center: [28.0473, -20] },// city center [28.0473, -26.2041]
@@ -433,12 +457,17 @@
             svg.selectAll("path")
                 .attr("transform", transform);
 
-            svg.selectAll("line")
+            svg.selectAll(".map-polyline")
                 .attr("transform", transform);
 
             svg.selectAll("text")
                 .attr("transform", transform);
+
+            // Apply transform to highlighted lines as well
+            svg.selectAll(".highlight-line")
+                .attr("transform", transform);
         }
+
 
         var chartWidth = 300;
         var chartHeight = 300;
@@ -462,7 +491,9 @@
                 current_city: d.city_8,
                 neighborhood: d.neighborhood_9,
                 ur_acms: d.Q100_1_URACMS,
-                ur_un: d.Q100_1_URUN
+                ur_un: d.Q100_1_URUN, 
+                lat: d.lat,
+                lon: d.lon
             };
         };
 
@@ -523,21 +554,52 @@
                 .attr("x1", 0)
                 .attr("x2", (d, i, n) => polarCoords(d.cumulative_dist, i, n).x)
                 .attr("y1", 0)
-                .attr("y2", function (d, i, n) {
+                .attr("y2", function(d, i, n) {
                     var coordinate = polarCoords(d.cumulative_dist, i, n).y;
                     return coordinate;
                 })
                 .attr("stroke", d => categoryColors[d.ur_acms])
-                .attr("stroke-width", .5)
-                .on("mouseover", function (event, d) {
+                .attr("stroke-width", 0.5)
+                .attr("class", "star-line")
+                .on("mouseover", function(event, d) {
+                    // Reduce opacity of all lines except the hovered one in the star chart
+                    d3.selectAll(".star-line").style("opacity", 0.1);
+                    d3.select(this).style("opacity", 1).attr("stroke-width", 2);
+
                     d3.select("#tooltip")
                         .select("#val")
-                        .text("Respondent " + d.resp_id + " is from the "+ d.ur_acms + "of" + d.city + ", " + d.country_orig + " which is " + d.cumulative_dist + " km away from " + d.current_city);
+                        .text("Respondent Classified " + d.ur_acms + ", " + d.location + " with " + d.num_moves + " migrations to " + d.current_city);
+                    
                     d3.select("#tooltip").classed("hidden", false);
+
+                    // Highlight the corresponding line on the map
+                    var startPoint = projection(cityCoordinates[d.current_city]);
+                    var endPoint = projection([+d.lat, +d.lon]);
+                    var mapSVG = d3.select("#map svg");
+
+                    mapSVG.append("line")
+                        .attr("x1", startPoint[0])
+                        .attr("y1", startPoint[1])
+                        .attr("x2", endPoint[0])
+                        .attr("y2", endPoint[1])
+                        .attr("stroke", categoryColors[d.ur_acms])
+                        .attr("stroke-width", 2)
+                        .attr("class", "highlight-line");
+
+                    d3.selectAll(".map-polyline").style("opacity", 0.1);
                 })
-                .on("mouseout", function () {
+                .on("mouseout", function() {
+                    // Reset opacity and stroke width of all lines in the star chart
+                    d3.selectAll(".star-line").style("opacity", 0.7).attr("stroke-width", 0.5);
+
+                    // Remove the highlighted line from the map
+                    d3.select("#map svg .highlight-line").remove();                    
+                    d3.selectAll(".map-polyline").style("opacity", 1);
+
+                    // Hide the tooltip
                     d3.select("#tooltip").classed("hidden", true);
                 });
+
 
             var scale = circle_group.append("g")
                 .attr("class", "scale");
@@ -946,10 +1008,6 @@
             .text('people')
 
         });
-
-
-
-
 
         var dataset;
 
