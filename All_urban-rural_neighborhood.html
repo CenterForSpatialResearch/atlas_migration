@@ -352,7 +352,7 @@
             .attr("opacity", 0)
             .on("mouseover", function (event, d) {
                 // Reduce the opacity of all other polylines
-                d3.selectAll(".map-polyline").style("opacity", 0.1);
+                d3.selectAll(".map-polyline").style("opacity", 0.05);
 
                 // Highlight the hovered polyline
                 mapLine.style("opacity", 1);
@@ -429,44 +429,52 @@ locationsWithPolylines.forEach(function(item) {
                 'all': { scale: 450, center: [0, 10] } // Default zoom level and center
             };
         
-        function zoomToCity(city) {
-            var zoomConfig = cityZoomLevels[city] || cityZoomLevels['all'];
+            function zoomToCity(city) {
+    var zoomConfig = cityZoomLevels[city] || cityZoomLevels['all'];
 
-            projection
-                .center(zoomConfig.center)
-                .scale(zoomConfig.scale);
+    // Update the projection with the new center and scale
+    projection
+        .center(zoomConfig.center)
+        .scale(zoomConfig.scale);
 
-            svg.selectAll("path")
-                .attr("d", path); // Redraw paths
+    // Reapply the projection to the paths (for countries, etc.)
+    svg.selectAll("path")
+        .attr("d", path); // Redraw paths
 
-            svg.selectAll("line").remove(); // Remove all lines
-            svg.selectAll("text").remove(); // Remove all text labels
+    // Recalculate the positions of the lines and text labels with the new projection
+    svg.selectAll(".map-polyline")
+        .attr("x1", d => projection(cityCoordinates[d.city])[0])
+        .attr("y1", d => projection(cityCoordinates[d.city])[1])
+        .attr("x2", d => projection([+d.lat, +d.lon])[0])
+        .attr("y2", d => projection([+d.lat, +d.lon])[1]);
 
-            filterPolylines(); // Re-draw polylines at new zoom level
-        }
+    svg.selectAll("text")
+        .attr("x", d => projection([+d.lat, +d.lon])[0])
+        .attr("y", d => projection([+d.lat, +d.lon])[1]);
+}
 
-        var zoom = d3.zoom()
-            .scaleExtent([1, 8])
-            .on("zoom", zoomed);
+var zoom = d3.zoom()
+    .scaleExtent([1, 8])
+    .on("zoom", zoomed);
 
-        svg.call(zoom);
+svg.call(zoom);
 
-        function zoomed(event) {
-            var { transform } = event;
+function zoomed(event) {
+    var { transform } = event;
 
-            svg.selectAll("path")
-                .attr("transform", transform);
+    // Apply the zoom transformation to paths, polylines, text, and highlighted lines
+    svg.selectAll("path")
+        .attr("transform", transform);
 
-            svg.selectAll(".map-polyline")
-                .attr("transform", transform);
+    svg.selectAll(".map-polyline")
+        .attr("transform", transform);
 
-            svg.selectAll("text")
-                .attr("transform", transform);
+    svg.selectAll("text")
+        .attr("transform", transform);
 
-            // Apply transform to highlighted lines as well
-            svg.selectAll(".highlight-line")
-                .attr("transform", transform);
-        }
+    svg.selectAll(".highlight-line")
+        .attr("transform", transform);
+}
 
 
         var chartWidth = 300;
@@ -586,7 +594,7 @@ locationsWithPolylines.forEach(function(item) {
                         .attr("stroke-width", 2)
                         .attr("class", "highlight-line");
 
-                    d3.selectAll(".map-polyline").style("opacity", 0.1);
+                    d3.selectAll(".map-polyline").style("opacity", 0.05);
                 })
                 .on("mouseout", function() {
                     // Reset opacity and stroke width of all lines in the star chart
