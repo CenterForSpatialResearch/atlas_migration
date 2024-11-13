@@ -113,10 +113,10 @@
             // d3.json("data/ref/world-urban-polygons.geojson"), //remove for web version
             d3.json("data/ref/h2o-.geo.json"),
 
-            d3.csv("data/star_all_distances.csv"), // to remove
-            d3.csv("data/level1_migrations_UR.csv"), //to remove
-            d3.csv("data/origin_migrations_UR.csv"), // to remove This data will have the data of num_move and the type of migration
-            d3.csv("data/location_data.csv"), // to remove Load the location_data.csv file
+            d3.csv("data/star_all_distances.csv"), // TODO remove
+            d3.csv("data/level1_migrations_UR.csv"), //TODO remove
+            d3.csv("data/origin_migrations_UR.csv"), // TODO  remove This data will have the data of num_move and the type of migration
+            d3.csv("data/location_data.csv"), //TODO remove Load the location_data.csv file
             d3.csv("data/origin-to-neighborhood_UR.csv") // Load combined data updated csv
         ]).then(function (data) {
             var highResWorld = data[0];
@@ -129,9 +129,9 @@
             locationData = data[5]; // Store location data globally
             var origin_migrations_UR = data[6]
 
-            console.log(origin_migrations_UR);
-            console.log(originMigrations);
-            console.log(migrations);
+            // console.log(origin_migrations_UR);
+            // console.log(originMigrations);
+            // console.log(migrations);
             
 
                 svg.append("g")
@@ -226,7 +226,6 @@
                 // Create a mapping for the Q100_1_URACMS column
                 var locationToQ100 = {};
                 origin_migrations_UR.forEach(function (d) {
-                    // console.log(d);
                 locationToQ100[d.Q100] = d.Q100a; //assigning to village/city/town
                 });
 
@@ -330,7 +329,7 @@
                 return b.num_moves - a.num_moves;
                 });
 
-                var topMigrations = sortedMigrations.slice(0, 800);
+                var topMigrations = sortedMigrations.slice(0, 800); // TODO labels should be sorted by distance to current city instead
                 var bottomMigrations = sortedMigrations.slice(800, 820);
                 var combinedMigrations = topMigrations.concat(bottomMigrations);
 
@@ -382,8 +381,8 @@
                                         .select("#val")
                                         .html(d.moves + " migrations from " + d.location + ", " + d.near_orig + ", " + d.country_orig + " to " + d.neighborhood + ", " + d.city + "<br>" +
                                             "Origin location classified by respondent as " + d.ur_acms + "<br>" + "UN-WPP: " + d.UNWPP + " population/sqkm" + "<br>" +
-                                            "<img src='" + imageUrl + "' width='100px' height='100px'>");
-                                    console.log("Image loaded successfully:", imageUrl);
+                                            "<img src='" + imageUrl + "' width='200' height='200'>");
+                                    // console.log("Image loaded successfully:", imageUrl);
                                 };
                                 image.onerror = function() {
                                     console.log("Image not found, showing text only.");
