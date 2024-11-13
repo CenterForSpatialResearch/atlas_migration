@@ -112,10 +112,12 @@
             // d3.json("data/ref/world_countries.geo.json"), // Low resolution
             // d3.json("data/ref/world-urban-polygons.geojson"), //remove for web version
             d3.json("data/ref/h2o-.geo.json"),
-            d3.csv("data/star_all_distances.csv"),
-            d3.csv("data/level1_migrations_UR.csv"),
-            d3.csv("data/origin_migrations_UR.csv"), // This data will have the data of num_move and the type of migration
-            d3.csv("data/location_data.csv") // Load the location_data.csv file
+
+            d3.csv("data/star_all_distances.csv"), // to remove
+            d3.csv("data/level1_migrations_UR.csv"), //to remove
+            d3.csv("data/origin_migrations_UR.csv"), // to remove This data will have the data of num_move and the type of migration
+            d3.csv("data/location_data.csv"), // to remove Load the location_data.csv file
+            d3.csv("data/origin-to-neighborhood_UR.csv") // Load combined data updated csv
         ]).then(function (data) {
             var highResWorld = data[0];
             // var lowResWorld = data[1];
@@ -125,6 +127,12 @@
             var migrations = data[3]; // Correctly assign to global variable
             var originMigrations = data[4];
             locationData = data[5]; // Store location data globally
+            var origin_migrations_UR = data[6]
+
+            console.log(origin_migrations_UR);
+            console.log(originMigrations);
+            console.log(migrations);
+            
 
                 svg.append("g")
                     .selectAll("path")
@@ -146,9 +154,9 @@
                     .attr("stroke", "#ffffff")
                     .attr("stroke-width", .25);
 
-                var locationToNeighborhood = createLocationToNeighborhoodMapping(allpts);
+                var locationToNeighborhood = createLocationToNeighborhoodMapping(origin_migrations_UR);
                 populateNeighborhoodsByCity(migrations, locationToNeighborhood);
-                ready(migrations, originMigrations, locationToNeighborhood);
+                ready(migrations, originMigrations, locationToNeighborhood, origin_migrations_UR);
 
                 var graticule = d3.geoGraticule().step([1, 1]); // degrees - default 10 if not set
                 var gridLines = svg.append("g").attr("class", "graticule");
@@ -166,17 +174,18 @@
                 });
 
                 function createLocationToNeighborhoodMapping(data) {
+                    // console.log(data); // this is allpts 
                 var mapping = {};
                 data.forEach(function (d) {
-                    mapping[d.location] = d.neighborhood_9;
+                    mapping[d.Q100] = d.neighborhood;
                 });
                 return mapping;
                 }
 
-                function populateNeighborhoodsByCity(migrations, locationToNeighborhood) {
-                migrations.forEach(function (migration) {
-                    var city = migration.city_8;
-                    var location = migration.location;
+                function populateNeighborhoodsByCity(origin_migrations_UR, locationToNeighborhood) {
+                    origin_migrations_UR.forEach(function (migration) {
+                    var city = migration.city;
+                    var location = migration.Q100;
                     var neighborhood = locationToNeighborhood[location] || 'Unknown';
 
                     if (city === 'Nairobi' && !validNairobiNeighborhoods.has(neighborhood)) {
@@ -211,19 +220,26 @@
                 return null; // Return null if no match
                 }
 
-                function ready(loadedMigrations, originMigrations, locationToNeighborhood) {
-                migrations = originMigrations; // Ensure this is the global migrations variable
+                function ready(loadedMigrations, originMigrations, locationToNeighborhood, origin_migrations_UR) {
+                migrations = origin_migrations_UR; // Ensure this is the global migrations variable
 
                 // Create a mapping for the Q100_1_URACMS column
                 var locationToQ100 = {};
-                originMigrations.forEach(function (d) {
-                locationToQ100[d.location] = d.Q100_1_URACMS;
+                origin_migrations_UR.forEach(function (d) {
+                    // console.log(d);
+                locationToQ100[d.Q100] = d.Q100a; //assigning to village/city/town
                 });
 
+                // var locationToQ100 = {};
+                // originMigrations.forEach(function (d) {
+                //     console.log(d);
+                // locationToQ100[d.location] = d.Q100_1_URACMS;
+                // });
+
                 migrations.forEach(function(migration) {
-                var city = migration.city_8;
+                var city = migration.city;
                 if (cityCoordinates[city]) {
-                    var location = migration.location;
+                    var location = migration.Q100;
 
                     var locationPartsMigration = location.replace(/['()]/g, '').split(',').map(part => part.trim());
                     var locationKeyMigration = `${locationPartsMigration[1]}, ${locationPartsMigration[2]}`;
@@ -233,7 +249,7 @@
                         return;
                     }
 
-                    var q100Value = locationToQ100[location];
+                    var q100Value = locationToQ100[location]; // color village/city/town
                     var color = getColorByQ100(q100Value);
 
                     var startPoint = projection(cityCoordinates[city]);
@@ -249,7 +265,7 @@
                         .attr("x2", endPoint[0])
                         .attr("y2", endPoint[1])
                         .attr("stroke", color)
-                        .attr("stroke-width", migration.num_moves * 1.5)
+                        .attr("stroke-width", migration.Count * 1.5)
                         .attr("opacity", 0.7)
                         .attr("z-index", 20)
                         .datum({ 
@@ -257,13 +273,14 @@
                             neighborhood: neighborhood, 
                             lon: migration.lon, 
                             lat: migration.lat, 
-                            location: locationText,
-                            cumulative_dist: migration.cumulative_dist,
-                            ur_acms: migration.Q100_1_URACMS,
+                            location: migration.Q100,
+                            ur_acms: migration.Q100a,
                             resp_id: migration.resp_id,
-                            country_orig: migration.country_orig,
-                            current_city: migration.current_city,
-                            moves: migration.num_moves
+                            near_orig: migration.nearNeighbor,
+                            country_orig: migration.Q103,
+                            current_city: migration.city,
+                            moves: migration.Count,
+                            UNWPP:migration.UNWPP_joined
                         });
 
                     polylines.push(line);
@@ -275,7 +292,7 @@
 
 
                 // Helper function to find matching location in location_data.csv
-                function findMatchingLocation(locationKey, locationData) {
+        function findMatchingLocation(locationKey, locationData) {
                 for (var i = 0; i < locationData.length; i++) {
                 var locationPartsData = locationData[i].location.split(',').map(part => part.trim());
                 var locationKeyData = `${locationPartsData[1]}, ${locationPartsData[2]}`;
@@ -319,74 +336,80 @@
 
                 var locationsWithPolylines = [];
 
-                polylines.forEach(function (line) {
-    var cityMatches = selectedCity === 'all' || line.datum().city.toLowerCase() === selectedCity;
-    var neighborhoodMatches = selectedNeighborhood === 'all' || line.datum().neighborhood.toLowerCase() === selectedNeighborhood;
+        polylines.forEach(function (line) {
+                    var cityMatches = selectedCity === 'all' || line.datum().city.toLowerCase() === selectedCity;
+                    var neighborhoodMatches = selectedNeighborhood === 'all' || line.datum().neighborhood.toLowerCase() === selectedNeighborhood;
 
-    if (cityMatches && neighborhoodMatches) {
-        var startPoint = projection(cityCoordinates[line.datum().city]);
-        var endPoint = projection([+line.datum().lat, +line.datum().lon]);
-        var lineData = line.datum();
+                    if (cityMatches && neighborhoodMatches) {
+                        var startPoint = projection(cityCoordinates[line.datum().city]);
+                        var endPoint = projection([+line.datum().lat, +line.datum().lon]);
+                        var lineData = line.datum();
 
-        // Draw the polylines on the map
-        var mapLine = svg.append("line")
-            .datum(lineData)
-            .attr("x1", startPoint[0])
-            .attr("y1", startPoint[1])
-            .attr("x2", endPoint[0])
-            .attr("y2", endPoint[1])
-            .attr("stroke", line.attr("stroke"))
-            .attr("stroke-width", line.attr("stroke-width"))
-            .attr("opacity", 0.7)
-            .attr("class", "map-polyline"); // Add class for easy selection
+                        // Draw the polylines on the map
+                        var mapLine = svg.append("line")
+                            .datum(lineData)
+                            .attr("x1", startPoint[0])
+                            .attr("y1", startPoint[1])
+                            .attr("x2", endPoint[0])
+                            .attr("y2", endPoint[1])
+                            .attr("stroke", line.attr("stroke"))
+                            .attr("stroke-width", line.attr("stroke-width"))
+                            .attr("opacity", 0.7)
+                            .attr("class", "map-polyline"); // Add class for easy selection
 
-        // Transparent line for interaction
-        svg.append("line")
-            .datum(lineData)
-            .attr("x1", startPoint[0])
-            .attr("y1", startPoint[1])
-            .attr("x2", endPoint[0])
-            .attr("y2", endPoint[1])
-            .attr("stroke", "transparent")
-            .attr("stroke-width", Math.max(line.attr("stroke-width") * 4, 8))
-            .attr("opacity", 0)
-            .on("mouseover", function (event, d) {
-                // Reduce the opacity of all other polylines
-                d3.selectAll(".map-polyline").style("opacity", 0.05);
+                        // Transparent line for interaction
+                        svg.append("line")
+                            .datum(lineData)
+                            .attr("x1", startPoint[0])
+                            .attr("y1", startPoint[1])
+                            .attr("x2", endPoint[0])
+                            .attr("y2", endPoint[1])
+                            .attr("stroke", "transparent")
+                            .attr("stroke-width", Math.max(line.attr("stroke-width") * 4, 8))
+                            .attr("opacity", 0)
+                            .on("mouseover", function (event, d) {
+                                // console.log(d);
+                                
+                                // Reduce the opacity of all other polylines
+                                d3.selectAll(".map-polyline").style("opacity", 0.05);
 
-                // Highlight the hovered polyline
-                mapLine.style("opacity", 1);
+                                // Highlight the hovered polyline
+                                mapLine.style("opacity", 1);
 
-                // Check if there's a matching location in location_data.csv
-                var matchingLocation = findMatchingLocation(d.location, locationData);
+                                // Check if there's a matching location in location_data.csv
+                                
+                                
+                                // var matchingLocation = findMatchingLocation(d.location, locationData);
+                                var latlong = d.lat + "_" + d.lon;
+                                // console.log(latlong);
 
-                if (matchingLocation && matchingLocation.toLowerCase().indexOf("nan") === -1) {
-                    // Construct the image URL using the matching location
-                    var imageName = matchingLocation + ".png";
-                    var imageUrl = "../image_statelite/" + imageName;
+                                if (matchingLocation && matchingLocation.toLowerCase().indexOf("nan") === -1) {
+                                    // Construct the image URL using the matching location
+                                    var imageName = latlong + "_15.png";
+                                    var imageUrl = "../aerial/" + imageName;
 
-                    // Check if the image exists
-                    var image = new Image();
-                    image.src = imageUrl;
-                    image.onload = function() {
-                        // Image exists, show it in the tooltip
-                        d3.select("#tooltip")
-                            .select("#val")
-                            .html("Respondent Classified " + d.ur_acms + ", " + d.location + " with " + d.moves + " migrations to " + d.city +
-                                  "<br><img src='" + imageUrl + "' width='100' height='100'>");
-                    };
-                    image.onerror = function() {
-                        // Image doesn't exist, show only the text
-                        d3.select("#tooltip")
-                            .select("#val")
-                            .text("Respondent Classified " + d.ur_acms + ", " + d.location + " with " + d.moves + " migrations to " + d.city);
-                    };
-                } else {
-                    // No matching location or NaN found, show only the text
-                    d3.select("#tooltip")
-                        .select("#val")
-                        .text("Respondent Classified " + d.ur_acms + ", " + d.location + " with " + d.moves + " migrations to " + d.city);
-                }
+                                    // Check if the image exists
+                                    var image = new Image();
+                                    image.src = imageUrl;
+                                    image.onload = function() {
+                                        // Image exists, show it in the tooltip
+                                        d3.select("#tooltip")
+                                            .select("#val")
+                                            .html(d.moves + " migrations from " + d.location +", " +d.near_orig+", " +d.country_orig+ " to " +d.neighborhood+", "+ d.city +"<br>"+"Origin location classified by respondent as " + d.ur_acms+"<br>"+ "UN-WPP: "+ d.UNWPP +" population/sqkm" +
+                                                "<img src='" +"31.7085285_73.9864014_15.png" + "' width='100px' height='100px'>");
+                                    };
+                                    image.onerror = function() {
+                                        // Image doesn't exist, show only the text
+                                        d3.select("#tooltip")
+                                            .select("#val")
+                                            .html(d.moves + " migrations from " + d.location +", " +d.near_orig+", " +d.country_orig+ " to " +d.neighborhood+", "+ d.city +"<br>"+"Origin location classified by respondent as " + d.ur_acms+"<br>"+ "UN-WPP: "+ d.UNWPP +" population/sqkm");
+                                    };
+                                } else {
+                                    // No matching location or NaN found, show only the text
+                                    d3.select("#tooltip")
+                                        .select("#val")
+                                        .html(d.moves + " migrations from " + d.location +", " +d.near_orig+", " +d.country_orig+ " to " +d.neighborhood+", "+ d.city +"<br>"+"Origin location classified by respondent as " + d.ur_acms+"<br>"+ "UN-WPP: "+ d.UNWPP +" population/sqkm");
+                                }
                 
                 d3.select("#tooltip").classed("hidden", false); 
             })

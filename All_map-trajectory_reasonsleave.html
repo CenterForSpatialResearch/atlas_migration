@@ -158,6 +158,8 @@
             //     .attr("stroke","#dedede")
             //     .attr("stroke-width", .25);
 
+            console.log(migrations);
+
             var graticule = d3.geoGraticule().step([1, 1]);
             var gridLines = svg.append("g").attr("class", "graticule");
 
@@ -183,6 +185,7 @@
             });
             return mapping;
         }
+        
 
         function populateNeighborhoodsByCity(migrations, locationToNeighborhood) {
             migrations.forEach(function (migration) {
