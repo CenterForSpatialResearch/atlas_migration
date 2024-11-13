@@ -368,57 +368,89 @@
                             .attr("stroke-width", Math.max(line.attr("stroke-width") * 4, 8))
                             .attr("opacity", 0)
                             .on("mouseover", function (event, d) {
-                                // console.log(d);
-                                
-                                // Reduce the opacity of all other polylines
-                                d3.selectAll(".map-polyline").style("opacity", 0.05);
-
-                                // Highlight the hovered polyline
-                                mapLine.style("opacity", 1);
-
-                                // Check if there's a matching location in location_data.csv
-                                
-                                
-                                // var matchingLocation = findMatchingLocation(d.location, locationData);
                                 var latlong = d.lat + "_" + d.lon;
-                                // console.log(latlong);
+                                var imageName = latlong + "_15.png";
+                                // var imageUrl = "aerial/" + imageName;
+                                var imageUrl = "aerial/-0.3666_35.2833_15.png";
 
-                                if (matchingLocation && matchingLocation.toLowerCase().indexOf("nan") === -1) {
-                                    // Construct the image URL using the matching location
-                                    var imageName = latlong + "_15.png";
-                                    var imageUrl = "../aerial/" + imageName;
+                                console.log("Checking image URL:", imageUrl);
 
-                                    // Check if the image exists
-                                    var image = new Image();
-                                    image.src = imageUrl;
-                                    image.onload = function() {
-                                        // Image exists, show it in the tooltip
-                                        d3.select("#tooltip")
-                                            .select("#val")
-                                            .html(d.moves + " migrations from " + d.location +", " +d.near_orig+", " +d.country_orig+ " to " +d.neighborhood+", "+ d.city +"<br>"+"Origin location classified by respondent as " + d.ur_acms+"<br>"+ "UN-WPP: "+ d.UNWPP +" population/sqkm" +
-                                                "<img src='" +"31.7085285_73.9864014_15.png" + "' width='100px' height='100px'>");
-                                    };
-                                    image.onerror = function() {
-                                        // Image doesn't exist, show only the text
-                                        d3.select("#tooltip")
-                                            .select("#val")
-                                            .html(d.moves + " migrations from " + d.location +", " +d.near_orig+", " +d.country_orig+ " to " +d.neighborhood+", "+ d.city +"<br>"+"Origin location classified by respondent as " + d.ur_acms+"<br>"+ "UN-WPP: "+ d.UNWPP +" population/sqkm");
-                                    };
-                                } else {
-                                    // No matching location or NaN found, show only the text
+                                var image = new Image();
+                                image.src = imageUrl;
+                                image.onload = function() {
                                     d3.select("#tooltip")
                                         .select("#val")
-                                        .html(d.moves + " migrations from " + d.location +", " +d.near_orig+", " +d.country_orig+ " to " +d.neighborhood+", "+ d.city +"<br>"+"Origin location classified by respondent as " + d.ur_acms+"<br>"+ "UN-WPP: "+ d.UNWPP +" population/sqkm");
-                                }
-                
-                d3.select("#tooltip").classed("hidden", false); 
-            })
-            .on("mouseout", function () {
-                d3.selectAll(".highlight-line").remove();  // Remove the highlight-line when not hovered
-                d3.selectAll(".map-polyline").style("opacity", 0.7); // Reset opacity
+                                        .html(d.moves + " migrations from " + d.location + ", " + d.near_orig + ", " + d.country_orig + " to " + d.neighborhood + ", " + d.city + "<br>" +
+                                            "Origin location classified by respondent as " + d.ur_acms + "<br>" + "UN-WPP: " + d.UNWPP + " population/sqkm" + "<br>" +
+                                            "<img src='" + imageUrl + "' width='100px' height='100px'>");
+                                    console.log("Image loaded successfully:", imageUrl);
+                                };
+                                image.onerror = function() {
+                                    console.log("Image not found, showing text only.");
+                                    d3.select("#tooltip")
+                                        .select("#val")
+                                        .html(d.moves + " migrations from " + d.location + ", " + d.near_orig + ", " + d.country_orig + " to " + d.neighborhood + ", " + d.city + "<br>" +
+                                            "Origin location classified by respondent as " + d.ur_acms + "<br>" + "UN-WPP: " + d.UNWPP + " population/sqkm");
+                                };
 
-                d3.select("#tooltip").classed("hidden", true);  
-            });
+                                d3.select("#tooltip").classed("hidden", false); 
+                            });
+
+            //                 .on("mouseover", function (event, d) {
+            //                     // console.log(d);
+                                
+            //                     // Reduce the opacity of all other polylines
+            //                     d3.selectAll(".map-polyline").style("opacity", 0.05);
+
+            //                     // Highlight the hovered polyline
+            //                     mapLine.style("opacity", 1);
+
+            //                     // Check if there's a matching location in location_data.csv
+                                
+                                
+            //                     // var matchingLocation = findMatchingLocation(d.location, locationData);
+            //                     var latlong = d.lat + "_" + d.lon;
+            //                     console.log(latlong);
+
+            //                     // if (matchingLocation && matchingLocation.toLowerCase().indexOf("nan") === -1) {
+            //                     if(true){
+            //                         // Construct the image URL using the matching location
+            //                         var imageName = latlong + "_15.png";
+            //                         var imageUrl = "../aerial/" + imageName;
+
+            //                         // Check if the image exists
+            //                         var image = new Image();
+            //                         image.src = imageUrl;
+            //                         image.onload = function() {
+            //                             // Image exists, show it in the tooltip
+            //                             d3.select("#tooltip")
+            //                                 .select("#val")
+            //                                 .html(d.moves + " migrations from " + d.location +", " +d.near_orig+", " +d.country_orig+ " to " +d.neighborhood+", "+ d.city +"<br>"+"Origin location classified by respondent as " + d.ur_acms+"<br>"+ "UN-WPP: "+ d.UNWPP +" population/sqkm" +
+            //                                     "<img src='" +"../aerial/-0.3666_35.2833_15.png"+ "' width='100px' height='100px'>");
+            //                                     console.log(imageUrl);
+                                                
+            //                         };
+            //                         image.onerror = function() {
+            //                             // Image doesn't exist, show only the text
+            //                             d3.select("#tooltip")
+            //                                 .select("#val")
+            //                                 .html(d.moves + " migrations from " + d.location +", " +d.near_orig+", " +d.country_orig+ " to " +d.neighborhood+", "+ d.city +"<br>"+"Origin location classified by respondent as " + d.ur_acms+"<br>"+ "UN-WPP: "+ d.UNWPP +" population/sqkm");
+            //                         };
+            //                     } else {
+            //                         // No matching location or NaN found, show only the text
+            //                         d3.select("#tooltip")
+            //                             .select("#val")
+            //                             .html(d.moves + " migrations from " + d.location +", " +d.near_orig+", " +d.country_orig+ " to " +d.neighborhood+", "+ d.city +"<br>"+"Origin location classified by respondent as " + d.ur_acms+"<br>"+ "UN-WPP: "+ d.UNWPP +" population/sqkm");
+            //                     }
+                
+            //     d3.select("#tooltip").classed("hidden", false); 
+            // })
+            // .on("mouseout", function () {
+            //     d3.selectAll(".highlight-line").remove();  // Remove the highlight-line when not hovered
+            //     d3.selectAll(".map-polyline").style("opacity", 0.7); // Reset opacity
+
+            //     d3.select("#tooltip").classed("hidden", true);  
+            // });
 
         polylines.push(mapLine);
 
