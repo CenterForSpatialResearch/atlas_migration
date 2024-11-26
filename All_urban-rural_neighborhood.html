@@ -11,44 +11,46 @@
 </head>
 
 <body>
-    <div id="tooltip" class="hidden">
-        <p><span id="val"></span></p>
-    </div>
+    <!-- <div style="display:grid; width:90vw; height:90vh;"> -->
+                <div id="tooltip" class="hidden">
+                    <p><span id="val"></span></p>
+                </div>
 
-    <div id="filter-container">
-        <label for="city-select">Select City: </label>
-        <select id="city-select">
-            <option value="all">All</option>
-            <option value="Johannesburg">Johannesburg</option>
-            <option value="Nairobi">Nairobi</option>
-            <option value="Accra">Accra</option>
-        </select>
+                <div id="filter-container">
+                    <label for="city-select">Select City: </label>
+                    <select id="city-select">
+                        <option value="all">All</option>
+                        <option value="Johannesburg">Johannesburg</option>
+                        <option value="Nairobi">Nairobi</option>
+                        <option value="Accra">Accra</option>
+                    </select>
 
-        <label for="neighborhood-select">Select Neighborhood: </label>
-        <select id="neighborhood-select">
-            <option value="all">All</option>
-        </select>
-        <!-- <button id="download-page">Download SVG page</button> -->
-        <!-- <button id="download-svg">Download map SVG</button> -->
-        <!-- <button id="download-legend">Download Legend SVG</button> -->
-        <!-- <button id="download-png-button">Download PNG</button> -->
-        <!-- <button onclick="downloadLegendPNG()">Download Legend PNG</button> -->
+                    <label for="neighborhood-select">Select Neighborhood: </label>
+                    <select id="neighborhood-select">
+                        <option value="all">All</option>
+                    </select>
+                    <!-- <button id="download-page">Download SVG page</button> -->
+                    <!-- <button id="download-svg">Download map SVG</button> -->
+                    <!-- <button id="download-legend">Download Legend SVG</button> -->
+                    <!-- <button id="download-png-button">Download PNG</button> -->
+                    <!-- <button onclick="downloadLegendPNG()">Download Legend PNG</button> -->
 
-    </div>
-    <div class="container" id="print-container">
-        <div id="map"></div>
-        <div id="legend">
-            <div id="left-legend-container"></div>
-            <div id="right-legend-container"></div>
-            <div id="chart-container"></div>
-            <div id="chart-title">
-                <div id="people-legend"></div>
-                <div id="chart-title-container"></div>
-                <div id="chart-subtext-container"></div>
-            </div>
-            <div id="line" class="line"></div>
-        </div>
-    </div>
+                </div>
+                <div class="container" id="print-container">
+                    <div id="map"></div>
+                    <div id="legend">
+                        <div id="left-legend-container"></div>
+                        <div id="right-legend-container"></div>
+                        <div id="chart-container"></div>
+                        <div id="chart-title">
+                            <div id="people-legend"></div>
+                            <div id="chart-title-container"></div>
+                            <div id="chart-subtext-container"></div>
+                        </div>
+                        <div id="line" class="line"></div>
+                    </div>
+                </div>
+     <!-- </div> -->
 </body>
 
     <!-- script -->
@@ -291,17 +293,17 @@
 
 
                 // Helper function to find matching location in location_data.csv
-        function findMatchingLocation(locationKey, locationData) {
-                for (var i = 0; i < locationData.length; i++) {
-                var locationPartsData = locationData[i].location.split(',').map(part => part.trim());
-                var locationKeyData = `${locationPartsData[1]}, ${locationPartsData[2]}`;
+                function findMatchingLocation(locationKey, locationData) { // this should be removed not used
+                        for (var i = 0; i < locationData.length; i++) {
+                        var locationPartsData = locationData[i].location.split(',').map(part => part.trim());
+                        var locationKeyData = `${locationPartsData[1]}, ${locationPartsData[2]}`;
 
-                if (locationKey.includes(locationKeyData)) {
-                    return locationData[i].location; // Return the full matching location name
-                }
-                }
-                return null; // Return null if no match is found
-                }
+                        if (locationKey.includes(locationKeyData)) {
+                            return locationData[i].location; // Return the full matching location name
+                        }
+                        }
+                        return null; // Return null if no match is found
+                        }
                 document.getElementById('city-select').addEventListener('change', function () {
                 var selectedCity = this.value;
                 updateNeighborhoodDropdown(selectedCity);
