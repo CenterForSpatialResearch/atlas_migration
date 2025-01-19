@@ -29,6 +29,11 @@
                     <select id="neighborhood-select">
                         <option value="all">All</option>
                     </select>
+
+                    <label for="moves-select">Filter by Number of Moves: </label>
+                    <select id="moves-select">
+                        <option value="all">All</option>
+                    </select>
                     <!-- <button id="download-page">Download SVG page</button> -->
                     <!-- <button id="download-svg">Download map SVG</button> -->
                     <!-- <button id="download-legend">Download Legend SVG</button> -->
@@ -171,7 +176,8 @@
         var cityCoordinates = {
             'Johannesburg': [28.0473, -26.2041],
             'Nairobi': [36.8219, -1.2921],
-            'Accra': [-0.1870, 5.6037]
+            'Accra': [-0.1870, 5.6037],
+            'all': [0, 10]
         };
 
 
@@ -205,9 +211,6 @@
             // d3.json("data/ref/world_countries.geo.json"), // Low resolution
             // d3.json("data/ref/world-urban-polygons.geojson"), //remove for web version
             d3.json("data/ref/h2o-.geo.json"),
-
-            // d3.csv("data/star_all_distances.csv"),
-            // d3.csv("data/level1_migrations_UR.csv"), //TODO remove
             d3.csv("data/origin_migrations_UR.csv"), // TODO  remove This data will have the data of num_move and the type of migration
             d3.csv("data/location_data.csv"), //TODO remove Load the location_data.csv file
             d3.csv("data/origin-to-neighborhood_UR.csv"), // Load combined data updated csv
@@ -215,14 +218,12 @@
         ]).then(function (data) {
             var highResWorld = data[0];
             var waterBodies = data[1];
-            // var allpts = data[2];
-            // var migrations = data[3]; // Correctly assign to global variable
             var originMigrations = data[2];
             locationData = data[3]; // Store location data globally
             var origin_migrations_UR = data[4];
             var moves200 = data[5];
 
-            console.log(moves200);
+            // console.log(moves200);
             
             
                 svg.append("g")
@@ -246,7 +247,6 @@
                     .attr("stroke-width", .25);
 
                 var locationToNeighborhood = createLocationToNeighborhoodMapping(moves200);
-                // var locationToNeighborhood = createLocationToNeighborhoodMapping(origin_migrations_UR);
                 populateNeighborhoodsByCity(moves200, locationToNeighborhood);
                 ready(moves200, originMigrations, locationToNeighborhood);
 
@@ -332,7 +332,6 @@
                                     let lon = migration[`${key}_lon`];
                                     if (lat && lon && lat !== "#N/A" && lon !== "#N/A") {
                                         points.push(([+lat,+lon,]));
-
                                     }
                                 });
 
@@ -389,34 +388,38 @@
                 }
 
             // Function to create an arc path between two points (start and end)
-            function createArcPath(start, end) {
-                var controlPoint = [
-                    (start[0] + end[0]) / 2,  // Midpoint for control x
-                    (start[1] + end[1]) / 2   // Midpoint for control y
-                ];
+        function createArcPath(start, end) {
+                    var dx = end[0] - start[0];
+                    var dy = end[1] - start[1];
+                    var dist = Math.sqrt(dx * dx + dy * dy);
+                    var factor = 0.2;
 
-                // Adjust the control point to generate a nice arc
-                var dx = end[0] - start[0];
-                var dy = end[1] - start[1];
-                var dist = Math.sqrt(dx * dx + dy * dy);
+                    var controlPoint = [
+                        (start[0] + end[0]) / 2 + factor * dist * (dy / dist), 
+                        (start[1] + end[1]) / 2 - factor * dist * (dx / dist)
+                    ];
 
-                var factor = 0.2;  // Control point factor (adjust to change the arc height)
-                var controlX = controlPoint[0] + factor * dist * (dy / dist);
-                var controlY = controlPoint[1] - factor * dist * (dx / dist);
+                    return d3.line()
+                        .curve(d3.curveBasis)
+                        .x(d => d[0])
+                        .y(d => d[1])
+                        ([start, controlPoint, end]);
+                }
 
-                // Return the arc path using a Bézier curve approach
-                return d3.line()
-                    .curve(d3.curveBasis)  // Using curveBasis for smoothness
-                    .x(function(d) { return d[0]; })
-                    .y(function(d) { return d[1]; })
-                    ([start, [controlX, controlY], end]);  // Create the arc path with the control point
-            }
 
-                document.getElementById('city-select').addEventListener('change', function () {
-                var selectedCity = this.value;
+         document.getElementById('city-select').addEventListener('change', function () {
+                var selectedCity = this.value.toLowerCase();
+
+                console.log("City selected on click:", selectedCity);
+
+                if (!selectedCity) {
+                        console.log("Error: No city selected!");
+                    }
+
                 updateNeighborhoodDropdown(selectedCity);
                 filterPolylines();
                 zoomToCity(selectedCity);
+
                 });
 
                 document.getElementById('neighborhood-select').addEventListener('change', function () {
@@ -426,25 +429,24 @@
         function filterPolylines() {
                 var selectedCity = document.getElementById('city-select').value.toLowerCase();
                 var selectedNeighborhood = document.getElementById('neighborhood-select').value.toLowerCase();
-
-                // svg.selectAll("line").remove(); // Remove all lines first
                 svg.selectAll("text").remove(); // Remove all text labels first
                 svg.selectAll(".arc-path").remove();
 
-                if (migrations.length === 0) {
-                console.warn('No migrations data available.');
-                return;
-                }
+                // if (migrations.length === 0) {
+                // console.warn('No migrations data available.');
+                // return;
+                // }
 
                 var locationsWithPolylines = [];          
 
             polylines.forEach(function (line) {
                     lineData = line.datum();
+                    // console.log("lineData",lineData.city);
+                    
                     // Check if city and neighborhood match the selected values
                 var cityMatches = selectedCity === 'all' || lineData.city.toLowerCase() === selectedCity;
                 var neighborhoodMatches = selectedNeighborhood === 'all' || lineData.neighborhood.toLowerCase() === selectedNeighborhood;
             
-                
 
                 if (cityMatches && neighborhoodMatches) {
                     // Iterate through the points to create arcs between consecutive points
@@ -456,10 +458,9 @@
                         // Create the arc path
                         var arcPath = createArcPath(startPoint, endPoint);
 
-
                         // Draw the arc between consecutive points
                         var mapLine = svg.append("path")
-                            .datum(arcPath)
+                            .datum(lineData)
                             .attr("d", arcPath)  // Set the path 'd' attribute
                             .attr("fill", "none")
                             .attr("stroke", lineData.color)
@@ -469,10 +470,7 @@
                             .attr("z-index", 100)
                             .attr("class", "arc-path");  // Add a class for easy selection
 
-                            // console.log(polylines);
-                            
-
-                                // Transparent line for interaction
+                                // Thicker Transparent line for interaction
                                 svg.append("path")
                                     .datum(lineData)
                                     .attr("d", arcPath)  // Set the path 'd' attribute
@@ -480,32 +478,10 @@
                                     // .attr("stroke", line.attr("stroke")) // use to show lines
                                     .attr("fill", "none")
                                     .attr("stroke-width", Math.max(line.attr("stroke-width") * 4, 8))
-                                    // .attr("opacity", 0)
                                     .on("mouseover", function (event, d) {
-                                        var latlong = d.lon + "_" + d.lat;
-                                        var imageName = latlong + "_15.png";
-                                        var imageUrl = "aerial/" + imageName;
-
-                                        // console.log("Checking image URL:", imageUrl);
-
-                                var image = new Image();
-                                image.src = imageUrl;
-                                image.onload = function() {
-                                    d3.select("#tooltip")
-                                        .select("#val")
-                                        .html(d.moves + " migration stops starting from " + d.loc + " to " + d.loc + ", " + d.city + "<br>" + "respondent ID: " + d.ID + "<br>" +
-                                            "<img src='" + imageUrl + "' width='200' height='200'>");
-                                    // console.log("Image loaded successfully:", imageUrl);
-                                };
-                                image.onerror = function() {
-                                    // console.log("Image not found, showing text only.");
-                                    d3.select("#tooltip")
-                                        .select("#val")
-                                        .html(d.moves + " migration stops starting from " + d.loc + " to " + d.loc + ", " + d.city + "<br>"  + "<br>" +"respondent ID: " + d.ID);
-                                };
-
-                                d3.select("#tooltip").classed("hidden", false); 
-                            });
+                                        generateTooltipWithImage(d); // Generate the tooltip with the image
+                                        d3.select("#tooltip").classed("hidden", false);  // Show the tooltip
+                                    });
 
                             polylines.push(mapLine);
                         }
@@ -522,38 +498,86 @@
                         .text(item.location);
                 });
                 }
+                function generateTooltipWithImage(lineData) {
+                    let tooltipText = `Respondent: ${lineData.ID} moved ${lineData.moves} times from ${lineData.loc.replace(/[()\[\]']/g, '')} to ${lineData.current.replace(/[()\[\]']/g, '')} <br><br>`;
 
+                const validLocations = [];
+                if (lineData.loc2 && lineData.loc2 !== "#N/A") validLocations.push(lineData.loc2.replace(/[()\[\]']/g, ''));
+                if (lineData.loc3 && lineData.loc3 !== "#N/A") validLocations.push(lineData.loc3.replace(/[()\[\]']/g, ''));
+                if (lineData.loc4 && lineData.loc4 !== "#N/A") validLocations.push(lineData.loc4.replace(/[()\[\]']/g, ''));
+                if (lineData.loc5 && lineData.loc5 !== "#N/A") validLocations.push(lineData.loc5.replace(/[()\[\]']/g, ''));
+                if (lineData.loc6 && lineData.loc6 !== "#N/A") validLocations.push(lineData.loc6.replace(/[()\[\]']/g, ''));
+                if (lineData.loc7 && lineData.loc7 !== "#N/A") validLocations.push(lineData.loc7.replace(/[()\[\]']/g, ''));
+                if (lineData.loc8 && lineData.loc8 !== "#N/A") validLocations.push(lineData.loc8.replace(/[()\[\]']/g, ''));
+                if (lineData.loc9 && lineData.loc9 !== "#N/A") validLocations.push(lineData.loc9.replace(/[()\[\]']/g, ''));
+
+                if (validLocations.length > 0) {
+                    tooltipText += "With stops in: " + validLocations.join(" → ") + "<br><br>";
+                }
+    
+                    // Generate the image URL
+                    const latlong = lineData.lon + "_" + lineData.lat;
+                    const imageName = latlong + "_15.png";
+                    const imageUrl = "aerial/" + imageName;
+
+                    // Add an image if it exists
+                    const image = new Image();
+                    image.src = imageUrl;
+                    image.onload = function () {
+                        d3.select("#tooltip")
+                            .select("#val")
+                            .html(tooltipText + `<img src='${imageUrl}' width='200' height='200'>`);
+                    };
+                    image.onerror = function () {
+                        // If the image is not found, only show the text
+                        d3.select("#tooltip")
+                            .select("#val")
+                            .html(tooltipText + "Aerial Image not available.");
+                    };
+
+                    return tooltipText;
+                }
 
         var cityZoomLevels = {
-                'Johannesburg': { scale: 1500, center: [28.0473, -20] },// city center [28.0473, -26.2041]
-                'Nairobi': { scale: 2500, center: [30.8219, 1] }, // city center [36.8219, -1.2921]
-                'Accra': { scale: 4000, center: [-0.1870, 10] }, // city center [-0.1870, 5.6037]
+                'johannesburg': { scale: 1500, center: [28.0473, -20] },// city center [28.0473, -26.2041]
+                'nairobi': { scale: 2500, center: [30.8219, 1] }, // city center [36.8219, -1.2921]
+                'accra': { scale: 4000, center: [-0.1870, 10] }, // city center [-0.1870, 5.6037]
                 'all': { scale: 450, center: [0, 10] } // Default zoom level and center
             };
-        
-            function zoomToCity(city) {
-                var zoomConfig = cityZoomLevels[city] || cityZoomLevels['all'];
 
-                // Update the projection with the new center and scale
-                projection
-                    .center(zoomConfig.center)
-                    .scale(zoomConfig.scale);
+            function zoomToCity(city) { // Accept selectedCity as a parameter
+                    var zoomConfig = cityZoomLevels[city] || cityZoomLevels['all'];
+                    console.log(zoomConfig);
+                    // console.log('City Coordinates:', selectedCity, cityCoordinates[selectedCity]);
 
-                // Reapply the projection to the paths (for countries, etc.)
-                svg.selectAll("path")
-                    .attr("d", path); // Redraw paths
+                    // Update the projection with the new center and scale
+                    projection
+                        .center(zoomConfig.center)
+                        .scale(zoomConfig.scale);
 
-                // Recalculate the positions of the lines and text labels with the new projection
-                svg.selectAll(".map-polyline")
-                    .attr("x1", d => projection(cityCoordinates[d.city])[0])
-                    .attr("y1", d => projection(cityCoordinates[d.city])[1])
-                    .attr("x2", d => projection([+d.lat, +d.lon])[0])
-                    .attr("y2", d => projection([+d.lat, +d.lon])[1]);
+                    // Reapply the projection to the paths (for countries, etc.)
+                    svg.selectAll("path")
+                        .attr("d", path); // Redraw paths
 
-                svg.selectAll("text")
-                    .attr("x", d => projection([+d.lat, +d.lon])[0])
-                    .attr("y", d => projection([+d.lat, +d.lon])[1]);
-            }
+                    // Recalculate the positions of the lines and text labels with the new projection
+                    svg.selectAll(".map-polyline")
+                        .attr("x1", d => projection(cityCoordinates[d.city])[0])
+                        .attr("y1", d => projection(cityCoordinates[d.city])[1])
+                        .attr("x2", d => projection([+d.lat, +d.lon])[0])
+                        .attr("y2", d => projection([+d.lat, +d.lon])[1]);
+
+                    svg.selectAll("text")
+                        .attr("x", d => projection([+d.lat, +d.lon])[0])
+                        .attr("y", d => projection([+d.lat, +d.lon])[1]);
+                }
+
+            // document.getElementById('city-select').addEventListener('change', function() {
+            //     var selectedCity = this.value;  // Get the selected value
+            //     console.log('Selected city:', selectedCity);
+            //     // pushData(selectedCity);
+            //     // Call a function to filter or handle the city change
+            //     // filterDataByCity(selectedCity);
+            // }); 
 
 var zoom = d3.zoom()
     .scaleExtent([1, 8])
