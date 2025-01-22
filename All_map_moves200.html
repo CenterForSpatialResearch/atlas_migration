@@ -12,9 +12,6 @@
 
 <body>
     <!-- <div style="display:grid; width:90vw; height:90vh;"> -->
-                <div id="tooltip" class="hidden">
-                    <p><span id="val"></span></p>
-                </div>
 
                 <div id="filter-container">
                     <label for="city-select">Zoom to City: </label>
@@ -38,6 +35,8 @@
                         <option value="3">3 Moves</option>
                         <option value="4">4 Moves</option>
                         <option value="5">5 Moves</option>
+                        <option value="6">6 Moves</option>
+                        <option value="7">7 Moves</option>
                     </select>
                     <!-- <button id="download-page">Download SVG page</button> -->
                     <!-- <button id="download-svg">Download map SVG</button> -->
@@ -47,13 +46,18 @@
 
                 </div>
                 <div class="container" id="print-container">
+                <div id="joinLine"></div>
                     <div id="map"></div>
                     <div id="legend">
-                        <div id="left-legend-container"></div>
+                        <!-- <div id="left-legend-container"></div> -->
                         <div id="right-legend-container"></div>
                         <div id="chart-container"></div>
                         <div id="chart-title">
                             <div id="people-legend"></div>
+                            <!-- <div id="tooltip" class="hidden"> -->
+                                <div id="tooltip">
+                                    <p><span id="val"></span></p>
+                                </div>
                             <div id="chart-title-container"></div>
                             <div id="chart-subtext-container"></div>
                         </div>
@@ -230,7 +234,6 @@
 
             // console.log(moves200);
             
-            
                 svg.append("g")
                     .selectAll("path")
                     .data(highResWorld.features)
@@ -356,6 +359,7 @@
                                             neighborhood: neighborhood,
                                             points: points,
                                             path: arcPath,
+                                            dist: migration["totalDist"],
                                             loc: migration["100_location"],
                                             lat: migration["100_lat"], //for aerial imagery
                                             lon: migration["100_lon"],
@@ -370,7 +374,7 @@
                                             loc8: migration["214_location"],
                                             loc9: migration["215_location"],
                                             color: colorDict[migration.originColor],
-                                            moves: migration.nummoves
+                                            moves: migration.moveCount
                                         };
 
                                         // Draw the arc between consecutive points
@@ -489,7 +493,6 @@
                         console.warn("Skipping invalid line data:", lineData);
                         return;
                     }
-                    // console.log("lineData",lineData.city);
                     
                     // Check if city and neighborhood match the selected values
                 var cityMatches = selectedCity === 'all' || lineData.city.toLowerCase() === selectedCity;
@@ -498,9 +501,7 @@
             
 
                 if (cityMatches && neighborhoodMatches && movesMatches) {
-                    // Iterate through the points to create arcs between consecutive points
                     for (let i = 0; i < lineData.points.length - 1; i++) {
-                        // Project the coordinates
                         var startPoint = projection([lineData.points[i][0], lineData.points[i][1]]);
                         var endPoint = projection([lineData.points[i + 1][0], lineData.points[i + 1][1]]);
                         var arcPath = createArcPath(startPoint, endPoint);
@@ -509,7 +510,6 @@
                     // var strokeColor = line.attr("stroke");
                     // var gradientId = createOpacityGradient(strokeColor);
 
-                    // Append the path and apply the unique gradient
                     var mapLine = svg.append("path")
                         .datum(lineData)
                         .attr("d", arcPath)  // Set the path 'd' attribute
@@ -520,26 +520,24 @@
                         .attr("z-index", 100)
                         .attr("class", "arc-path");  // Add a class for easy selection
 
-                                // Thicker Transparent line for interaction
-                                svg.append("path")
-                                    .datum(lineData)
-                                    .attr("d", arcPath)  // Set the path 'd' attribute
-                                    .attr("stroke", "transparent")
-                                    // .attr("stroke", line.attr("stroke")) // use to show lines
-                                    .attr("fill", "none")
-                                    .attr("stroke-width", Math.max(line.attr("stroke-width") * 4, 8))
-                                    .on("mouseover", function (event, d) {
+                    // Thicker Transparent line for interaction
+                    svg.append("path")
+                        .datum(lineData)
+                        .attr("d", arcPath)  // Set the path 'd' attribute
+                        .attr("stroke", "transparent")
+                        // .attr("stroke", line.attr("stroke")) // use to show lines
+                        .attr("fill", "none")
+                        .attr("stroke-width", Math.max(line.attr("stroke-width") * 4, 8))
+                        .on("mouseover", function (event, d) {
                                         generateTooltipWithImage(d); // Generate the tooltip with the image
                                         d3.select("#tooltip").classed("hidden", false);  // Show the tooltip
                                     });
-
-                            // newPolylines.push(mapLine);
                             polylines.push(mapLine);
                         }
                         }
                     });
 
-                    // polylines = newPolylines; 
+                // polylines = newPolylines; 
 
                 // Draw labels for locations, using the matched location or 'unknown'
                 locationsWithPolylines.forEach(function(item) {
@@ -552,9 +550,12 @@
                 });
                 }
                 function generateTooltipWithImage(lineData) {
-                    let tooltipText = `Respondent: ${lineData.ID} moved ${lineData.moves} times from ${lineData.loc.replace(/[()\[\]']/g, '')} to ${lineData.current.replace(/[()\[\]']/g, '')} <br><br>`;
 
-                const validLocations = [];
+                    
+                    let tooltipText = `Respondent: ${lineData.ID} originally from ${lineData.loc.replace(/[()\[\]']/g, '')} travelled ${Math.round(lineData.dist)} km with ${lineData.moves-1} stops to ${lineData.current.replace(/[()\[\]']/g, '')} <br>`;
+
+                const validLocations = []; //these are the stops between origin and destination
+                if (lineData.loc1 && lineData.loc1 !== "#N/A") validLocations.push(lineData.loc1.replace(/[()\[\]']/g, ''));
                 if (lineData.loc2 && lineData.loc2 !== "#N/A") validLocations.push(lineData.loc2.replace(/[()\[\]']/g, ''));
                 if (lineData.loc3 && lineData.loc3 !== "#N/A") validLocations.push(lineData.loc3.replace(/[()\[\]']/g, ''));
                 if (lineData.loc4 && lineData.loc4 !== "#N/A") validLocations.push(lineData.loc4.replace(/[()\[\]']/g, ''));
@@ -565,7 +566,7 @@
                 if (lineData.loc9 && lineData.loc9 !== "#N/A") validLocations.push(lineData.loc9.replace(/[()\[\]']/g, ''));
 
                 if (validLocations.length > 0) {
-                    tooltipText += "With stops in: " + validLocations.join(" → ") + "<br><br>";
+                    tooltipText += "Stops include: " + validLocations.join(" → ") + "<br>";
                 }
     
                     // Generate the image URL
@@ -594,14 +595,12 @@
         var cityZoomLevels = {
                 'johannesburg': { scale: 1500, center: [28.0473, -20] },// city center [28.0473, -26.2041]
                 'nairobi': { scale: 2500, center: [30.8219, 1] }, // city center [36.8219, -1.2921]
-                'accra': { scale: 4000, center: [-0.1870, 10] }, // city center [-0.1870, 5.6037]
+                'accra': { scale: 2500, center: [-0.1870, 10] }, // city center [-0.1870, 5.6037]
                 'all': { scale: 450, center: [0, 10] } // Default zoom level and center
             };
 
             function zoomToCity(city) { // Accept selectedCity as a parameter
                     var zoomConfig = cityZoomLevels[city] || cityZoomLevels['all'];
-                    // console.log(zoomConfig);
-                    // console.log('City Coordinates:', selectedCity, cityCoordinates[selectedCity]);
 
                     // Update the projection with the new center and scale
                     projection
@@ -665,41 +664,46 @@ function zoomed(event) {
             "Village": villageColor
         };
 
-        var rowConverter = function (d) {
-            return {
-                resp_id: d.ID,
-                city: d.location_l,
-                nearcity: d.location_near,
-                country_location: d.location_country,
-                country_orig: d.orig_country_103,
-                num_moves: d.number_moves_200,
-                cumulative_dist: parseFloat(d.dist),
-                current_city: d.city_8,
-                neighborhood: d.neighborhood_9,
-                ur_acms: d.Q100_1_URACMS,
-                ur_un: d.Q100_1_URUN, 
-                lat: d.lat,
-                lon: d.lon
-            };
-        };
+    var rowConverter = function (d) {
 
-        var radialScale = d3.scaleLog()
+        var location = d["9_location"];
+
+        return {
+                resp_id: d.ID,
+                origin: d["100_location"],
+                city: location?.match(/'[^']*',\s*'([^']*)'/)?.[1],
+                // nearcity: d.location_near,
+                country_location: location?.match(/'[^']*',\s*'([^']*)'/)?.[3],
+                country_orig: d.originColor,
+                num_moves: d.moveCount,
+                cumulative_dist: parseFloat(d.totalDist),
+                current_city: location?.match(/'[^']*',\s*'([^']*)'/)?.[1],
+                neighborhood: location?.match(/'([^']+)'/)?.[1] || 'Unknown',
+                // ur_acms: d.Q100_1_URACMS,
+                // ur_un: d.Q100_1_URUN,
+                lat: d["9_lat"],
+                lon: d["9_lon"]
+            };
+    };
+    
+
+    var radialScale = d3.scaleLog()
             .domain([.002, 10000])
             .range([0, chartWidth / 2 - padding]);
 
-        var ticks_set = [.01, 10, 100, 1000, 10000];
+    var ticks_set = [.01, 10, 100, 1000, 10000];
 
-        function angleToCoordinate(angle, value) {
+    function angleToCoordinate(angle, value) {
             var x = Math.cos(angle) * radialScale(value);
             var y = Math.sin(angle) * radialScale(value);
             return { "x": x, "y": y }; // Remove offset to center in the group
         }
 
-        function polarCoords(value, index, list) {
+    function polarCoords(value, index, list) {
             var angle = Math.PI / 2 + ((index * 2 * Math.PI) / (list.length));
             return angleToCoordinate(angle, value);
         }
-
+        
         var chartContainer = d3.select("#chart-container");
         var legendContainer = d3.select("#legend-container");
 
@@ -714,11 +718,12 @@ function zoomed(event) {
 
             // Filter out data points with NaN cumulative_dist
             filteredData = filteredData.filter(d => !isNaN(d.cumulative_dist));
-
+            
+            // console.log("Filtered data:", filteredData);
             // Sort data first by ur_acms (category/color) and then by cumulative_dist
             filteredData.sort((a, b) => {
-                if (categoryColors[a.ur_acms] < categoryColors[b.ur_acms]) return -1;
-                if (categoryColors[a.ur_acms] > categoryColors[b.ur_acms]) return 1;
+                if (a.country_orig < b.country_orig) return -1;
+                if (a.country_orig > b.country_orig) return 1;
                 return b.cumulative_dist - a.cumulative_dist;
             });
 
@@ -733,6 +738,18 @@ function zoomed(event) {
             var lines = circle_group.append("g")
                 .attr("class", "lines");
 
+                console.log("finding lat lon",filteredData);
+
+            // var imageUrls=[];
+                
+            // filteredData.forEach(d => {
+            //     const latlong = `${d.lat}_${d.lon}`;
+            //     const imageName = `${latlong}_15.png`;
+            //     const imageUrl = `aerial/${imageName}`;
+            //     // console.log(imageUrl); // constructed URL
+            //     imageUrls.push(imageUrl);
+            // });
+
             lines.selectAll("line")
                 .data(filteredData)
                 .enter()
@@ -744,7 +761,7 @@ function zoomed(event) {
                     var coordinate = polarCoords(d.cumulative_dist, i, n).y;
                     return coordinate;
                 })
-                .attr("stroke", d => categoryColors[d.ur_acms])
+                .attr("stroke", d  => colorDict[d.country_orig])
                 .attr("stroke-width", 0.5)
                 .attr("class", "star-line")
                 .on("mouseover", function(event, d) {
@@ -752,9 +769,18 @@ function zoomed(event) {
                     d3.selectAll(".star-line").style("opacity", 0.1);
                     d3.select(this).style("opacity", 1).attr("stroke-width", 2);
 
+                    // Fetch the corresponding image URL
+                    const latlong = `${d.lon}_${d.lat}`; //lat lon are flipped in image names
+                    const imageName = `${latlong}_15.png`;
+                    const imageUrl = "aerial/" + imageName;
+
                     d3.select("#tooltip")
                         .select("#val")
-                        .text("Respondent Classified " + d.ur_acms + ", " + d.location + " with " + d.num_moves + " migrations to " + d.current_city);
+                        .html(
+                            `Respondent: ${d.resp_id} originally from ${d.origin} travelled ${Math.round(d.cumulative_dist)}km and ${d.num_moves} stops. Currently in ${d.current_city}<br><img src='${imageUrl}' width='200' height='200'>`
+                        );
+
+
                     
                     d3.select("#tooltip").classed("hidden", false);
 
@@ -768,7 +794,7 @@ function zoomed(event) {
                         .attr("y1", startPoint[1])
                         .attr("x2", endPoint[0])
                         .attr("y2", endPoint[1])
-                        .attr("stroke", categoryColors[d.ur_acms])
+                        .attr("stroke", categoryColors[d.originColor])
                         .attr("stroke-width", 2)
                         .attr("class", "highlight-line");
 
@@ -782,8 +808,7 @@ function zoomed(event) {
                     d3.select("#map svg .highlight-line").remove();                    
                     d3.selectAll(".map-polyline").style("opacity", 1);
 
-                    // Hide the tooltip
-                    d3.select("#tooltip").classed("hidden", true);
+                    // d3.select("#tooltip").classed("hidden", true); // Hide the tooltip
                 });
 
             var scale = circle_group.append("g")
@@ -814,6 +839,9 @@ function zoomed(event) {
                 .attr("class", "scale_rel");
 
             var dist_markers = distanceMarkers[selectedCity.charAt(0).toUpperCase() + selectedCity.slice(1)] || [];
+
+            // console.log(distanceMarkers);
+            
 
             scale_relative.selectAll("circle")
                 .data(dist_markers)
@@ -916,20 +944,20 @@ function zoomed(event) {
 
             legendHeaderContainer.append("div")
                 .attr("class", "legend-header")
-                .text("U.N. WPP")
+                // .text("U.N. WPP")
                 .style("color","#9c9c9c");
 
             legendHeaderContainer.append("div")
                 .attr("class", "legend-subtext")
                 .style("text-align", "right")
-                .text("> 300k pop / km²");
+                // .text("> 300k pop / km²");
 
             var legendTitleContainer = legendCombinedContainer.append("div")
                 .attr("class", "legend-title-container");
 
             legendTitleContainer.append("div")
                 .attr("class", "legend-header")
-                .text("100: Village, City, or Town");
+                .text("Q200 Moves: Past and present mobilities");
 
             var legendSVGContainer = leftLegendContainer.append("div")
                 .attr("class", "legend-svg-container");
@@ -1106,11 +1134,11 @@ function zoomed(event) {
 
             rightLegendContainer.append("div")
                 .attr("class", "legend-title")
-                .text("Percentages of migration origins");
+                .text("Past and Present mobilities");
 
             rightLegendContainer.append("div")
                 .attr("class", "legend-subtext")
-                .text("100: Village, City, or Town");
+                .text("Migrations from Q100, 202, 206, 211, 214, 215");
 
             var legendData = [
                 { category: "City", color: cityColor, percentage: urbanPercentage + "%", examples: examples['City'] },
@@ -1195,7 +1223,7 @@ function zoomed(event) {
 
         var dataset;
 
-        d3.csv("data/star_origins_UR.csv", rowConverter).then(function (data) {
+        d3.csv("data/moves200.csv", rowConverter).then(function (data) {
             dataset = data;
 
             var cities = Array.from(new Set(data.map(d => d.current_city)));

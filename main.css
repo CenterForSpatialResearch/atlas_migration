@@ -10,14 +10,21 @@ body {
     font-size: 18px;
 }
 
+#joinLine{
+    stroke: #969696;
+    stroke-width: 0.25px;
+    position: absolute;
+}
+
 #tooltip {
-    position: fixed;
+    /* position: absolute; */
+    display: block;
     right: 20px;
-    width: 200px;
+    width: 650px;
     height: auto;
     padding: 10px;
     background-color: #ffffff;
-    outline: black solid 1px;
+    /* outline: black solid 1px; */
 }
 
 #tooltip.hidden {
@@ -26,8 +33,8 @@ body {
 
 #tooltip p {
     margin: 0px;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 25px;
+    line-height: 30px;
 }
 
 .scale-path {

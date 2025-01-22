@@ -562,6 +562,9 @@ function zoomed(event) {
             var lines = circle_group.append("g")
                 .attr("class", "lines");
 
+            console.log("filtered Data:",filteredData);
+            
+
             lines.selectAll("line")
                 .data(filteredData)
                 .enter()
@@ -902,7 +905,6 @@ function zoomed(event) {
 
             ];
 
-
             details.forEach(detail => {
                 var detailContainer = leftLegendContainer.append("div")
                     .attr("class", "legend-detail-container");
@@ -917,7 +919,6 @@ function zoomed(event) {
                     .text(detail.value);
             });
         }
-
 
         function updateRightLegend(examples, filteredData, selectedCity) {
             var rightLegendContainer = d3.select("#right-legend-container");
@@ -965,7 +966,6 @@ function zoomed(event) {
                 textContainer.append("div")
                     .attr("class", "legend-category")
                     .html(`<span>${item.category}</span>&nbsp;<span class="legend-percentage">${item.percentage}</span>`);
-
 
                 textContainer.append("div")
                     .attr("class", "legend-subtext")
