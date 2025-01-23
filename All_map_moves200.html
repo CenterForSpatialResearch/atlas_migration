@@ -39,11 +39,11 @@
                         <option value="7">7 Moves</option>
                     </select>
                     
-                    <button id="download-page">Download SVG page</button>
+                    <!-- <button id="download-page">Download SVG page</button>
                     <button id="download-svg">Download map SVG</button>
                     <button id="download-legend">Download Legend SVG</button>
                     <button id="download-png-button">Download PNG</button>
-                    <button onclick="downloadLegendPNG()">Download Legend PNG</button>
+                    <button onclick="downloadLegendPNG()">Download Legend PNG</button> -->
 
                 </div>
                 <div class="container" id="print-container">
@@ -51,14 +51,15 @@
                     <div id="map"></div>
                     <div id="legend">
                         <!-- <div id="left-legend-container"></div> -->
-                        <div id="right-legend-container"></div>
+                        <div id="right-legend-container">
+                        </div>
+                        <div id="tooltip">
+                            <p><span id="val"></span></p>
+                        </div>
+                         <!-- <div id="tooltip" class="hidden"> -->
                         <div id="chart-container"></div>
                         <div id="chart-title">
                             <div id="people-legend"></div>
-                            <!-- <div id="tooltip" class="hidden"> -->
-                                <div id="tooltip">
-                                    <p><span id="val"></span></p>
-                                </div>
                             <div id="chart-title-container"></div>
                             <div id="chart-subtext-container"></div>
                         </div>

@@ -20,7 +20,7 @@ body {
     /* position: absolute; */
     display: block;
     right: 20px;
-    width: 650px;
+    width: 300px;
     height: auto;
     padding: 10px;
     background-color: #ffffff;
@@ -33,12 +33,12 @@ body {
 
 #tooltip p {
     margin: 0px;
-    font-size: 25px;
-    line-height: 30px;
+    font-size: 16px;
+    line-height: 18px;
 }
 
 .scale-path {
-    font-size: 11px;
+    font-size: 12px;
     fill: #969696;
 }
 
@@ -65,7 +65,7 @@ body {
 }
 
 .legend-text {
-    font-size: 14px;
+    font-size: 16px;
     fill: #969696;
 }
 
@@ -76,13 +76,13 @@ body {
 }
 
 .legend-label {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: normal;
     fill: black;
 }
 
 .legend-category {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: normal;
     fill: black;
 }
@@ -191,12 +191,12 @@ body {
 }
 
 .legend-subtext {
-    font-size: 12px;
+    font-size: 14px;
     color: #9c9c9c;
 }
 
 .legend-subtext-2 {
-    font-size: 12px;
+    font-size: 14px;
     width: 72px;
     text-align: end;
     color: #9c9c9c;
