@@ -136,13 +136,14 @@ body {
 }
 
 #map {
-    /* height: 600px; */
-    /* width: 100vw; */
     /* height: 900px; */
     /* width: 1800px; */
-    height: 48vw;
-    width: 95vw;
-    margin: 50px;
+    height: 40vw;
+    width: 80vw;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 #filter-container {

@@ -217,34 +217,39 @@
         var neighborhoodsByCity = {}; // Object to store neighborhoods by city
         var migrations = []; // Global migrations variable
 
+
         Promise.all([
             d3.json("data/ref/countries-10m.geo.json"), // High resolution
             // d3.json("data/ref/world_countries.geo.json"), // Low resolution
             // d3.json("data/ref/world-urban-polygons.geojson"), //remove for web version
             d3.json("data/ref/h2o-.geo.json"),
-            d3.csv("data/origin_migrations_UR.csv"), // TODO  remove This data will have the data of num_move and the type of migration
-            d3.csv("data/location_data.csv"), //TODO remove Load the location_data.csv file
-            d3.csv("data/origin-to-neighborhood_UR.csv"), // Load combined data updated csv
             d3.csv("data/moves200.csv") 
         ]).then(function (data) {
             var highResWorld = data[0];
             var waterBodies = data[1];
-            var originMigrations = data[2];
-            locationData = data[3]; // Store location data globally
-            var origin_migrations_UR = data[4];
-            var moves200 = data[5];
+            var moves200 = data[2];
 
             // console.log(moves200);
             
+                // svg.append("g")
+                //     .selectAll("path")
+                //     .data(highResWorld.features)
+                //     .enter()
+                //     .append("path")
+                //     .attr("d", path)
+                //     .attr("fill", "#f0f0f0")
+                //     .attr("stroke", "#d1d1d1")
+                //     .attr("stroke-width", .5);
+
                 svg.append("g")
                     .selectAll("path")
                     .data(highResWorld.features)
-                    .enter()
-                    .append("path")
+                    .join("path")
                     .attr("d", path)
                     .attr("fill", "#f0f0f0")
                     .attr("stroke", "#d1d1d1")
                     .attr("stroke-width", .5);
+
 
                 svg.append("g")
                     .selectAll("path")
@@ -258,7 +263,7 @@
 
                 var locationToNeighborhood = createLocationToNeighborhoodMapping(moves200);
                 populateNeighborhoodsByCity(moves200, locationToNeighborhood);
-                ready(moves200, originMigrations, locationToNeighborhood);
+                ready(moves200, moves200, locationToNeighborhood);
 
                 var graticule = d3.geoGraticule().step([1, 1]); // degrees - default 10 if not set
                 var gridLines = svg.append("g").attr("class", "graticule");
@@ -348,12 +353,16 @@
                                 var path = d3.geoPath().projection(projection);
 
                                 // Loop through the points and draw an arc between each consecutive pair of points
-                                for (let i = 0; i < points.length - 1; i++) {
-                                    // Project the coordinates
-                                    var startPoint = projection([points[i][0], points[i][1]]);
-                                    var endPoint = projection([points[i + 1][0], points[i + 1][1]]);
+                                // for (let i = 0; i < points.length - 1; i++) {
+                                //     // Project the coordinates
+                                //     var startPoint = projection([points[i][0], points[i][1]]);
+                                //     var endPoint = projection([points[i + 1][0], points[i + 1][1]]);
+                                // var arcPath = createArcPath(startPoint, endPoint);
 
-                                    var arcPath = createArcPath(startPoint, endPoint);
+                                var projectedPoints = points.map(d => projection([d[0], d[1]]));
+
+                                for (let i = 0; i < projectedPoints.length - 1; i++) {
+                                    var arcPath = createArcPath(projectedPoints[i], projectedPoints[i + 1]);
 
                                         var lineData = {
                                             ID: migration.ID,
@@ -462,7 +471,9 @@
                         console.log("Error: No city selected!");
                     }
                 updateNeighborhoodDropdown(selectedCity);
+                console.time("Data Loading Time");
                 filterPolylines();
+                console.timeEnd("Data Loading Time");  // Display time taken
                 zoomToCity(selectedCity);
 
                 });
@@ -496,17 +507,22 @@
                         return;
                     }
                     
-                    // Check if city and neighborhood match the selected values
+                // Check if city and neighborhood match the selected values
                 var cityMatches = selectedCity === 'all' || lineData.city.toLowerCase() === selectedCity;
                 var neighborhoodMatches = selectedNeighborhood === 'all' || lineData.neighborhood.toLowerCase() === selectedNeighborhood;
                 var movesMatches = selectedMoves === 'all' || parseInt(lineData.moves) === parseInt(selectedMoves);
             
 
                 if (cityMatches && neighborhoodMatches && movesMatches) {
-                    for (let i = 0; i < lineData.points.length - 1; i++) {
-                        var startPoint = projection([lineData.points[i][0], lineData.points[i][1]]);
-                        var endPoint = projection([lineData.points[i + 1][0], lineData.points[i + 1][1]]);
-                        var arcPath = createArcPath(startPoint, endPoint);
+                    // for (let i = 0; i < lineData.points.length - 1; i++) {
+                    //     var startPoint = projection([lineData.points[i][0], lineData.points[i][1]]);
+                    //     var endPoint = projection([lineData.points[i + 1][0], lineData.points[i + 1][1]]);
+                    //     var arcPath = createArcPath(startPoint, endPoint); 
+
+                    var projectedPoints = lineData.points.map(d => projection([d[0], d[1]]));
+
+                    for (let i = 0; i < projectedPoints.length - 1; i++) {
+                        var arcPath = createArcPath(projectedPoints[i], projectedPoints[i + 1]);
 
                     // TODO for opacity gradient
                     // var strokeColor = line.attr("stroke");
@@ -654,6 +670,9 @@ function zoomed(event) {
 
     svg.selectAll(".highlight-line")
         .attr("transform", transform);
+
+    // svg.select("g").attr("transform", transform);
+
 }
 
         var chartWidth = 300;
@@ -740,7 +759,7 @@ function zoomed(event) {
             var lines = circle_group.append("g")
                 .attr("class", "lines");
 
-                console.log("finding lat lon",filteredData);
+                // console.log("finding lat lon",filteredData);
 
             // var imageUrls=[];
                 
