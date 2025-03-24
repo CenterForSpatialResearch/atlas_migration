@@ -12,9 +12,6 @@
 
 <body>
     <!-- <div style="display:grid; width:90vw; height:90vh;"> -->
-                <div id="tooltip" class="hidden">
-                    <p><span id="val"></span></p>
-                </div>
 
                 <div id="filter-container">
                     <label for="city-select">Select City: </label>
@@ -39,11 +36,16 @@
                 <div class="container" id="print-container">
                     <div id="map"></div>
                     <div id="legend">
-                        <div id="left-legend-container"></div>
+                        <!-- <div id="left-legend-container"></div> -->
+                    
                         <div id="right-legend-container"></div>
+                        <div id="tooltip">
+                            <p><span id="val"></span></p>
+                        </div>
                         <div id="chart-container"></div>
                         <div id="chart-title">
                             <div id="people-legend"></div>
+                
                             <div id="chart-title-container"></div>
                             <div id="chart-subtext-container"></div>
                         </div>
@@ -615,7 +617,7 @@ function zoomed(event) {
                     d3.selectAll(".map-polyline").style("opacity", 1);
 
                     // Hide the tooltip
-                    d3.select("#tooltip").classed("hidden", true);
+                    d3.select("#tooltip").classed("hidden", false);
                 });
 
 
@@ -727,7 +729,8 @@ function zoomed(event) {
         function updateLeftLegend(filteredData) {
 
             // console.log(filteredData);
-            var leftLegendContainer = d3.select("#left-legend-container");
+            // var leftLegendContainer = d3.select("#left-legend-container");
+            var leftLegendContainer = d3.select("#right-legend-container");
             leftLegendContainer.selectAll("*").remove();
 
             var totalResponses = filteredData.length;
