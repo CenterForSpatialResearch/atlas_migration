@@ -1161,11 +1161,11 @@ function zoomed(event) {
                 .attr("class", "legend-subtext")
                 .text("Migrations from Q100, 202, 206, 211, 214, 215");
 
-            var legendData = [
-                { category: "City", color: cityColor, percentage: urbanPercentage + "%", examples: examples['City'] },
-                { category: "Town", color: townColor, percentage: townPercentage + "%", examples: examples['Town'] },
-                { category: "Village", color: villageColor, percentage: villagePercentage + "%", examples: examples['Village'] }
-            ];
+            // var legendData = [
+            //     { category: "City", color: cityColor, percentage: urbanPercentage + "%", examples: examples['City'] },
+            //     { category: "Town", color: townColor, percentage: townPercentage + "%", examples: examples['Town'] },
+            //     { category: "Village", color: villageColor, percentage: villagePercentage + "%", examples: examples['Village'] }
+            // ];
 
             legendData.forEach(item => {
                 var legendItem = rightLegendContainer.append("div")
