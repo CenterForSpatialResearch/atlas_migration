@@ -39,11 +39,11 @@
                         <option value="7">7 Moves</option>
                     </select>
                     
-                    <!-- <button id="download-page">Download SVG page</button>
+                    <button id="download-page">Download SVG page</button>
                     <button id="download-svg">Download map SVG</button>
                     <button id="download-legend">Download Legend SVG</button>
                     <button id="download-png-button">Download PNG</button>
-                    <button onclick="downloadLegendPNG()">Download Legend PNG</button> -->
+                    <button onclick="downloadLegendPNG()">Download Legend PNG</button>
 
                 </div>
                 <div class="container" id="print-container">
@@ -77,10 +77,11 @@
         var height = mapContainer.offsetHeight;
 
         // var projection = d3.geoMercator()
-        // var projection = d3.geoAzimuthalEqualArea() // for globe view
-        var projection = d3.geoAzimuthalEquidistant() //for zoom in views
-            .center([0, -20])
-            .scale([1500])
+        var projection = d3.geoAzimuthalEqualArea() // for globe view
+        // var projection = d3.geoAzimuthalEquidistant() //for zoom in views
+            .center([0,3.32]) // for default globe view
+            .rotate([-20.83,0]) // nairobi
+            .scale([150])
             .translate([width / 2, height / 2]);
 
         var path = d3.geoPath()
@@ -265,7 +266,8 @@
                 populateNeighborhoodsByCity(moves200, locationToNeighborhood);
                 ready(moves200, moves200, locationToNeighborhood);
 
-                var graticule = d3.geoGraticule().step([1, 1]); // degrees - default 10 if not set
+                var graticule = d3.geoGraticule()
+                // .step([1, 1]); // degrees - default 10 if not set
                 var gridLines = svg.append("g").attr("class", "graticule");
 
                 gridLines.append("path")
@@ -614,7 +616,7 @@
                 'johannesburg': { scale: 1500, center: [28.0473, -20] },// city center [28.0473, -26.2041]
                 'nairobi': { scale: 2500, center: [30.8219, 1] }, // city center [36.8219, -1.2921]
                 'accra': { scale: 2500, center: [-0.1870, 10] }, // city center [-0.1870, 5.6037]
-                'all': { scale: 450, center: [0, 10] } // Default zoom level and center
+                'all': { scale: 150, center: [0,3.32], rotate:[-20.83,0] } // Default zoom level and center
             };
 
             function zoomToCity(city) { // Accept selectedCity as a parameter
@@ -1351,8 +1353,8 @@ function zoomed(event) {
         svg.setAttribute("height", svgHeight);
         svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
 
-        appendDivAsSvgElement(svg, document.querySelector("#left-legend-container"), 0, 0);
-        appendDivAsSvgElement(svg, document.querySelector("#right-legend-container"), 300, 0);
+        // appendDivAsSvgElement(svg, document.querySelector("#left-legend-container"), 0, 0);
+        // appendDivAsSvgElement(svg, document.querySelector("#right-legend-container"), 300, 0);
         appendDivAsSvgElement(svg, document.querySelector("#chart-container"), 600, 0);
         appendDivAsSvgElement(svg, document.querySelector("#chart-title-container"), 600, 200);
         appendDivAsSvgElement(svg, document.querySelector("#chart-subtext-container"), 600, 250);
