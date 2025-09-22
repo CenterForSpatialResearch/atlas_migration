@@ -77,12 +77,18 @@
         var height = mapContainer.offsetHeight;
 
         // var projection = d3.geoMercator()
-        var projection = d3.geoAzimuthalEqualArea() // for globe view
-        // var projection = d3.geoAzimuthalEquidistant() //for zoom in views
-            .center([0,3.32]) // for default globe view
+        // var projection = d3.geoAzimuthalEqualArea() // for globe view
+        var projection = d3.geoAzimuthalEquidistant() //for zoom in views
+            // .rotate([-28,0]) //joburg 
+            // .center([0,3.32]) // for default globe view
             .rotate([-20.83,0]) // nairobi
+            // .rotate([-35.83,0]) // nairobi
             .scale([150])
             .translate([width / 2, height / 2]);
+
+            
+            // .scale([1500])
+            // .translate([width / 2, height / 2]);
 
         var path = d3.geoPath()
             .projection(projection);
@@ -613,9 +619,12 @@
                 }
 
         var cityZoomLevels = {
-                'johannesburg': { scale: 1500, center: [0,-20], rotate:[-28,0] },// city center [28.0473, -26.2041]
-                'nairobi': { scale: 2500, center: [30.8219, 1] }, // city center [36.8219, -1.2921]
-                'accra': { scale: 2500, center: [-0.1870, 10] }, // city center [-0.1870, 5.6037]
+                'johannesburg': { scale: 1500, center: [0,-20], rotate:[-28,0] },// city center [28.0473, -26.2041] //TODO rotate does not work here
+                // 'johannesburg': { scale: 1500, center: [28.0473, -20] },// city center [28.0473, -26.2041]
+                // 'nairobi': { scale: 2500, center: [30.8219, 1] }, // city center [36.8219, -1.2921]
+                 'nairobi': { scale: 2000, center: [0,3.5] }, // city center [36.8219, -1.2921]
+                // 'accra': { scale: 4500, center: [-21, 10], rotate:[0,0] }, // city center [-0.1870, 5.6037]
+                'accra': { scale: 4500, center: [-0.1870, 10] },
                 'all': { scale: 150, center: [0,3.32], rotate:[-20.83,0] } // Default zoom level and center
             };
 
